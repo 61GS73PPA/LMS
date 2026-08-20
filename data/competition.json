@@ -110,7 +110,13 @@
     {
       "name": "Alf Van Bronckhorst",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 6,
+          "result": "pending"
+        }
+      ],
       "bio": "Player bio coming soon.",
       "icon": "🚛"
     },
