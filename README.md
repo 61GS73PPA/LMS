@@ -18,6 +18,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 {
   "name": "Kony",
   "status": "alive",
+  "icon": "🎅",
   "bio": "A short introduction to Kony.",
   "picks": [
     { "gameweek": 1, "teamId": 1, "result": "win" },
@@ -26,6 +27,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 }
 ```
 
+- `icon` is the player's emoji shown in the table and profile.
 - `bio` is shown when somebody clicks the player's name.
 - `teamId` is the FPL team ID found in `data/fpl.json` under `bootstrap.teams`.
 - `result` can be `pending`, `win`, `loss`, or `no-pick`.

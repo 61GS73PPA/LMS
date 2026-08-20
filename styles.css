@@ -325,3 +325,6 @@ footer > a { font-weight: 700; }
   .dialog-player-stats { margin: 0 24px; }
   .dialog-history { padding: 26px 24px 34px; }
 }
+
+.player-icon { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-size: 16px; }
+.dialog-player-index { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-size: 34px; }

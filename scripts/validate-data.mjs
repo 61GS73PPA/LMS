@@ -12,6 +12,8 @@ assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
 
 for (const player of competition.players) {
   assert.ok(["alive", "out"].includes(player.status), `${player.name} has an invalid status`);
+  assert.equal(typeof player.icon, "string", `${player.name} must have an emoji icon`);
+  assert.ok(player.icon.trim().length > 0, `${player.name} icon must not be empty`);
   assert.equal(typeof player.bio, "string", `${player.name} must have a bio`);
   assert.ok(player.bio.trim().length > 0, `${player.name} bio must not be empty`);
   assert.ok(Array.isArray(player.picks), `${player.name} picks must be an array`);
