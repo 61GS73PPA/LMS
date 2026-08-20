@@ -1,6 +1,8 @@
 # Kony365
 
-A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows player status and picks, gameweek fixtures, the next deadline, five-fixture difficulty rankings, and the game rules.
+A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows player status and picks, gameweek fixtures, the next deadline, five-fixture difficulty rankings, the £340 prize draw, and the game rules.
+
+The top navigation uses hash routes (`#overview`, `#picks`, `#fixtures`, `#difficulty`, `#rules`, `#prize`, and `#pick-for-me`) so each area behaves like a separate page while remaining compatible with static GitHub Pages hosting and browser back/forward navigation.
 
 ## Run locally
 
@@ -63,5 +65,7 @@ The included Pages workflow deploys `main`. In the repository's **Settings → P
 ```bash
 npm run check
 ```
+
+The novelty **Pick for me** route builds its wheel from the 20 clubs in the current FPL data. Its result is intentionally fixed to Coventry City.
 
 The rules summary is based on [Football Knockout's Last Man Standing rules](https://football-knockout.co.uk/rules).
