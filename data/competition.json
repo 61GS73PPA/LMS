@@ -2,21 +2,101 @@
   "competitionName": "The Last One",
   "round": 1,
   "players": [
-    { "name": "Kony", "status": "alive", "picks": [] },
-    { "name": "Hayter", "status": "alive", "picks": [] },
-    { "name": "Bryan", "status": "alive", "picks": [] },
-    { "name": "Rhod", "status": "alive", "picks": [] },
-    { "name": "Chris Pyke", "status": "alive", "picks": [] },
-    { "name": "Hub", "status": "alive", "picks": [] },
-    { "name": "Leicester", "status": "alive", "picks": [] },
-    { "name": "Kenny Dufter", "status": "alive", "picks": [] },
-    { "name": "PIG", "status": "alive", "picks": [] },
-    { "name": "Alf Van Bronckhorst", "status": "alive", "picks": [] },
-    { "name": "Wikles", "status": "alive", "picks": [] },
-    { "name": "Brushel", "status": "alive", "picks": [] },
-    { "name": "Beanie", "status": "alive", "picks": [] },
-    { "name": "Jordan Padel", "status": "alive", "picks": [] },
-    { "name": "Mezzy T", "status": "alive", "picks": [] },
-    { "name": "Mahon", "status": "alive", "picks": [] }
+    {
+      "name": "Kony",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Hayter",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Bryan",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Rhod",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Chris Pyke",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Hub",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Leicester",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Kenny Dufter",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "PIG",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Alf Van Bronckhorst",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Wikles",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Brushel",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Beanie",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Jordan Padel",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Mezzy T",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    },
+    {
+      "name": "Mahon",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon."
+    }
   ]
 }

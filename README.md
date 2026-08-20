@@ -18,6 +18,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 {
   "name": "Kony",
   "status": "alive",
+  "bio": "A short introduction to Kony.",
   "picks": [
     { "gameweek": 1, "teamId": 1, "result": "win" },
     { "gameweek": 2, "teamId": 14, "result": "pending" }
@@ -25,10 +26,20 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 }
 ```
 
+- `bio` is shown when somebody clicks the player's name.
 - `teamId` is the FPL team ID found in `data/fpl.json` under `bootstrap.teams`.
 - `result` can be `pending`, `win`, `loss`, or `no-pick`.
 - A `loss` or `no-pick` automatically displays that player as out. You can also set `status` to `out` manually.
 - Commit and push the JSON change to publish it after the pull request is merged.
+
+### Edit picks and bios on GitHub
+
+1. Open [`data/competition.json`](data/competition.json) on GitHub.
+2. Select the pencil icon (**Edit this file**).
+3. Add each player's `bio` and objects inside their `picks` list.
+4. Select **Commit changes**.
+
+The dashboard will show the pick whose `gameweek` matches the current FPL gameweek as the current pick.
 
 ## Premier League data
 

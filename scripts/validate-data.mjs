@@ -12,6 +12,8 @@ assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
 
 for (const player of competition.players) {
   assert.ok(["alive", "out"].includes(player.status), `${player.name} has an invalid status`);
+  assert.equal(typeof player.bio, "string", `${player.name} must have a bio`);
+  assert.ok(player.bio.trim().length > 0, `${player.name} bio must not be empty`);
   assert.ok(Array.isArray(player.picks), `${player.name} picks must be an array`);
   const gameweeks = player.picks.map((pick) => pick.gameweek);
   assert.equal(new Set(gameweeks).size, gameweeks.length, `${player.name} has duplicate gameweek picks`);

@@ -36,6 +36,13 @@ const elements = {
   gameweekSelect: document.querySelector("#gameweek-select"),
   hardestList: document.querySelector("#hardest-list"),
   outCount: document.querySelector("#out-count"),
+  playerDialog: document.querySelector("#player-dialog"),
+  playerDialogBio: document.querySelector("#player-dialog-bio"),
+  playerDialogHistory: document.querySelector("#player-dialog-history"),
+  playerDialogIndex: document.querySelector("#player-dialog-index"),
+  playerDialogName: document.querySelector("#player-dialog-name"),
+  playerDialogPick: document.querySelector("#player-dialog-pick"),
+  playerDialogStatus: document.querySelector("#player-dialog-status"),
   playersBody: document.querySelector("#players-body"),
   roundLabel: document.querySelector("#round-label"),
   seasonLabel: document.querySelector("#season-label"),
@@ -122,7 +129,7 @@ function renderPlayers(filter) {
     const currentPick = getPickForEvent(player, state.activeEvent?.id);
     return `
       <tr data-status="${status}">
-        <td><div class="player-cell"><span class="player-index">${String(state.competition.players.indexOf(player) + 1).padStart(2, "0")}</span>${escapeHtml(player.name)}</div></td>
+        <td><button class="player-cell player-profile-button" type="button" data-player-index="${state.competition.players.indexOf(player)}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index">${String(state.competition.players.indexOf(player) + 1).padStart(2, "0")}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
         <td><span class="status ${status}">${status === "alive" ? "Standing" : "Out"}</span></td>
         <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : '<span class="pick-pending">Not entered yet</span>'}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
@@ -132,6 +139,22 @@ function renderPlayers(filter) {
   if (!players.length) {
     elements.playersBody.innerHTML = '<tr><td colspan="4" class="empty-state">No players match this view.</td></tr>';
   }
+}
+
+function openPlayerProfile(playerIndex) {
+  const player = state.competition.players[playerIndex];
+  if (!player) return;
+
+  const teamById = getTeamMap(state.bootstrap.teams);
+  const status = calculatePlayerStatus(player);
+  const currentPick = getPickForEvent(player, state.activeEvent?.id);
+  elements.playerDialogIndex.textContent = String(playerIndex + 1).padStart(2, "0");
+  elements.playerDialogName.textContent = player.name;
+  elements.playerDialogBio.textContent = player.bio || "Player bio coming soon.";
+  elements.playerDialogStatus.textContent = status === "alive" ? "Standing" : "Out";
+  elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : "Not entered yet";
+  elements.playerDialogHistory.innerHTML = renderPickHistory(player, teamById);
+  elements.playerDialog.showModal();
 }
 
 function renderPickHistory(player, teamById) {
@@ -232,6 +255,16 @@ function bindInteractions() {
       button.classList.add("active");
       renderPlayers(button.dataset.filter);
     });
+  });
+
+  elements.playersBody.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-player-index]");
+    if (button) openPlayerProfile(Number(button.dataset.playerIndex));
+  });
+
+  document.querySelector("[data-close-player]").addEventListener("click", () => elements.playerDialog.close());
+  elements.playerDialog.addEventListener("click", (event) => {
+    if (event.target === elements.playerDialog) elements.playerDialog.close();
   });
 
   elements.gameweekSelect.addEventListener("change", (event) => {

@@ -111,6 +111,26 @@
           </div>
         </section>
 
+        <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-dialog-name">
+          <button class="dialog-close" type="button" data-close-player aria-label="Close player profile">×</button>
+          <div class="dialog-player-heading">
+            <span class="dialog-player-index" id="player-dialog-index">01</span>
+            <div>
+              <p class="eyebrow">Player profile</p>
+              <h2 id="player-dialog-name">Player</h2>
+            </div>
+          </div>
+          <p class="dialog-bio" id="player-dialog-bio"></p>
+          <div class="dialog-player-stats">
+            <div><span>Status</span><strong id="player-dialog-status">Standing</strong></div>
+            <div><span>Current pick</span><strong id="player-dialog-pick">Not entered yet</strong></div>
+          </div>
+          <div class="dialog-history">
+            <span>Pick history</span>
+            <div class="pick-history" id="player-dialog-history"></div>
+          </div>
+        </dialog>
+
         <section class="section fixtures-section" id="fixtures">
           <div class="section-heading">
             <div>

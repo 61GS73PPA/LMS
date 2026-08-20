@@ -263,3 +263,65 @@ footer > a { font-weight: 700; }
   .difficulty-score { display: none; }
   .player-index { display: none; }
 }
+
+.player-profile-button {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.player-profile-button:hover span:nth-child(2),
+.player-profile-button:focus-visible span:nth-child(2) { color: var(--lime); }
+.player-profile-button:focus-visible { outline: 2px solid var(--lime); outline-offset: 5px; }
+.profile-arrow { color: rgba(255, 255, 255, 0.3); font-size: 11px; transition: color 180ms ease, transform 180ms ease; }
+.player-profile-button:hover .profile-arrow { color: var(--lime); transform: translate(2px, -2px); }
+.player-dialog {
+  width: min(620px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: var(--paper);
+  background: var(--green-dark);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+}
+.player-dialog[open] { animation: dialog-in 180ms ease-out; }
+.player-dialog::backdrop { background: rgba(9, 18, 14, 0.72); backdrop-filter: blur(8px); }
+.dialog-close {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 50%;
+  color: var(--paper);
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+.dialog-close:hover { color: var(--green-dark); background: var(--lime); }
+.dialog-player-heading { display: flex; align-items: center; gap: 22px; padding: 48px 48px 32px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.dialog-player-heading .eyebrow { margin-bottom: 10px; color: var(--lime); }
+.dialog-player-heading h2 { font-size: clamp(38px, 6vw, 58px); }
+.dialog-player-index { display: grid; flex: 0 0 auto; width: 72px; height: 72px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 50%; color: var(--lime); font: 500 18px/1 "DM Mono", monospace; }
+.dialog-bio { min-height: 110px; margin: 0; padding: 34px 48px; color: rgba(255, 255, 255, 0.68); font-size: 16px; line-height: 1.75; }
+.dialog-player-stats { display: grid; grid-template-columns: 1fr 1fr; margin: 0 48px; border-top: 1px solid rgba(255, 255, 255, 0.12); border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.dialog-player-stats div { padding: 24px 0; }
+.dialog-player-stats div + div { padding-left: 28px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
+.dialog-player-stats span, .dialog-history > span { display: block; margin-bottom: 8px; color: rgba(255, 255, 255, 0.38); font: 500 9px/1 "DM Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+.dialog-player-stats strong { font-size: 13px; }
+.dialog-history { padding: 30px 48px 44px; }
+.dialog-history .pick-history { min-width: 0; flex-wrap: wrap; }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+
+@media (max-width: 560px) {
+  .dialog-player-heading { padding: 44px 24px 26px; }
+  .dialog-player-index { width: 54px; height: 54px; }
+  .dialog-bio { padding: 28px 24px; font-size: 14px; }
+  .dialog-player-stats { margin: 0 24px; }
+  .dialog-history { padding: 26px 24px 34px; }
+}
