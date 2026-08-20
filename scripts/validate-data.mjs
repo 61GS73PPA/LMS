@@ -4,8 +4,8 @@ import { readFile } from "node:fs/promises";
 const competition = JSON.parse(await readFile(new URL("../data/competition.json", import.meta.url)));
 const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.url)));
 
-assert.equal(competition.players.length, 14, "Expected all 14 competition players");
-assert.equal(new Set(competition.players.map((player) => player.name)).size, 14, "Player names must be unique");
+assert.equal(competition.players.length, 16, "Expected all 16 competition players");
+assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.ok(fpl.bootstrap.events.length >= 38, "Expected a full set of gameweeks");
 assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
