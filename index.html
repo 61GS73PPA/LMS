@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#00533f" />
+    <meta
+      name="description"
+      content="Kony365 — a Premier League Last Man Standing competition dashboard."
+    />
+    <title>Kony365 | Last Man Standing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#overview" aria-label="Kony365 home">
+          <span class="brand-mark" aria-hidden="true">K</span>
+          <span>
+            <strong><span class="brand-kony">Kony</span><span class="brand-365">365</span></strong>
+            <small>Last Man Standing</small>
+          </span>
+        </a>
+
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a class="active" href="#overview">Overview</a>
+          <a href="#picks">Picks</a>
+          <a href="#fixtures">Fixtures</a>
+          <a href="#difficulty">Difficulty</a>
+          <a href="#rules">Rules</a>
+        </nav>
+
+        <div class="header-meta">
+          <span class="live-dot"><i></i> Live data</span>
+          <span id="season-label">Premier League</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero section" id="overview">
+          <div class="hero-copy">
+            <p class="eyebrow" id="round-label">Current round</p>
+            <h1>Pick a winner.<br /><em>Stay in the game.</em></h1>
+            <p class="hero-intro">
+              Pick a Premier League winner every gameweek. Win and carry on.
+              Draw or lose, and you're out.
+            </p>
+            <div class="hero-stats" aria-label="Competition status">
+              <div>
+                <strong id="alive-count">14</strong>
+                <span>Still standing</span>
+              </div>
+              <div>
+                <strong id="out-count">0</strong>
+                <span>Knocked out</span>
+              </div>
+              <div>
+                <strong id="gameweek-number">—</strong>
+                <span>Gameweek</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="deadline-card" aria-labelledby="deadline-title">
+            <div class="deadline-card-top">
+              <span class="status-chip">Picks close</span>
+              <span id="deadline-gameweek">Gameweek —</span>
+            </div>
+            <p class="deadline-date" id="deadline-title">Loading deadline…</p>
+            <div class="countdown" id="countdown" aria-live="polite">
+              <div><strong>--</strong><span>Days</span></div>
+              <div><strong>--</strong><span>Hours</span></div>
+              <div><strong>--</strong><span>Mins</span></div>
+              <div><strong>--</strong><span>Secs</span></div>
+            </div>
+            <p class="deadline-note" id="data-note">Picks lock one hour before the first kick-off.</p>
+          </aside>
+        </section>
+
+        <section class="section players-section" id="picks">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Kony365 players</p>
+              <h2>Last Man Standing</h2>
+            </div>
+            <div class="view-toggle" role="group" aria-label="Filter players">
+              <button class="active" type="button" data-filter="all">All</button>
+              <button type="button" data-filter="alive">Standing</button>
+              <button type="button" data-filter="out">Out</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="players-table">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Status</th>
+                  <th>Current pick</th>
+                  <th>Pick history</th>
+                </tr>
+              </thead>
+              <tbody id="players-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-dialog-name">
+          <button class="dialog-close" type="button" data-close-player aria-label="Close player profile">×</button>
+          <div class="dialog-player-heading">
+            <span class="dialog-player-index" id="player-dialog-index" aria-hidden="true">⚽</span>
+            <div>
+              <p class="eyebrow">Player profile</p>
+              <h2 id="player-dialog-name">Player</h2>
+            </div>
+          </div>
+          <p class="dialog-bio" id="player-dialog-bio"></p>
+          <div class="dialog-player-stats">
+            <div><span>Status</span><strong id="player-dialog-status">Standing</strong></div>
+            <div><span>Current pick</span><strong id="player-dialog-pick">Not entered yet</strong></div>
+          </div>
+          <div class="dialog-history">
+            <span>Pick history</span>
+            <div class="pick-history" id="player-dialog-history"></div>
+          </div>
+        </dialog>
+
+        <section class="section fixtures-section" id="fixtures">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Match centre</p>
+              <h2 id="fixtures-title">Upcoming fixtures</h2>
+            </div>
+            <label class="select-label">
+              <span>Gameweek</span>
+              <select id="gameweek-select" aria-label="Choose a gameweek"></select>
+            </label>
+          </div>
+          <div class="fixtures-grid" id="fixtures-grid">
+            <p class="empty-state">Loading fixtures…</p>
+          </div>
+        </section>
+
+        <section class="section difficulty-section" id="difficulty">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Fixture radar</p>
+              <h2>The next five</h2>
+              <p class="section-description">
+                Based on the official FPL fixture difficulty rating. Lower scores mean a kinder run.
+              </p>
+            </div>
+            <div class="difficulty-key" aria-label="Difficulty scale">
+              <span><i class="difficulty-2"></i> Easier</span>
+              <span><i class="difficulty-3"></i> Even</span>
+              <span><i class="difficulty-4"></i> Harder</span>
+            </div>
+          </div>
+
+          <div class="difficulty-columns">
+            <article class="difficulty-panel easy-panel">
+              <div class="panel-title">
+                <span class="panel-icon">↘</span>
+                <div><small>Best run</small><h3>Easiest fixtures</h3></div>
+              </div>
+              <div id="easiest-list" class="difficulty-list"></div>
+            </article>
+            <article class="difficulty-panel hard-panel">
+              <div class="panel-title">
+                <span class="panel-icon">↗</span>
+                <div><small>Toughest run</small><h3>Hardest fixtures</h3></div>
+              </div>
+              <div id="hardest-list" class="difficulty-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section rules-section" id="rules">
+          <div class="rules-intro">
+            <p class="eyebrow">No second chances</p>
+            <h2>Simple rules.<br />Brutal consequences.</h2>
+            <p>
+              Every gameweek asks the same question: can you find one winner without repeating yourself?
+            </p>
+            <a class="text-link" href="https://football-knockout.co.uk/rules" target="_blank" rel="noreferrer">
+              Read the source rules <span>↗</span>
+            </a>
+          </div>
+          <div class="rules-grid">
+            <article><span>01</span><h3>Pick one team</h3><p>Choose one Premier League team before each gameweek deadline.</p></article>
+            <article><span>02</span><h3>They must win</h3><p>A win takes you through. A draw, loss, or no pick knocks you out.</p></article>
+            <article><span>03</span><h3>No repeats</h3><p>You cannot select the same team again until you have used all 20 clubs.</p></article>
+            <article><span>04</span><h3>Last one wins</h3><p>When only one player remains after a gameweek, they win the round.</p></article>
+          </div>
+          <details class="rules-detail">
+            <summary>Full competition details</summary>
+            <div>
+              <p><strong>Changing picks:</strong> picks can be changed up to the current gameweek deadline.</p>
+              <p><strong>Everyone goes out:</strong> the administrator may end the round, roll over the prize, or revive the last players.</p>
+              <p><strong>Abandoned before play:</strong> if abandoned after the deadline, the pick is treated as a win.</p>
+              <p><strong>Incomplete matches:</strong> the score at abandonment is used when a match has started.</p>
+              <p><strong>End of season:</strong> an unfinished round ends without a winner.</p>
+            </div>
+          </details>
+        </section>
+      </main>
+
+      <footer>
+        <div class="brand footer-brand"><span class="brand-mark">K</span><span><strong><span class="brand-kony">Kony</span><span class="brand-365">365</span></strong><small>Last Man Standing</small></span></div>
+        <p>Fixture data supplied by the Fantasy Premier League API.</p>
+        <a href="#overview">Back to top ↑</a>
+      </footer>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

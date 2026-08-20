@@ -1,0 +1,212 @@
+{
+  "competitionName": "Kony365",
+  "round": 1,
+  "players": [
+    {
+      "name": "Kony",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🎅🏻"
+    },
+    {
+      "name": "Hayter",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon.",
+      "icon": "⚽"
+    },
+    {
+      "name": "Bryan",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "👶🏻"
+    },
+    {
+      "name": "Rhod",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "👨🏻‍🦲"
+    },
+    {
+      "name": "Chris Pyke",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🧑‍🏫"
+    },
+    {
+      "name": "Hub",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon.",
+      "icon": "👨🏾‍⚕️"
+    },
+    {
+      "name": "Leicester",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 16,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "👴🏻"
+    },
+    {
+      "name": "Kenny Dufter",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "💳"
+    },
+    {
+      "name": "PIG",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🐷"
+    },
+    {
+      "name": "Alf Van Bronckhorst",
+      "status": "alive",
+      "picks": [],
+      "bio": "Player bio coming soon.",
+      "icon": "🚛"
+    },
+    {
+      "name": "Wikles",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "⛰️"
+    },
+    {
+      "name": "Brushel",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🦰"
+    },
+    {
+      "name": "Beanie",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🍚"
+    },
+    {
+      "name": "Jordan Padel",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 9,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🎾"
+    },
+    {
+      "name": "Mezzy T",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🇦🇺"
+    },
+    {
+      "name": "Tom Mahon",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 20,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "📷"
+    },
+    {
+      "name": "Cam",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 18,
+          "result": "pending"
+        }
+      ],
+      "bio": "Player bio coming soon.",
+      "icon": "🕵️"
+    }
+  ],
+  "deadlines": {
+    "1": "2026-08-21T18:00:00Z"
+  }
+}
