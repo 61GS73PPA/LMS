@@ -308,7 +308,6 @@ footer > a { font-weight: 700; }
 .dialog-player-heading .eyebrow { margin-bottom: 10px; color: var(--lime); }
 .dialog-player-heading h2 { font-size: clamp(38px, 6vw, 58px); }
 .dialog-player-index { display: grid; flex: 0 0 auto; width: 72px; height: 72px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 50%; color: var(--lime); font: 500 18px/1 "DM Mono", monospace; }
-.dialog-bio { min-height: 110px; margin: 0; padding: 34px 48px; color: rgba(255, 255, 255, 0.68); font-size: 16px; line-height: 1.75; }
 .dialog-player-stats { display: grid; grid-template-columns: 1fr 1fr; margin: 0 48px; border-top: 1px solid rgba(255, 255, 255, 0.12); border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 .dialog-player-stats div { padding: 24px 0; }
 .dialog-player-stats div + div { padding-left: 28px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
@@ -321,7 +320,6 @@ footer > a { font-weight: 700; }
 @media (max-width: 560px) {
   .dialog-player-heading { padding: 44px 24px 26px; }
   .dialog-player-index { width: 54px; height: 54px; }
-  .dialog-bio { padding: 28px 24px; font-size: 14px; }
   .dialog-player-stats { margin: 0 24px; }
   .dialog-history { padding: 26px 24px 34px; }
 }
@@ -655,4 +653,31 @@ footer p, footer > a { color: rgba(255, 255, 255, 0.65); }
   .wheel-team { font-size: 6px; }
   .wheel-team > span { right: 4px; }
   .wheel-pointer { border-top-width: 30px; border-right-width: 16px; border-left-width: 16px; }
+}
+
+.primary-nav a[target="_blank"] { grid-template-columns: auto auto; align-content: center; min-width: max-content; white-space: nowrap; }
+.primary-nav a[target="_blank"]::before {
+  margin-right: 5px;
+  color: var(--lime);
+  content: "↗";
+  font-size: 9px;
+}
+.primary-nav a[target="_blank"]::after { grid-column: 1 / -1; }
+.status.queued::before { background: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12); }
+.dialog-charity { min-height: 110px; margin: 0; padding: 30px 48px; }
+.dialog-charity > span {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.38);
+  font: 500 9px/1 "DM Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.dialog-charity p { margin: 0; color: rgba(255, 255, 255, 0.68); font-size: 16px; line-height: 1.75; }
+.dialog-charity a { color: var(--lime); font-weight: 700; text-decoration: underline; text-decoration-color: rgba(244, 220, 0, 0.35); text-underline-offset: 4px; }
+.dialog-charity a:hover { text-decoration-color: var(--lime); }
+
+@media (max-width: 560px) {
+  .dialog-charity { padding: 28px 24px; }
+  .dialog-charity p { font-size: 14px; }
 }

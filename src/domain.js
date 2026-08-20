@@ -83,6 +83,11 @@ export function calculatePlayerStatus(player) {
     : "alive";
 }
 
+export function getPlayerStatusLabel(player, currentPick) {
+  if (calculatePlayerStatus(player) === "out") return "6ft deep";
+  return currentPick ? "Standing" : "Queuing for the wheel";
+}
+
 export function getWheelTargetRotation(teams, targetName, rotations = 6) {
   const targetIndex = teams.findIndex((team) => team.name === targetName);
   if (targetIndex === -1) return 0;
