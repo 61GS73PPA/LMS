@@ -1,0 +1,20 @@
+{
+  "competitionName": "The Last One",
+  "round": 1,
+  "players": [
+    { "name": "Kony", "status": "alive", "picks": [] },
+    { "name": "Hayter", "status": "alive", "picks": [] },
+    { "name": "Bryan", "status": "alive", "picks": [] },
+    { "name": "Rhod", "status": "alive", "picks": [] },
+    { "name": "Chris Pyke", "status": "alive", "picks": [] },
+    { "name": "Hub", "status": "alive", "picks": [] },
+    { "name": "Leicester", "status": "alive", "picks": [] },
+    { "name": "Kenny Dufter", "status": "alive", "picks": [] },
+    { "name": "PIG", "status": "alive", "picks": [] },
+    { "name": "Alf Van Bronckhorst", "status": "alive", "picks": [] },
+    { "name": "Wikles", "status": "alive", "picks": [] },
+    { "name": "Brushel", "status": "alive", "picks": [] },
+    { "name": "Beanie", "status": "alive", "picks": [] },
+    { "name": "Jordan Padel", "status": "alive", "picks": [] }
+  ]
+}
