@@ -7,12 +7,16 @@ import {
   getCountdownParts,
   getNextFiveDifficulty,
   getPickForEvent,
+  getPlayerStatusLabel,
   getTeamMap,
+  getWheelTargetRotation,
   groupFixturesByEvent,
 } from "./domain.js";
 
 const LOCAL_FPL_DATA = "./data/fpl.json";
-const TEAM_COLORS = ["#175940", "#1b5572", "#70402d", "#6b2e3c", "#403b76", "#86651f"];
+const DEFAULT_ROUTE = "overview";
+const COVENTRY_NAME = "Coventry City";
+const WHEEL_COLORS = ["#00533f", "#087b5d", "#f4dc00", "#1f1f1f", "#d9c600"];
 
 const state = {
   competition: null,
@@ -22,6 +26,7 @@ const state = {
   selectedEvent: null,
   source: "local",
   deadline: null,
+  wheelRotation: 0,
 };
 
 const elements = {
@@ -38,7 +43,7 @@ const elements = {
   hardestList: document.querySelector("#hardest-list"),
   outCount: document.querySelector("#out-count"),
   playerDialog: document.querySelector("#player-dialog"),
-  playerDialogBio: document.querySelector("#player-dialog-bio"),
+  playerDialogCharity: document.querySelector("#player-dialog-charity"),
   playerDialogHistory: document.querySelector("#player-dialog-history"),
   playerDialogIndex: document.querySelector("#player-dialog-index"),
   playerDialogName: document.querySelector("#player-dialog-name"),
@@ -47,6 +52,9 @@ const elements = {
   playersBody: document.querySelector("#players-body"),
   roundLabel: document.querySelector("#round-label"),
   seasonLabel: document.querySelector("#season-label"),
+  spinWheel: document.querySelector("#spin-wheel"),
+  teamWheel: document.querySelector("#team-wheel"),
+  wheelResult: document.querySelector("#wheel-result"),
 };
 
 async function fetchJson(url) {
@@ -71,6 +79,8 @@ async function loadFplData() {
 }
 
 async function initialise() {
+  bindRouting();
+
   try {
     const [competition, fpl] = await Promise.all([
       fetchJson("./data/competition.json"),
@@ -115,22 +125,27 @@ function renderPage() {
   renderGameweekSelect();
   renderFixtures();
   renderDifficulty();
+  renderWheel();
+  showRoute(getRequestedRoute());
 }
 
 function renderPlayers(filter) {
   const teamById = getTeamMap(state.bootstrap.teams);
-  const players = state.competition.players.filter((player) => {
-    const status = calculatePlayerStatus(player);
-    return filter === "all" || filter === status;
-  });
+  const players = state.competition.players
+    .map((player, index) => ({ player, index }))
+    .filter(({ player }) => {
+      const status = calculatePlayerStatus(player);
+      return filter === "all" || filter === status;
+    })
+    .sort((a, b) => a.player.name.localeCompare(b.player.name, "en-GB", { sensitivity: "base" }));
 
-  elements.playersBody.innerHTML = players.map((player) => {
+  elements.playersBody.innerHTML = players.map(({ player, index }) => {
     const status = calculatePlayerStatus(player);
     const currentPick = getPickForEvent(player, state.activeEvent?.id);
     return `
       <tr data-status="${status}">
-        <td><button class="player-cell player-profile-button" type="button" data-player-index="${state.competition.players.indexOf(player)}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
-        <td><span class="status ${status}">${status === "alive" ? "Standing" : "Out"}</span></td>
+        <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
+        <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick)}</span></td>
         <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : '<span class="pick-pending">Not entered yet</span>'}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
       </tr>`;
@@ -150,11 +165,16 @@ function openPlayerProfile(playerIndex) {
   const currentPick = getPickForEvent(player, state.activeEvent?.id);
   elements.playerDialogIndex.textContent = player.icon;
   elements.playerDialogName.textContent = player.name;
-  elements.playerDialogBio.textContent = player.bio || "Player bio coming soon.";
-  elements.playerDialogStatus.textContent = status === "alive" ? "Standing" : "Out";
+  elements.playerDialogCharity.innerHTML = renderCharity(player.charity);
+  elements.playerDialogStatus.textContent = getPlayerStatusLabel(player, currentPick);
   elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : "Not entered yet";
   elements.playerDialogHistory.innerHTML = renderPickHistory(player, teamById);
   elements.playerDialog.showModal();
+}
+
+function renderCharity(charity) {
+  if (!charity) return "Pocketing the money";
+  return `<a href="${escapeHtml(charity.url)}" target="_blank" rel="noreferrer">${escapeHtml(charity.name)} <span aria-hidden="true">↗</span></a>`;
 }
 
 function renderPickHistory(player, teamById) {
@@ -210,8 +230,16 @@ function fixtureMarkup(fixture, teamById) {
 }
 
 function teamMarkup(team, side) {
-  const color = TEAM_COLORS[(team?.id ?? 0) % TEAM_COLORS.length];
-  return `<div class="fixture-team ${side}"><span class="team-token" style="background:${color}">${escapeHtml(team?.short_name ?? "TBC")}</span><span>${escapeHtml(team?.name ?? "TBC")}</span></div>`;
+  return `<div class="fixture-team ${side}">${teamBadgeMarkup(team)}<span>${escapeHtml(team?.name ?? "TBC")}</span></div>`;
+}
+
+function teamBadgeMarkup(team, className = "team-token") {
+  if (!team?.code) return `<span class="${className} team-badge-fallback">${escapeHtml(team?.short_name ?? "TBC")}</span>`;
+  return `<span class="${className}"><img src="${teamBadgeUrl(team)}" alt="" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="team-badge-fallback-text" hidden>${escapeHtml(team.short_name)}</span></span>`;
+}
+
+function teamBadgeUrl(team, size = 100) {
+  return `https://resources.premierleague.com/premierleague/badges/${size}/t${team.code}.png`;
 }
 
 function renderDifficulty() {
@@ -226,17 +254,50 @@ function renderDifficulty() {
 }
 
 function difficultyMarkup(entry, teamById) {
-  const color = TEAM_COLORS[entry.team.id % TEAM_COLORS.length];
   const fixtures = entry.fixtures.map((fixture) => {
     const opponent = teamById.get(fixture.opponentId);
     return `<span class="fixture-pill difficulty-${fixture.difficulty}" title="Gameweek ${fixture.event}: ${escapeHtml(opponent?.name ?? "TBC")} (${fixture.venue})">${escapeHtml(opponent?.short_name ?? "—")}</span>`;
   }).join("");
 
   return `<div class="difficulty-row">
-    <div class="difficulty-team"><span class="team-token" style="background:${color}">${escapeHtml(entry.team.short_name)}</span><span>${escapeHtml(entry.team.name)}</span></div>
+    <div class="difficulty-team">${teamBadgeMarkup(entry.team)}<span>${escapeHtml(entry.team.name)}</span></div>
     <div class="fixture-run">${fixtures}</div>
     <span class="difficulty-score">${entry.average.toFixed(1)}</span>
   </div>`;
+}
+
+function renderWheel() {
+  const teams = state.bootstrap.teams;
+  const segmentAngle = 360 / teams.length;
+  const gradient = teams.map((team, index) => {
+    const start = index * segmentAngle;
+    const end = (index + 1) * segmentAngle;
+    return `${WHEEL_COLORS[index % WHEEL_COLORS.length]} ${start}deg ${end}deg`;
+  }).join(", ");
+  elements.teamWheel.style.background = `conic-gradient(from 0deg, ${gradient})`;
+  elements.teamWheel.innerHTML = teams.map((team, index) => {
+    const angle = index * segmentAngle + segmentAngle / 2 - 90;
+    return `<span class="wheel-team" style="--team-angle:${angle}deg"><span>${escapeHtml(team.short_name)}</span></span>`;
+  }).join("");
+}
+
+function spinWheel() {
+  const teams = state.bootstrap.teams;
+  const nextRotation = getWheelTargetRotation(teams, COVENTRY_NAME, 6 + Math.ceil(state.wheelRotation / 360));
+  state.wheelRotation = nextRotation;
+  elements.wheelResult.hidden = true;
+  elements.spinWheel.disabled = true;
+  elements.spinWheel.classList.add("spinning");
+  elements.spinWheel.firstChild.textContent = "Spinning… ";
+  elements.teamWheel.style.transform = `rotate(${nextRotation}deg)`;
+
+  window.setTimeout(() => {
+    elements.spinWheel.disabled = false;
+    elements.spinWheel.classList.remove("spinning");
+    elements.spinWheel.firstChild.textContent = "Spin again ";
+    elements.wheelResult.hidden = false;
+    elements.wheelResult.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 5200);
 }
 
 function updateCountdown() {
@@ -272,23 +333,49 @@ function bindInteractions() {
     renderFixtures();
   });
 
-  const sections = [...document.querySelectorAll("main section[id]")];
-  const navLinks = [...document.querySelectorAll(".primary-nav a")];
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (!visible) return;
-    navLinks.forEach((link) => link.classList.toggle("active", link.hash === `#${visible.target.id}`));
-  }, { rootMargin: "-30% 0px -60%", threshold: [0, 0.1, 0.5] });
-  sections.forEach((section) => observer.observe(section));
+  elements.spinWheel.addEventListener("click", spinWheel);
+}
+
+function bindRouting() {
+  window.addEventListener("hashchange", () => showRoute(getRequestedRoute()));
+  showRoute(getRequestedRoute());
+}
+
+function getRequestedRoute() {
+  const route = window.location.hash.slice(1);
+  return document.querySelector(`[data-page="${route}"]`) ? route : DEFAULT_ROUTE;
+}
+
+function showRoute(route) {
+  document.querySelectorAll("[data-page]").forEach((page) => {
+    const isActive = page.dataset.page === route;
+    page.hidden = !isActive;
+    page.classList.toggle("active", isActive);
+  });
+  document.querySelectorAll("[data-route]").forEach((link) => {
+    const isActive = link.dataset.route === route;
+    link.classList.toggle("active", isActive);
+    if (isActive) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  document.title = `${routeTitle(route)} | Kony365`;
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function routeTitle(route) {
+  return ({
+    overview: "Last Man Standing",
+    picks: "Picks",
+    fixtures: "Fixtures",
+    difficulty: "Fixture Difficulty",
+    rules: "Rules",
+    prize: "Prize Draw",
+    "pick-for-me": "Pick for me",
+  })[route] ?? "Last Man Standing";
 }
 
 function getTeamName(pick, teamById) {
   return teamById.get(pick.teamId)?.name ?? pick.team ?? "No pick";
-}
-
-function formatUpdatedAt(value) {
-  if (!value) return "recently";
-  return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
 }
 
 function escapeHtml(value) {

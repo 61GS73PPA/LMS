@@ -16,8 +16,13 @@ for (const player of competition.players) {
   assert.ok(["alive", "out"].includes(player.status), `${player.name} has an invalid status`);
   assert.equal(typeof player.icon, "string", `${player.name} must have an emoji icon`);
   assert.ok(player.icon.trim().length > 0, `${player.name} icon must not be empty`);
-  assert.equal(typeof player.bio, "string", `${player.name} must have a bio`);
-  assert.ok(player.bio.trim().length > 0, `${player.name} bio must not be empty`);
+  assert.ok(player.charity === null || typeof player.charity === "object", `${player.name} charity must be an object or null`);
+  if (player.charity) {
+    assert.equal(typeof player.charity.name, "string", `${player.name} charity must have a name`);
+    assert.equal(typeof player.charity.url, "string", `${player.name} charity must have a URL`);
+    assert.ok(player.charity.name.trim().length > 0, `${player.name} charity name must not be empty`);
+    assert.match(player.charity.url, /^https:\/\//, `${player.name} charity URL must use HTTPS`);
+  }
   assert.ok(Array.isArray(player.picks), `${player.name} picks must be an array`);
   const gameweeks = player.picks.map((pick) => pick.gameweek);
   assert.equal(new Set(gameweeks).size, gameweeks.length, `${player.name} has duplicate gameweek picks`);

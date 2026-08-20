@@ -29,11 +29,15 @@
         </a>
 
         <nav class="primary-nav" aria-label="Primary navigation">
-          <a class="active" href="#overview">Overview</a>
-          <a href="#picks">Picks</a>
-          <a href="#fixtures">Fixtures</a>
-          <a href="#difficulty">Difficulty</a>
-          <a href="#rules">Rules</a>
+          <a class="active" href="#overview" data-route="overview" aria-current="page">Overview</a>
+          <a href="#picks" data-route="picks">Picks</a>
+          <a href="#fixtures" data-route="fixtures">Fixtures</a>
+          <a href="#difficulty" data-route="difficulty">Difficulty</a>
+          <a href="#rules" data-route="rules">Rules</a>
+          <a href="#prize" data-route="prize">Prize Draw</a>
+          <a href="#pick-for-me" data-route="pick-for-me">Pick for me</a>
+          <a href="https://www.youtube.com/watch?v=oHg5SJYRHA0" target="_blank" rel="noreferrer">Kony's Weekly Pick</a>
+          <a href="https://www.reddit.com/r/coys/comments/1ts90v9/gabriels_penalty_miss_that_gave_psg_the_title/" target="_blank" rel="noreferrer">Kony's clip of the week</a>
         </nav>
 
         <div class="header-meta">
@@ -42,32 +46,34 @@
         </div>
       </header>
 
+      <div class="competition-strip" aria-label="Competition status">
+        <div>
+          <strong id="alive-count">—</strong>
+          <span>Still standing</span>
+        </div>
+        <div>
+          <strong id="out-count">—</strong>
+          <span>Knocked out</span>
+        </div>
+        <div>
+          <strong id="gameweek-number">—</strong>
+          <span>Gameweek</span>
+        </div>
+      </div>
+
       <main>
-        <section class="hero section" id="overview">
+        <section class="app-page hero section active" id="overview" data-page="overview">
           <div class="hero-copy">
             <p class="eyebrow" id="round-label">Current round</p>
-            <h1>Pick a winner.<br /><em>Stay in the game.</em></h1>
+            <h1>Welcome to <em>Kony365's</em> Last Man Standing</h1>
             <p class="hero-intro">
               Pick a Premier League winner every gameweek. Win and carry on.
               Draw or lose, and you're out.
             </p>
-            <div class="hero-stats" aria-label="Competition status">
-              <div>
-                <strong id="alive-count">14</strong>
-                <span>Still standing</span>
-              </div>
-              <div>
-                <strong id="out-count">0</strong>
-                <span>Knocked out</span>
-              </div>
-              <div>
-                <strong id="gameweek-number">—</strong>
-                <span>Gameweek</span>
-              </div>
-            </div>
+            <a class="primary-action" href="#picks">View this week's picks <span>→</span></a>
           </div>
 
-          <aside class="deadline-card" aria-labelledby="deadline-title">
+          <aside class="deadline-card compact-deadline" aria-labelledby="deadline-title">
             <div class="deadline-card-top">
               <span class="status-chip">Picks close</span>
               <span id="deadline-gameweek">Gameweek —</span>
@@ -83,16 +89,17 @@
           </aside>
         </section>
 
-        <section class="section players-section" id="picks">
+        <section class="app-page section players-section" id="picks" data-page="picks" hidden>
           <div class="section-heading">
             <div>
               <p class="eyebrow">Kony365 players</p>
-              <h2>Last Man Standing</h2>
+              <h2>This week's picks</h2>
+              <p class="section-description light-description">Players are listed alphabetically. Tap a name to open their profile.</p>
             </div>
             <div class="view-toggle" role="group" aria-label="Filter players">
               <button class="active" type="button" data-filter="all">All</button>
               <button type="button" data-filter="alive">Standing</button>
-              <button type="button" data-filter="out">Out</button>
+              <button type="button" data-filter="out">6ft deep</button>
             </div>
           </div>
 
@@ -111,27 +118,7 @@
           </div>
         </section>
 
-        <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-dialog-name">
-          <button class="dialog-close" type="button" data-close-player aria-label="Close player profile">×</button>
-          <div class="dialog-player-heading">
-            <span class="dialog-player-index" id="player-dialog-index" aria-hidden="true">⚽</span>
-            <div>
-              <p class="eyebrow">Player profile</p>
-              <h2 id="player-dialog-name">Player</h2>
-            </div>
-          </div>
-          <p class="dialog-bio" id="player-dialog-bio"></p>
-          <div class="dialog-player-stats">
-            <div><span>Status</span><strong id="player-dialog-status">Standing</strong></div>
-            <div><span>Current pick</span><strong id="player-dialog-pick">Not entered yet</strong></div>
-          </div>
-          <div class="dialog-history">
-            <span>Pick history</span>
-            <div class="pick-history" id="player-dialog-history"></div>
-          </div>
-        </dialog>
-
-        <section class="section fixtures-section" id="fixtures">
+        <section class="app-page section fixtures-section" id="fixtures" data-page="fixtures" hidden>
           <div class="section-heading">
             <div>
               <p class="eyebrow">Match centre</p>
@@ -147,13 +134,13 @@
           </div>
         </section>
 
-        <section class="section difficulty-section" id="difficulty">
+        <section class="app-page section difficulty-section" id="difficulty" data-page="difficulty" hidden>
           <div class="section-heading">
             <div>
               <p class="eyebrow">Fixture radar</p>
               <h2>The next five</h2>
               <p class="section-description">
-                Based on the official FPL fixture difficulty rating. Lower scores mean a kinder run.
+                Kony's difficulty rating, as David Weaver used to say 'you don't get rich, betting like a...'
               </p>
             </div>
             <div class="difficulty-key" aria-label="Difficulty scale">
@@ -181,7 +168,7 @@
           </div>
         </section>
 
-        <section class="section rules-section" id="rules">
+        <section class="app-page section rules-section" id="rules" data-page="rules" hidden>
           <div class="rules-intro">
             <p class="eyebrow">No second chances</p>
             <h2>Simple rules.<br />Brutal consequences.</h2>
@@ -209,12 +196,71 @@
             </div>
           </details>
         </section>
+
+        <section class="app-page section prize-section" id="prize" data-page="prize" hidden>
+          <div class="prize-copy">
+            <p class="eyebrow">Winner takes all</p>
+            <h2>Prize draw</h2>
+            <p>Survive every knockout and the Kony365 jackpot is yours.</p>
+          </div>
+          <article class="prize-card" aria-label="Prize draw amount £340">
+            <span class="prize-ticket">K365</span>
+            <p>Current prize</p>
+            <strong><span>£</span>340</strong>
+            <small>One competition. One survivor. One winner.</small>
+          </article>
+        </section>
+
+        <section class="app-page section pick-for-me-section" id="pick-for-me" data-page="pick-for-me" hidden>
+          <div class="wheel-copy">
+            <p class="eyebrow">Can't decide?</p>
+            <h2>Pick for me</h2>
+            <p>Put your gameweek in the hands of the Kony365 wheel. Give it a spin and let destiny choose.</p>
+            <button class="spin-button" id="spin-wheel" type="button">Spin the wheel <span>↻</span></button>
+          </div>
+
+          <div class="wheel-stage">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <div class="team-wheel" id="team-wheel" aria-label="Wheel containing all 20 Premier League teams"></div>
+            <div class="wheel-hub"><span>K</span></div>
+          </div>
+
+          <div class="wheel-result" id="wheel-result" role="status" aria-live="polite" hidden>
+            <p class="eyebrow">The wheel has spoken</p>
+            <h3>Coventry City</h3>
+            <img src="./assets/neil-warnock-reaction.jpg" alt="Neil Warnock looking across the pitch with his hands on his hips" />
+            <a href="https://x.com/ODDSbible/status/1244926715085893633" target="_blank" rel="noreferrer">View the original ODDSbible post <span>↗</span></a>
+          </div>
+        </section>
       </main>
+
+      <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-dialog-name">
+        <button class="dialog-close" type="button" data-close-player aria-label="Close player profile">×</button>
+        <div class="dialog-player-heading">
+          <span class="dialog-player-index" id="player-dialog-index" aria-hidden="true">⚽</span>
+          <div>
+            <p class="eyebrow">Player profile</p>
+            <h2 id="player-dialog-name">Player</h2>
+          </div>
+        </div>
+        <div class="dialog-charity">
+          <span>Chosen charity</span>
+          <p id="player-dialog-charity"></p>
+        </div>
+        <div class="dialog-player-stats">
+          <div><span>Status</span><strong id="player-dialog-status">Queuing for the wheel</strong></div>
+          <div><span>Current pick</span><strong id="player-dialog-pick">Not entered yet</strong></div>
+        </div>
+        <div class="dialog-history">
+          <span>Pick history</span>
+          <div class="pick-history" id="player-dialog-history"></div>
+        </div>
+      </dialog>
 
       <footer>
         <div class="brand footer-brand"><span class="brand-mark">K</span><span><strong><span class="brand-kony">Kony</span><span class="brand-365">365</span></strong><small>Last Man Standing</small></span></div>
         <p>Fixture data supplied by the Fantasy Premier League API.</p>
-        <a href="#overview">Back to top ↑</a>
+        <a href="#overview">Back to overview ↑</a>
       </footer>
     </div>
 

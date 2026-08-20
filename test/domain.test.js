@@ -5,6 +5,8 @@ import {
   findActiveEvent,
   getCountdownParts,
   getNextFiveDifficulty,
+  getPlayerStatusLabel,
+  getWheelTargetRotation,
   groupFixturesByEvent,
 } from "../src/domain.js";
 
@@ -58,4 +60,23 @@ test("getCountdownParts never returns negative values", () => {
 test("a losing pick marks a player as out", () => {
   const player = { status: "alive", picks: [{ gameweek: 1, result: "loss" }] };
   assert.equal(calculatePlayerStatus(player), "out");
+});
+
+
+test("wheel rotation centres the requested team on the pointer", () => {
+  const teams = Array.from({ length: 20 }, (_, index) => ({ name: index === 6 ? "Coventry City" : `Team ${index}` }));
+  const rotation = getWheelTargetRotation(teams, "Coventry City", 6);
+  const segmentAngle = 360 / teams.length;
+  const targetCentre = 6 * segmentAngle + segmentAngle / 2;
+  assert.equal((rotation + targetCentre) % 360, 270);
+  assert.ok(rotation >= 6 * 360);
+});
+
+
+test("player status labels reflect picks and elimination", () => {
+  const alive = { status: "alive", picks: [] };
+  const out = { status: "alive", picks: [{ gameweek: 1, result: "loss" }] };
+  assert.equal(getPlayerStatusLabel(alive, null), "Queuing for the wheel");
+  assert.equal(getPlayerStatusLabel(alive, { gameweek: 1 }), "Standing");
+  assert.equal(getPlayerStatusLabel(out, null), "6ft deep");
 });
