@@ -76,7 +76,13 @@
     {
       "name": "Hub",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 12,
+          "result": "pending"
+        }
+      ],
       "icon": "👨🏾‍⚕️",
       "charity": null
     },
