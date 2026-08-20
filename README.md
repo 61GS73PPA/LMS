@@ -18,7 +18,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 {
   "name": "Kony",
   "status": "alive",
-  "icon": "🎅",
+  "icon": "🎅🏻",
   "bio": "A short introduction to Kony.",
   "picks": [
     { "gameweek": 1, "teamId": 1, "result": "win" },
