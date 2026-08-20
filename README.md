@@ -1,6 +1,6 @@
-# The Last One
+# Kony365
 
-A mobile-friendly Last Man Standing dashboard for a private Premier League competition. It shows player status and picks, gameweek fixtures, the next deadline, five-fixture difficulty rankings, and the game rules.
+A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows player status and picks, gameweek fixtures, the next deadline, five-fixture difficulty rankings, and the game rules.
 
 ## Run locally
 
@@ -41,7 +41,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 3. Add each player's `bio` and objects inside their `picks` list.
 4. Select **Commit changes**.
 
-The dashboard will show the pick whose `gameweek` matches the current FPL gameweek as the current pick.
+The dashboard will show the pick whose `gameweek` matches the current FPL gameweek as the current pick. Competition-specific pick deadlines can be set in the top-level `deadlines` object using an ISO timestamp.
 
 ## Premier League data
 

@@ -21,6 +21,7 @@ const state = {
   activeEvent: null,
   selectedEvent: null,
   source: "local",
+  deadline: null,
 };
 
 const elements = {
@@ -80,6 +81,7 @@ async function initialise() {
     state.fixtures = fpl.fixtures;
     state.activeEvent = findActiveEvent(state.bootstrap.events);
     state.selectedEvent = state.activeEvent?.id ?? 1;
+    state.deadline = state.competition.deadlines?.[state.activeEvent?.id] ?? state.activeEvent?.deadline_time ?? null;
 
     renderPage();
     bindInteractions();
@@ -100,16 +102,14 @@ function renderPage() {
   elements.aliveCount.textContent = alive.length;
   elements.outCount.textContent = out;
   elements.gameweekNumber.textContent = state.activeEvent?.id ?? "—";
-  elements.roundLabel.textContent = `Round ${state.competition.round} · Current field`;
+  elements.roundLabel.textContent = `${state.competition.competitionName} · Round ${state.competition.round}`;
   elements.seasonLabel.textContent = `${seasonStart}/${String(seasonStart + 1).slice(-2)} season`;
 
-  if (state.activeEvent) {
+  if (state.activeEvent && state.deadline) {
     elements.deadlineGameweek.textContent = state.activeEvent.name;
-    elements.deadlineDate.textContent = formatDeadline(state.activeEvent.deadline_time);
+    elements.deadlineDate.textContent = formatDeadline(state.deadline);
   }
-  elements.dataNote.textContent = state.source === "live"
-    ? "Live deadline and fixture data from Fantasy Premier League."
-    : `Latest saved FPL snapshot · updated ${formatUpdatedAt(state.bootstrap.updatedAt)}.`;
+  elements.dataNote.textContent = "Kony365 deadline · picks lock one hour before the first kick-off.";
 
   renderPlayers("all");
   renderGameweekSelect();
@@ -240,8 +240,8 @@ function difficultyMarkup(entry, teamById) {
 }
 
 function updateCountdown() {
-  if (!state.activeEvent) return;
-  const parts = getCountdownParts(state.activeEvent.deadline_time);
+  if (!state.deadline) return;
+  const parts = getCountdownParts(state.deadline);
   const values = [parts.days, parts.hours, parts.minutes, parts.seconds];
   elements.countdown.querySelectorAll("strong").forEach((element, index) => {
     element.textContent = String(values[index]).padStart(2, "0");

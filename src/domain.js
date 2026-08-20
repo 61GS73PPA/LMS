@@ -56,6 +56,7 @@ export function formatDeadline(deadline, locale = "en-GB") {
     month: "long",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Europe/London",
     timeZoneName: "short",
   }).format(new Date(deadline));
 }
