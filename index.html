@@ -31,7 +31,9 @@
         <nav class="primary-nav" aria-label="Primary navigation">
           <a class="active" href="#overview" data-route="overview" aria-current="page">Overview</a>
           <a href="#picks" data-route="picks">Picks</a>
-          <a href="#fixtures" data-route="fixtures">Fixtures</a>
+          <a href="#pick-grid" data-route="pick-grid">Pick Grid</a>
+          <a href="#fixtures" data-route="fixtures">Live</a>
+          <a href="#team-news" data-route="team-news">Team News</a>
           <a href="#difficulty" data-route="difficulty">Difficulty</a>
           <a href="#rules" data-route="rules">Rules</a>
           <a href="#prize" data-route="prize">Prize Draw</a>
@@ -118,6 +120,17 @@
           </div>
         </section>
 
+        <section class="app-page section pick-grid-section" id="pick-grid" data-page="pick-grid" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Competition history</p>
+              <h2>Teams already used</h2>
+              <p class="section-description">Grey cells are unavailable. The gameweek number shows when each team was picked.</p>
+            </div>
+          </div>
+          <div class="pick-matrix-wrap" id="pick-matrix-wrap" aria-live="polite"></div>
+        </section>
+
         <section class="app-page section fixtures-section" id="fixtures" data-page="fixtures" hidden>
           <div class="section-heading">
             <div>
@@ -131,6 +144,19 @@
           </div>
           <div class="fixtures-grid" id="fixtures-grid">
             <p class="empty-state">Loading fixtures…</p>
+          </div>
+        </section>
+
+        <section class="app-page section team-news-section" id="team-news" data-page="team-news" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Availability watch</p>
+              <h2>Team news &amp; injuries</h2>
+              <p class="section-description">Official FPL availability flags, expected return notes, and chance of playing next round.</p>
+            </div>
+          </div>
+          <div class="team-news-grid" id="team-news-grid">
+            <p class="empty-state">Loading availability updates…</p>
           </div>
         </section>
 
@@ -203,12 +229,20 @@
             <h2>Prize draw</h2>
             <p>Survive every knockout and the Kony365 jackpot is yours.</p>
           </div>
-          <article class="prize-card" aria-label="Prize draw amount £340">
+          <article class="prize-card" aria-label="Prize draw amount £360">
             <span class="prize-ticket">K365</span>
             <p>Current prize</p>
-            <strong><span>£</span>340</strong>
+            <strong><span>£</span>360</strong>
             <small>One competition. One survivor. One winner.</small>
           </article>
+          <div class="charity-representation">
+            <div class="representation-heading">
+              <p class="eyebrow">Where the pot is represented</p>
+              <h3>Charity representation</h3>
+              <p>Each player's £20 entry is grouped by their chosen charity.</p>
+            </div>
+            <div class="charity-representation-list" id="charity-representation-list"></div>
+          </div>
         </section>
 
         <section class="app-page section pick-for-me-section" id="pick-for-me" data-page="pick-for-me" hidden>

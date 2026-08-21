@@ -4,11 +4,14 @@ import {
   calculatePlayerStatus,
   findActiveEvent,
   formatDeadline,
+  getCharityRepresentation,
   getCountdownParts,
   getNextFiveDifficulty,
   getPickForEvent,
+  getPickResult,
   getPlayerStatusLabel,
   getTeamMap,
+  getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
 } from "./domain.js";
@@ -31,6 +34,7 @@ const state = {
 
 const elements = {
   aliveCount: document.querySelector("#alive-count"),
+  charityRepresentationList: document.querySelector("#charity-representation-list"),
   countdown: document.querySelector("#countdown"),
   dataNote: document.querySelector("#data-note"),
   deadlineDate: document.querySelector("#deadline-title"),
@@ -42,6 +46,7 @@ const elements = {
   gameweekSelect: document.querySelector("#gameweek-select"),
   hardestList: document.querySelector("#hardest-list"),
   outCount: document.querySelector("#out-count"),
+  pickMatrixWrap: document.querySelector("#pick-matrix-wrap"),
   playerDialog: document.querySelector("#player-dialog"),
   playerDialogCharity: document.querySelector("#player-dialog-charity"),
   playerDialogHistory: document.querySelector("#player-dialog-history"),
@@ -53,6 +58,7 @@ const elements = {
   roundLabel: document.querySelector("#round-label"),
   seasonLabel: document.querySelector("#season-label"),
   spinWheel: document.querySelector("#spin-wheel"),
+  teamNewsGrid: document.querySelector("#team-news-grid"),
   teamWheel: document.querySelector("#team-wheel"),
   wheelResult: document.querySelector("#wheel-result"),
 };
@@ -97,6 +103,7 @@ async function initialise() {
     bindInteractions();
     updateCountdown();
     window.setInterval(updateCountdown, 1000);
+    window.setInterval(refreshLiveData, 60_000);
   } catch (error) {
     console.error(error);
     elements.fixturesGrid.innerHTML = '<p class="empty-state">The competition data could not be loaded. Please try again shortly.</p>';
@@ -105,7 +112,7 @@ async function initialise() {
 }
 
 function renderPage() {
-  const alive = state.competition.players.filter((player) => calculatePlayerStatus(player) === "alive");
+  const alive = state.competition.players.filter((player) => calculatePlayerStatus(player, state.fixtures) === "alive");
   const out = state.competition.players.length - alive.length;
   const seasonStart = new Date(state.bootstrap.events[0].deadline_time).getUTCFullYear();
 
@@ -125,6 +132,9 @@ function renderPage() {
   renderGameweekSelect();
   renderFixtures();
   renderDifficulty();
+  renderTeamNews();
+  renderPickMatrix();
+  renderCharityRepresentation();
   renderWheel();
   showRoute(getRequestedRoute());
 }
@@ -134,18 +144,18 @@ function renderPlayers(filter) {
   const players = state.competition.players
     .map((player, index) => ({ player, index }))
     .filter(({ player }) => {
-      const status = calculatePlayerStatus(player);
+      const status = calculatePlayerStatus(player, state.fixtures);
       return filter === "all" || filter === status;
     })
     .sort((a, b) => a.player.name.localeCompare(b.player.name, "en-GB", { sensitivity: "base" }));
 
   elements.playersBody.innerHTML = players.map(({ player, index }) => {
-    const status = calculatePlayerStatus(player);
+    const status = calculatePlayerStatus(player, state.fixtures);
     const currentPick = getPickForEvent(player, state.activeEvent?.id);
     return `
       <tr data-status="${status}">
         <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
-        <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick)}</span></td>
+        <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick, state.fixtures)}</span></td>
         <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : '<span class="pick-pending">Not entered yet</span>'}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
       </tr>`;
@@ -161,12 +171,12 @@ function openPlayerProfile(playerIndex) {
   if (!player) return;
 
   const teamById = getTeamMap(state.bootstrap.teams);
-  const status = calculatePlayerStatus(player);
+  const status = calculatePlayerStatus(player, state.fixtures);
   const currentPick = getPickForEvent(player, state.activeEvent?.id);
   elements.playerDialogIndex.textContent = player.icon;
   elements.playerDialogName.textContent = player.name;
   elements.playerDialogCharity.innerHTML = renderCharity(player.charity);
-  elements.playerDialogStatus.textContent = getPlayerStatusLabel(player, currentPick);
+  elements.playerDialogStatus.textContent = getPlayerStatusLabel(player, currentPick, state.fixtures);
   elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : "Not entered yet";
   elements.playerDialogHistory.innerHTML = renderPickHistory(player, teamById);
   elements.playerDialog.showModal();
@@ -183,8 +193,9 @@ function renderPickHistory(player, teamById) {
     .sort((a, b) => a.gameweek - b.gameweek)
     .map((pick) => {
       const shortName = teamById.get(pick.teamId)?.short_name ?? pick.team ?? "—";
-      const resultClass = pick.result === "win" ? "win" : pick.result === "loss" || pick.result === "no-pick" ? "loss" : "";
-      return `<span class="pick-badge ${resultClass}" title="Gameweek ${pick.gameweek}: ${escapeHtml(getTeamName(pick, teamById))}">${escapeHtml(shortName)}</span>`;
+      const result = getPickResult(pick, state.fixtures);
+      const resultClass = result === "win" ? "win" : result === "loss" || result === "no-pick" ? "loss" : "";
+      return `<span class="pick-badge ${resultClass}" title="Gameweek ${pick.gameweek}: ${escapeHtml(getTeamName(pick, teamById))}"><small>GW${pick.gameweek}</small>${escapeHtml(shortName)}</span>`;
     }).join("");
 }
 
@@ -218,15 +229,32 @@ function fixtureMarkup(fixture, teamById) {
   const kickoff = fixture.kickoff_time ? new Date(fixture.kickoff_time) : null;
   const day = kickoff ? new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short" }).format(kickoff) : "TBC";
   const time = kickoff ? new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" }).format(kickoff) : "—";
+  const matchStatus = fixture.finished ? "Full time" : fixture.started ? `${fixture.minutes || 0}' · Live` : day;
   const middle = fixture.started || fixture.finished
-    ? `<strong class="score">${fixture.team_h_score ?? 0}–${fixture.team_a_score ?? 0}</strong><span>${fixture.finished ? "Full time" : "Live"}</span>`
+    ? `<strong class="score">${fixture.team_h_score ?? 0}–${fixture.team_a_score ?? 0}</strong><span>${matchStatus}</span>`
     : `<strong>${time}</strong><span>${day}</span>`;
+  const events = fixtureEventMarkup(fixture, home, away);
 
-  return `<article class="fixture-card">
+  return `<article class="fixture-card${fixture.started && !fixture.finished ? " live-fixture" : ""}">
     ${teamMarkup(home, "home")}
     <div class="fixture-time">${middle}</div>
     ${teamMarkup(away, "away")}
+    ${events}
   </article>`;
+}
+
+function fixtureEventMarkup(fixture, home, away) {
+  const events = (fixture.stats ?? []).flatMap((stat) => [
+    ...(stat.h ?? []).map((event) => ({ ...event, side: "home", team: home, type: stat.identifier })),
+    ...(stat.a ?? []).map((event) => ({ ...event, side: "away", team: away, type: stat.identifier })),
+  ]).filter((event) => ["goals_scored", "red_cards"].includes(event.type));
+
+  if (!events.length) return "";
+  return `<div class="fixture-events">${events.map((event) => {
+    const icon = event.type === "red_cards" ? "🟥" : "⚽";
+    const player = state.bootstrap.elements?.find((item) => item.id === event.element);
+    return `<span>${icon} ${escapeHtml(player?.web_name ?? event.team?.short_name ?? "Event")}${event.value > 1 ? ` ×${event.value}` : ""}</span>`;
+  }).join("")}</div>`;
 }
 
 function teamMarkup(team, side) {
@@ -264,6 +292,86 @@ function difficultyMarkup(entry, teamById) {
     <div class="fixture-run">${fixtures}</div>
     <span class="difficulty-score">${entry.average.toFixed(1)}</span>
   </div>`;
+}
+
+function renderTeamNews() {
+  const teamById = getTeamMap(state.bootstrap.teams);
+  const unavailable = getUnavailablePlayers(state.bootstrap.elements ?? []);
+  if (!unavailable.length) {
+    elements.teamNewsGrid.innerHTML = '<p class="empty-state">No injuries or availability doubts are currently flagged by FPL.</p>';
+    return;
+  }
+
+  const grouped = unavailable.reduce((groups, player) => {
+    (groups[player.team] ??= []).push(player);
+    return groups;
+  }, {});
+  elements.teamNewsGrid.innerHTML = Object.entries(grouped).map(([teamId, players]) => {
+    const team = teamById.get(Number(teamId));
+    return `<article class="team-news-card">
+      <div class="team-news-heading">${teamBadgeMarkup(team)}<div><h3>${escapeHtml(team?.name ?? "Unknown team")}</h3><span>${players.length} update${players.length === 1 ? "" : "s"}</span></div></div>
+      <div class="availability-list">${players.map(availabilityMarkup).join("")}</div>
+    </article>`;
+  }).join("");
+}
+
+function availabilityMarkup(player) {
+  const chance = player.chance_of_playing_next_round;
+  const chanceLabel = chance == null ? statusLabel(player.status) : `${chance}% chance`;
+  return `<div class="availability-row">
+    <div><strong>${escapeHtml(player.web_name)}</strong><span>${escapeHtml(player.news || statusLabel(player.status))}</span></div>
+    <b class="availability-${escapeHtml(player.status)}">${escapeHtml(chanceLabel)}</b>
+  </div>`;
+}
+
+function statusLabel(status) {
+  return ({ a: "Available", d: "Doubtful", i: "Injured", s: "Suspended", u: "Unavailable", n: "Not in squad" })[status] ?? "Availability update";
+}
+
+function renderPickMatrix() {
+  const teams = state.bootstrap.teams;
+  const players = [...state.competition.players].sort((a, b) => a.name.localeCompare(b.name, "en-GB"));
+  const header = teams.map((team) => `<th title="${escapeHtml(team.name)}">${escapeHtml(team.short_name)}</th>`).join("");
+  const rows = players.map((player) => {
+    const picksByTeam = new Map(player.picks.map((pick) => [pick.teamId, pick]));
+    const cells = teams.map((team) => {
+      const pick = picksByTeam.get(team.id);
+      if (!pick) return '<td class="pick-available" aria-label="Available">·</td>';
+      const result = getPickResult(pick, state.fixtures);
+      return `<td class="pick-used ${escapeHtml(result)}" title="${escapeHtml(player.name)} picked ${escapeHtml(team.name)} in Gameweek ${pick.gameweek}"><span>GW${pick.gameweek}</span></td>`;
+    }).join("");
+    return `<tr><th scope="row"><span>${escapeHtml(player.icon)}</span>${escapeHtml(player.name)}</th>${cells}</tr>`;
+  }).join("");
+  elements.pickMatrixWrap.innerHTML = `<table class="pick-matrix"><thead><tr><th scope="col">Player</th>${header}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function renderCharityRepresentation() {
+  const representation = getCharityRepresentation(state.competition.players);
+  elements.charityRepresentationList.innerHTML = representation.map((charity) => {
+    const name = charity.url
+      ? `<a href="${escapeHtml(charity.url)}" target="_blank" rel="noreferrer">${escapeHtml(charity.name)} ↗</a>`
+      : escapeHtml(charity.name);
+    return `<article class="representation-row">
+      <div><strong>${name}</strong><span>${escapeHtml(charity.players.join(", "))}</span></div>
+      <b>£${charity.amount}</b>
+    </article>`;
+  }).join("");
+}
+
+async function refreshLiveData() {
+  if (state.source !== "live" || document.hidden) return;
+  try {
+    const fixtures = await fetchJson(FPL_FIXTURES_URL);
+    state.fixtures = fixtures;
+    renderPlayers(document.querySelector("[data-filter].active")?.dataset.filter ?? "all");
+    renderFixtures();
+    renderPickMatrix();
+    const alive = state.competition.players.filter((player) => calculatePlayerStatus(player, state.fixtures) === "alive");
+    elements.aliveCount.textContent = alive.length;
+    elements.outCount.textContent = state.competition.players.length - alive.length;
+  } catch (error) {
+    console.info("Live fixture refresh failed; retaining the last known scores.", error);
+  }
 }
 
 function renderWheel() {
@@ -366,7 +474,9 @@ function routeTitle(route) {
   return ({
     overview: "Last Man Standing",
     picks: "Picks",
-    fixtures: "Fixtures",
+    "pick-grid": "Pick Grid",
+    fixtures: "Live Scores",
+    "team-news": "Team News & Injuries",
     difficulty: "Fixture Difficulty",
     rules: "Rules",
     prize: "Prize Draw",

@@ -681,3 +681,69 @@ footer p, footer > a { color: rgba(255, 255, 255, 0.65); }
   .dialog-charity { padding: 28px 24px; }
   .dialog-charity p { font-size: 14px; }
 }
+
+/* Live scores, availability, pick grid, and charity representation */
+.fixture-card { grid-template-rows: auto auto; }
+.live-fixture { border-color: rgba(231, 107, 62, 0.55); box-shadow: inset 4px 0 0 var(--orange); }
+.live-fixture .fixture-time span { color: var(--orange); font-weight: 800; text-transform: uppercase; }
+.fixture-events {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.fixture-events span { padding: 5px 8px; border-radius: 2px; color: var(--ink-soft); background: var(--paper); font-size: 9px; font-weight: 700; }
+.pick-badge { height: auto; min-height: 32px; gap: 2px; padding-top: 4px; padding-bottom: 4px; }
+.pick-badge small { display: block; color: inherit; font-size: 7px; opacity: 0.75; }
+
+.team-news-section { background: var(--paper-deep); }
+.team-news-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.team-news-card { padding: 24px; border: 1px solid var(--line); background: rgba(255, 253, 248, 0.76); }
+.team-news-heading { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.team-news-heading h3 { margin: 0 0 4px; font-size: 16px; }
+.team-news-heading span { color: var(--ink-soft); font-size: 9px; text-transform: uppercase; }
+.availability-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 18px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.availability-row:last-child { border-bottom: 0; }
+.availability-row strong, .availability-row span { display: block; }
+.availability-row strong { margin-bottom: 5px; font-size: 12px; }
+.availability-row span { color: var(--ink-soft); font-size: 10px; line-height: 1.45; }
+.availability-row b { padding: 6px 8px; border-radius: 2px; color: #fff; background: var(--orange); font: 700 8px/1 "DM Mono", monospace; white-space: nowrap; }
+.availability-row .availability-d { color: var(--ink); background: #e5c54c; }
+.availability-row .availability-i, .availability-row .availability-s, .availability-row .availability-u { background: var(--red); }
+
+.pick-grid-section { background: var(--white); }
+.pick-matrix-wrap { overflow: auto; max-height: calc(100vh - 270px); border: 1px solid var(--line); background: #fff; }
+.pick-matrix { min-width: 1220px; width: 100%; border-collapse: separate; border-spacing: 0; font-size: 10px; }
+.pick-matrix th, .pick-matrix td { min-width: 47px; height: 44px; padding: 6px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+.pick-matrix thead th { position: sticky; top: 0; z-index: 2; color: var(--paper); background: var(--green-dark); font: 700 8px/1 "DM Mono", monospace; }
+.pick-matrix thead th:first-child { left: 0; z-index: 4; min-width: 180px; text-align: left; }
+.pick-matrix tbody th { position: sticky; left: 0; z-index: 1; min-width: 180px; color: var(--ink); background: var(--paper); text-align: left; white-space: nowrap; }
+.pick-matrix tbody th span { margin-right: 8px; font-size: 17px; vertical-align: middle; }
+.pick-matrix td.pick-available { color: #c9c5bd; font-size: 18px; }
+.pick-matrix td.pick-used { color: #fff; background: #8b8f8d; font: 700 9px/1 "DM Mono", monospace; }
+.pick-matrix td.pick-used.win { background: var(--green); }
+.pick-matrix td.pick-used.loss, .pick-matrix td.pick-used.no-pick { background: var(--red); }
+
+.charity-representation { grid-column: 1 / -1; display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 5vw; margin-top: 24px; padding-top: 42px; border-top: 1px solid rgba(255, 255, 255, 0.18); }
+.representation-heading h3 { margin: 0 0 14px; font-size: 26px; }
+.representation-heading > p:last-child { color: rgba(255, 255, 255, 0.58); font-size: 12px; line-height: 1.6; }
+.charity-representation-list { display: grid; gap: 8px; }
+.representation-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20px; padding: 15px 18px; color: var(--ink); background: #fff; }
+.representation-row strong, .representation-row span { display: block; }
+.representation-row strong { margin-bottom: 4px; font-size: 12px; }
+.representation-row span { overflow: hidden; color: var(--ink-soft); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.representation-row b { color: var(--green); font: 700 18px/1 "DM Mono", monospace; }
+
+@media (max-width: 980px) {
+  .team-news-grid, .charity-representation { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .team-news-grid { grid-template-columns: 1fr; }
+  .pick-matrix-wrap { margin-right: -22px; margin-left: -22px; border-right: 0; border-left: 0; }
+  .fixture-events { justify-content: flex-start; }
+}

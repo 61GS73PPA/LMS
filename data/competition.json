@@ -21,7 +21,13 @@
     {
       "name": "Hayter",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
       "icon": "⚽",
       "charity": {
         "name": "Gay Gooners",
@@ -92,7 +98,7 @@
       "picks": [
         {
           "gameweek": 1,
-          "teamId": 16,
+          "teamId": 13,
           "result": "pending"
         }
       ],
@@ -209,8 +215,24 @@
           "result": "pending"
         }
       ],
-      "icon": "🇦🇺",
+      "icon": "🍺",
       "charity": null
+    },
+    {
+      "name": "Tom Davies",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 16,
+          "result": "pending"
+        }
+      ],
+      "icon": "🇦🇺",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Tom Mahon",
