@@ -24,6 +24,7 @@ const snapshot = {
     updatedAt: new Date().toISOString(),
     events: bootstrap.events,
     teams: bootstrap.teams,
+    elements: bootstrap.elements,
   },
   fixtures,
 };

@@ -76,16 +76,52 @@ export function getPickForEvent(player, eventId) {
   return player.picks.find((pick) => pick.gameweek === eventId) ?? null;
 }
 
-export function calculatePlayerStatus(player) {
+export function getPickResult(pick, fixtures = []) {
+  if (pick.result !== "pending") return pick.result;
+  const fixture = fixtures.find((item) =>
+    item.event === pick.gameweek && (item.team_h === pick.teamId || item.team_a === pick.teamId),
+  );
+  if (!fixture?.finished || fixture.team_h_score == null || fixture.team_a_score == null) return "pending";
+
+  const pickedHomeTeam = fixture.team_h === pick.teamId;
+  const pickedScore = pickedHomeTeam ? fixture.team_h_score : fixture.team_a_score;
+  const opponentScore = pickedHomeTeam ? fixture.team_a_score : fixture.team_h_score;
+  return pickedScore > opponentScore ? "win" : "loss";
+}
+
+export function calculatePlayerStatus(player, fixtures = []) {
   if (player.status === "out") return "out";
-  return player.picks.some((pick) => pick.result === "loss" || pick.result === "no-pick")
+  return player.picks.some((pick) => ["loss", "no-pick"].includes(getPickResult(pick, fixtures)))
     ? "out"
     : "alive";
 }
 
-export function getPlayerStatusLabel(player, currentPick) {
-  if (calculatePlayerStatus(player) === "out") return "6ft deep";
+export function getPlayerStatusLabel(player, currentPick, fixtures = []) {
+  if (calculatePlayerStatus(player, fixtures) === "out") return "6ft deep";
   return currentPick ? "Standing" : "Queuing for the wheel";
+}
+
+export function getCharityRepresentation(players, entryFee = 20) {
+  const charities = new Map();
+  for (const player of players) {
+    const key = player.charity?.url ?? "pocketing";
+    const current = charities.get(key) ?? {
+      name: player.charity?.name ?? "Pocketing the money",
+      url: player.charity?.url ?? null,
+      players: [],
+      amount: 0,
+    };
+    current.players.push(player.name);
+    current.amount += entryFee;
+    charities.set(key, current);
+  }
+  return [...charities.values()].sort((a, b) => b.amount - a.amount || a.name.localeCompare(b.name));
+}
+
+export function getUnavailablePlayers(elements = []) {
+  return elements
+    .filter((player) => player.status !== "a" || (player.chance_of_playing_next_round ?? 100) < 100)
+    .sort((a, b) => a.team - b.team || a.web_name.localeCompare(b.web_name));
 }
 
 export function getWheelTargetRotation(teams, targetName, rotations = 6) {

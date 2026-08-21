@@ -10,6 +10,8 @@ assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 compe
 assert.equal(competition.deadlines["1"], "2026-08-21T18:00:00Z", "Expected the Gameweek 1 pick deadline");
 assert.ok(fpl.bootstrap.events.length >= 38, "Expected a full set of gameweeks");
 assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams");
+assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
+assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
 
 for (const player of competition.players) {
