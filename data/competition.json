@@ -21,7 +21,13 @@
     {
       "name": "Hayter",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
       "icon": "⚽",
       "charity": {
         "name": "Gay Gooners",
@@ -92,7 +98,7 @@
       "picks": [
         {
           "gameweek": 1,
-          "teamId": 16,
+          "teamId": 13,
           "result": "pending"
         }
       ],
@@ -215,7 +221,13 @@
     {
       "name": "Tom Davies",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 16,
+          "result": "pending"
+        }
+      ],
       "icon": "🇦🇺",
       "charity": {
         "name": "Gay Gooners",

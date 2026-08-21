@@ -93,5 +93,5 @@ export function getWheelTargetRotation(teams, targetName, rotations = 6) {
   if (targetIndex === -1) return 0;
   const segmentAngle = 360 / teams.length;
   const targetCentre = targetIndex * segmentAngle + segmentAngle / 2;
-  return rotations * 360 + (270 - targetCentre + 360) % 360;
+  return rotations * 360 + (360 - targetCentre) % 360;
 }
