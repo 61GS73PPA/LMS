@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 const competition = JSON.parse(await readFile(new URL("../data/competition.json", import.meta.url)));
 const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.url)));
 
-assert.equal(competition.players.length, 17, "Expected all 17 competition players");
+assert.equal(competition.players.length, 18, "Expected all 18 competition players");
 assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 competition name");
 assert.equal(competition.deadlines["1"], "2026-08-21T18:00:00Z", "Expected the Gameweek 1 pick deadline");

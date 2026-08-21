@@ -209,8 +209,18 @@
           "result": "pending"
         }
       ],
-      "icon": "🇦🇺",
+      "icon": "🍺",
       "charity": null
+    },
+    {
+      "name": "Tom Davies",
+      "status": "alive",
+      "picks": [],
+      "icon": "🇦🇺",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Tom Mahon",
