@@ -3,8 +3,13 @@ import assert from "node:assert/strict";
 import {
   calculatePlayerStatus,
   findActiveEvent,
+  getCharityRepresentation,
   getCountdownParts,
   getNextFiveDifficulty,
+  getPickResult,
+  getPlayerStatusLabel,
+  getUnavailablePlayers,
+  getWheelTargetRotation,
   groupFixturesByEvent,
 } from "../src/domain.js";
 
@@ -58,4 +63,58 @@ test("getCountdownParts never returns negative values", () => {
 test("a losing pick marks a player as out", () => {
   const player = { status: "alive", picks: [{ gameweek: 1, result: "loss" }] };
   assert.equal(calculatePlayerStatus(player), "out");
+});
+
+test("finished fixtures automatically resolve picks and eliminate non-winners", () => {
+  const fixtures = [{ event: 1, finished: true, team_h: 1, team_a: 2, team_h_score: 1, team_a_score: 1 }];
+  const pick = { gameweek: 1, teamId: 1, result: "pending" };
+  const player = { status: "alive", picks: [pick] };
+  assert.equal(getPickResult(pick, fixtures), "loss");
+  assert.equal(calculatePlayerStatus(player, fixtures), "out");
+});
+
+test("finished fixtures keep winning picks standing", () => {
+  const fixtures = [{ event: 1, finished: true, team_h: 1, team_a: 2, team_h_score: 2, team_a_score: 0 }];
+  const pick = { gameweek: 1, teamId: 1, result: "pending" };
+  assert.equal(getPickResult(pick, fixtures), "win");
+});
+
+test("charity representation allocates one entry fee per player", () => {
+  const players = [
+    { name: "A", charity: { name: "Shared", url: "https://example.com" } },
+    { name: "B", charity: { name: "Shared", url: "https://example.com" } },
+    { name: "C", charity: null },
+  ];
+  assert.deepEqual(getCharityRepresentation(players), [
+    { name: "Shared", url: "https://example.com", players: ["A", "B"], amount: 40 },
+    { name: "Pocketing the money", url: null, players: ["C"], amount: 20 },
+  ]);
+});
+
+test("availability list includes injured and doubtful players", () => {
+  const players = [
+    { team: 1, web_name: "Available", status: "a", chance_of_playing_next_round: null },
+    { team: 1, web_name: "Doubtful", status: "d", chance_of_playing_next_round: 50 },
+    { team: 2, web_name: "Injured", status: "i", chance_of_playing_next_round: 0 },
+  ];
+  assert.deepEqual(getUnavailablePlayers(players).map((player) => player.web_name), ["Doubtful", "Injured"]);
+});
+
+
+test("wheel rotation centres the requested team beneath the top pointer", () => {
+  const teams = Array.from({ length: 20 }, (_, index) => ({ name: index === 6 ? "Coventry City" : `Team ${index}` }));
+  const rotation = getWheelTargetRotation(teams, "Coventry City", 6);
+  const segmentAngle = 360 / teams.length;
+  const targetCentre = 6 * segmentAngle + segmentAngle / 2;
+  assert.equal((rotation + targetCentre) % 360, 0);
+  assert.ok(rotation >= 6 * 360);
+});
+
+
+test("player status labels reflect picks and elimination", () => {
+  const alive = { status: "alive", picks: [] };
+  const out = { status: "alive", picks: [{ gameweek: 1, result: "loss" }] };
+  assert.equal(getPlayerStatusLabel(alive, null), "Queuing for the wheel");
+  assert.equal(getPlayerStatusLabel(alive, { gameweek: 1 }), "Standing");
+  assert.equal(getPlayerStatusLabel(out, null), "6ft deep");
 });

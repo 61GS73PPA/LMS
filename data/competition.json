@@ -12,15 +12,27 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🎅🏻"
+      "icon": "🎅🏻",
+      "charity": {
+        "name": "War Child",
+        "url": "https://www.warchild.org.uk/"
+      }
     },
     {
       "name": "Hayter",
       "status": "alive",
-      "picks": [],
-      "bio": "Player bio coming soon.",
-      "icon": "⚽"
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 1,
+          "result": "pending"
+        }
+      ],
+      "icon": "⚽",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Bryan",
@@ -32,8 +44,8 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👶🏻"
+      "icon": "👶🏻",
+      "charity": null
     },
     {
       "name": "Rhod",
@@ -45,8 +57,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👨🏻‍🦲"
+      "icon": "👨🏻‍🦲",
+      "charity": {
+        "name": "The Guardian",
+        "url": "https://www.theguardian.com/lifeandstyle/2025/jan/07/flaking-out-of-social-plans"
+      }
     },
     {
       "name": "Chris Pyke",
@@ -58,15 +73,24 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🧑‍🏫"
+      "icon": "🧑‍🏫",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Hub",
       "status": "alive",
-      "picks": [],
-      "bio": "Player bio coming soon.",
-      "icon": "👨🏾‍⚕️"
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 12,
+          "result": "pending"
+        }
+      ],
+      "icon": "👨🏾‍⚕️",
+      "charity": null
     },
     {
       "name": "Leicester",
@@ -74,12 +98,12 @@
       "picks": [
         {
           "gameweek": 1,
-          "teamId": 16,
+          "teamId": 13,
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👴🏻"
+      "icon": "👴🏻",
+      "charity": null
     },
     {
       "name": "Kenny Dufter",
@@ -91,8 +115,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "💳"
+      "icon": "💳",
+      "charity": {
+        "name": "GamCare",
+        "url": "https://www.gamcare.org.uk/"
+      }
     },
     {
       "name": "PIG",
@@ -104,8 +131,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🐷"
+      "icon": "🐷",
+      "charity": {
+        "name": "RSPCA",
+        "url": "https://www.rspca.org.uk/"
+      }
     },
     {
       "name": "Alf Van Bronckhorst",
@@ -117,8 +147,8 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🚛"
+      "icon": "🚛",
+      "charity": null
     },
     {
       "name": "Wikles",
@@ -130,8 +160,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "⛰️"
+      "icon": "⛰️",
+      "charity": {
+        "name": "Life After Paralysis",
+        "url": "https://www.lifeafterparalysis.com/"
+      }
     },
     {
       "name": "Brushel",
@@ -143,8 +176,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🦰"
+      "icon": "🦰",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Beanie",
@@ -156,8 +192,11 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🍚"
+      "icon": "🍚",
+      "charity": {
+        "name": "Turning Point",
+        "url": "https://www.turning-point.co.uk/"
+      }
     },
     {
       "name": "Jordan Padel",
@@ -169,8 +208,8 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🎾"
+      "icon": "🎾",
+      "charity": null
     },
     {
       "name": "Mezzy T",
@@ -182,8 +221,24 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🇦🇺"
+      "icon": "🍺",
+      "charity": null
+    },
+    {
+      "name": "Tom Davies",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 16,
+          "result": "pending"
+        }
+      ],
+      "icon": "🇦🇺",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Tom Mahon",
@@ -195,8 +250,8 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "📷"
+      "icon": "📷",
+      "charity": null
     },
     {
       "name": "Cam",
@@ -208,8 +263,8 @@
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🕵️"
+      "icon": "🕵️",
+      "charity": null
     }
   ],
   "deadlines": {
