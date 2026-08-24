@@ -121,6 +121,11 @@ h1 em { color: var(--green); font-style: normal; }
 .countdown strong { font: 500 clamp(24px, 3vw, 38px)/1 "DM Mono", monospace; }
 .countdown span { margin-top: 8px; color: rgba(255, 255, 255, 0.48); font-size: 9px; text-transform: uppercase; }
 .deadline-note { margin: 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.5); font-size: 10px; line-height: 1.5; }
+.round-review-card { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr); align-items: center; gap: 36px; margin-top: 8px; padding: 28px 32px; border: 1px solid var(--line); border-radius: 4px; background: rgba(255, 255, 255, 0.5); }
+.round-review-card .eyebrow { margin-bottom: 10px; }
+.round-review-card h2 { font-size: clamp(28px, 4vw, 44px); }
+.round-review-card p:last-child { margin: 12px 0 0; color: var(--ink-soft); }
+.round-review-card audio { width: 100%; accent-color: var(--green); }
 
 .players-section { color: var(--paper); background: var(--green-dark); }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 48px; }
@@ -224,6 +229,7 @@ footer > a { font-weight: 700; }
 }
 
 @media (max-width: 720px) {
+  .round-review-card { grid-template-columns: 1fr; gap: 22px; padding: 24px; }
   .section { padding: 75px 22px; }
   .topbar { min-height: 70px; padding: 0 22px; }
   .hero { padding-top: 65px; }
