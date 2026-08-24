@@ -9,6 +9,14 @@ export function findActiveEvent(events, now = new Date()) {
   return upcoming ?? events.at(-1) ?? null;
 }
 
+export function findCompetitionEvent(events, round, now = new Date()) {
+  return events.find((event) => event.id === round) ?? findActiveEvent(events, now);
+}
+
+export function isFixtureComplete(fixture) {
+  return fixture.finished || fixture.finished_provisional;
+}
+
 export function groupFixturesByEvent(fixtures) {
   return fixtures.reduce((groups, fixture) => {
     if (fixture.event == null) return groups;
@@ -23,7 +31,7 @@ export function getTeamMap(teams) {
 
 export function getNextFiveDifficulty(teams, fixtures, startingEvent) {
   const upcoming = fixtures.filter(
-    (fixture) => fixture.event != null && fixture.event >= startingEvent && !fixture.finished,
+    (fixture) => fixture.event != null && fixture.event >= startingEvent && !isFixtureComplete(fixture),
   );
 
   return teams.map((team) => {
@@ -81,7 +89,7 @@ export function getPickResult(pick, fixtures = []) {
   const fixture = fixtures.find((item) =>
     item.event === pick.gameweek && (item.team_h === pick.teamId || item.team_a === pick.teamId),
   );
-  if (!fixture?.finished || fixture.team_h_score == null || fixture.team_a_score == null) return "pending";
+  if (!fixture || !isFixtureComplete(fixture) || fixture.team_h_score == null || fixture.team_a_score == null) return "pending";
 
   const pickedHomeTeam = fixture.team_h === pick.teamId;
   const pickedScore = pickedHomeTeam ? fixture.team_h_score : fixture.team_a_score;

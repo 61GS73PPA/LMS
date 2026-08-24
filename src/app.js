@@ -2,7 +2,7 @@ import {
   FPL_BOOTSTRAP_URL,
   FPL_FIXTURES_URL,
   calculatePlayerStatus,
-  findActiveEvent,
+  findCompetitionEvent,
   formatDeadline,
   getCharityRepresentation,
   getCountdownParts,
@@ -14,6 +14,7 @@ import {
   getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
+  isFixtureComplete,
 } from "./domain.js";
 
 const LOCAL_FPL_DATA = "./data/fpl.json";
@@ -95,7 +96,7 @@ async function initialise() {
     state.competition = competition;
     state.bootstrap = fpl.bootstrap;
     state.fixtures = fpl.fixtures;
-    state.activeEvent = findActiveEvent(state.bootstrap.events);
+    state.activeEvent = findCompetitionEvent(state.bootstrap.events, state.competition.round);
     state.selectedEvent = state.activeEvent?.id ?? 1;
     state.deadline = state.competition.deadlines?.[state.activeEvent?.id] ?? state.activeEvent?.deadline_time ?? null;
 
@@ -126,7 +127,7 @@ function renderPage() {
     elements.deadlineGameweek.textContent = state.activeEvent.name;
     elements.deadlineDate.textContent = formatDeadline(state.deadline);
   }
-  elements.dataNote.textContent = "Kony365 deadline · picks lock one hour before the first kick-off.";
+  elements.dataNote.textContent = `All ${alive.length} remaining players need a new pick · picks lock one hour before the first kick-off.`;
 
   renderPlayers("all");
   renderGameweekSelect();
@@ -156,7 +157,7 @@ function renderPlayers(filter) {
       <tr data-status="${status}">
         <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
         <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick, state.fixtures)}</span></td>
-        <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : '<span class="pick-pending">Not entered yet</span>'}</td>
+        <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : `<span class="pick-pending">${status === "alive" ? "Pick required" : "Eliminated"}</span>`}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
       </tr>`;
   }).join("");
@@ -177,7 +178,7 @@ function openPlayerProfile(playerIndex) {
   elements.playerDialogName.textContent = player.name;
   elements.playerDialogCharity.innerHTML = renderCharity(player.charity);
   elements.playerDialogStatus.textContent = getPlayerStatusLabel(player, currentPick, state.fixtures);
-  elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : "Not entered yet";
+  elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : status === "alive" ? "Pick required" : "Eliminated";
   elements.playerDialogHistory.innerHTML = renderPickHistory(player, teamById);
   elements.playerDialog.showModal();
 }
@@ -229,13 +230,14 @@ function fixtureMarkup(fixture, teamById) {
   const kickoff = fixture.kickoff_time ? new Date(fixture.kickoff_time) : null;
   const day = kickoff ? new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short" }).format(kickoff) : "TBC";
   const time = kickoff ? new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" }).format(kickoff) : "—";
-  const matchStatus = fixture.finished ? "Full time" : fixture.started ? `${fixture.minutes || 0}' · Live` : day;
-  const middle = fixture.started || fixture.finished
+  const complete = isFixtureComplete(fixture);
+  const matchStatus = complete ? "Full time" : fixture.started ? `${fixture.minutes || 0}' · Live` : day;
+  const middle = fixture.started || complete
     ? `<strong class="score">${fixture.team_h_score ?? 0}–${fixture.team_a_score ?? 0}</strong><span>${matchStatus}</span>`
     : `<strong>${time}</strong><span>${day}</span>`;
   const events = fixtureEventMarkup(fixture, home, away);
 
-  return `<article class="fixture-card${fixture.started && !fixture.finished ? " live-fixture" : ""}">
+  return `<article class="fixture-card${fixture.started && !complete ? " live-fixture" : ""}">
     ${teamMarkup(home, "home")}
     <div class="fixture-time">${middle}</div>
     ${teamMarkup(away, "away")}
