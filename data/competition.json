@@ -1,6 +1,6 @@
 {
   "competitionName": "Kony365",
-  "round": 1,
+  "round": 2,
   "players": [
     {
       "name": "Kony",
@@ -9,7 +9,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🎅🏻",
@@ -25,7 +25,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "⚽",
@@ -41,7 +41,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "👶🏻",
@@ -54,7 +54,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "👨🏻‍🦲",
@@ -70,7 +70,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🧑‍🏫",
@@ -80,13 +80,29 @@
       }
     },
     {
+      "name": "Chris Gill",
+      "status": "alive",
+      "picks": [
+        {
+          "gameweek": 1,
+          "teamId": 12,
+          "result": "win"
+        }
+      ],
+      "icon": "🐟",
+      "charity": {
+        "name": "Pocketing the money for charity",
+        "url": "https://www.gamcare.org.uk/"
+      }
+    },
+    {
       "name": "Hub",
       "status": "alive",
       "picks": [
         {
           "gameweek": 1,
           "teamId": 12,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "👨🏾‍⚕️",
@@ -94,12 +110,12 @@
     },
     {
       "name": "Leicester",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
-          "teamId": 13,
-          "result": "pending"
+          "teamId": 16,
+          "result": "loss"
         }
       ],
       "icon": "👴🏻",
@@ -112,7 +128,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "💳",
@@ -128,7 +144,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🐷",
@@ -144,7 +160,7 @@
         {
           "gameweek": 1,
           "teamId": 6,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🚛",
@@ -157,7 +173,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "⛰️",
@@ -173,7 +189,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🦰",
@@ -189,7 +205,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🍚",
@@ -205,7 +221,7 @@
         {
           "gameweek": 1,
           "teamId": 9,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🎾",
@@ -218,7 +234,7 @@
         {
           "gameweek": 1,
           "teamId": 1,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🍺",
@@ -226,12 +242,12 @@
     },
     {
       "name": "Tom Davies",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
           "teamId": 16,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🇦🇺",
@@ -242,12 +258,12 @@
     },
     {
       "name": "Tom Mahon",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
           "teamId": 20,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "📷",
@@ -255,12 +271,12 @@
     },
     {
       "name": "Cam",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
           "teamId": 18,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🕵️",
@@ -268,6 +284,7 @@
     }
   ],
   "deadlines": {
-    "1": "2026-08-21T18:00:00Z"
+    "1": "2026-08-21T18:00:00Z",
+    "2": "2026-08-28T18:00:00Z"
   }
 }

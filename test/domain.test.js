@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   calculatePlayerStatus,
   findActiveEvent,
+  findCompetitionEvent,
   getCharityRepresentation,
   getCountdownParts,
   getNextFiveDifficulty,
@@ -11,6 +12,7 @@ import {
   getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
+  isFixtureComplete,
 } from "../src/domain.js";
 
 test("findActiveEvent prefers the event flagged by FPL", () => {
@@ -19,6 +21,14 @@ test("findActiveEvent prefers the event flagged by FPL", () => {
     { id: 2, deadline_time: "2025-01-08T00:00:00Z", is_next: true },
   ];
   assert.equal(findActiveEvent(events, new Date("2024-12-01")).id, 2);
+});
+
+test("findCompetitionEvent follows the configured competition round", () => {
+  const events = [
+    { id: 1, is_current: true },
+    { id: 2, is_next: true },
+  ];
+  assert.equal(findCompetitionEvent(events, 2).id, 2);
 });
 
 test("findActiveEvent falls back to the next future deadline", () => {
@@ -32,6 +42,10 @@ test("findActiveEvent falls back to the next future deadline", () => {
 test("groupFixturesByEvent ignores unscheduled fixtures", () => {
   const grouped = groupFixturesByEvent([{ id: 1, event: 3 }, { id: 2, event: null }]);
   assert.deepEqual(Object.keys(grouped), ["3"]);
+});
+
+test("provisionally finished fixtures count as complete", () => {
+  assert.equal(isFixtureComplete({ finished: false, finished_provisional: true }), true);
 });
 
 test("getNextFiveDifficulty uses team-specific home and away ratings", () => {
@@ -66,7 +80,7 @@ test("a losing pick marks a player as out", () => {
 });
 
 test("finished fixtures automatically resolve picks and eliminate non-winners", () => {
-  const fixtures = [{ event: 1, finished: true, team_h: 1, team_a: 2, team_h_score: 1, team_a_score: 1 }];
+  const fixtures = [{ event: 1, finished: false, finished_provisional: true, team_h: 1, team_a: 2, team_h_score: 1, team_a_score: 1 }];
   const pick = { gameweek: 1, teamId: 1, result: "pending" };
   const player = { status: "alive", picks: [pick] };
   assert.equal(getPickResult(pick, fixtures), "loss");
