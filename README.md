@@ -1,6 +1,6 @@
 # Kony365
 
-A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows live scores and events, automatic eliminations, player availability news, pick history, charity representation, fixture difficulty, the £360 prize draw, and the game rules.
+A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows live scores and events, automatic eliminations, player availability news, pick history, charity representation, fixture difficulty, the £400 prize draw, and the game rules.
 
 The top navigation uses hash routes (`#overview`, `#picks`, `#pick-grid`, `#fixtures`, `#team-news`, `#difficulty`, `#rules`, `#prize`, and `#pick-for-me`) so each area behaves like a separate page while remaining compatible with static GitHub Pages hosting and browser back/forward navigation. The overview also includes a playable, captioned audio review of the completed round.
 
