@@ -264,7 +264,7 @@ function renderPlayers(filter) {
         <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
         <td class="movement-column">${movementMarkup(movement)}</td>
         <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick, state.fixtures)}</span></td>
-        <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : `<span class="pick-pending">${status === "alive" ? "Pick required" : "Eliminated"}</span>`}</td>
+        <td>${currentPick ? renderCurrentPick(currentPick, teamById) : `<span class="pick-pending">${status === "alive" ? "Pick required" : "Eliminated"}</span>`}</td>
         <td class="goal-difference">${goalDifference > 0 ? "+" : ""}${goalDifference}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
       </tr>`;
@@ -298,6 +298,16 @@ function renderCharity(charity) {
   return `<a href="${escapeHtml(charity.url)}" target="_blank" rel="noreferrer">${escapeHtml(charity.name)} <span aria-hidden="true">↗</span></a>`;
 }
 
+function wheelMarker(pick) {
+  return pick.viaWheel
+    ? '<span class="wheel-pick-marker" title="Picked by the wheel" aria-label="Picked by the wheel">◉</span>'
+    : "";
+}
+
+function renderCurrentPick(pick, teamById) {
+  return `<span class="pick-name">${escapeHtml(getTeamName(pick, teamById))}${wheelMarker(pick)}</span>`;
+}
+
 function renderPickHistory(player, teamById) {
   if (!player.picks.length) return '<span class="pick-pending">No picks recorded</span>';
   return [...player.picks]
@@ -306,7 +316,7 @@ function renderPickHistory(player, teamById) {
       const shortName = teamById.get(pick.teamId)?.short_name ?? pick.team ?? "—";
       const result = getPickResult(pick, state.fixtures);
       const resultClass = result === "win" ? "win" : result === "loss" || result === "no-pick" ? "loss" : "";
-      return `<span class="pick-badge ${resultClass}" title="Gameweek ${pick.gameweek}: ${escapeHtml(getTeamName(pick, teamById))}"><small>GW${pick.gameweek}</small>${escapeHtml(shortName)}</span>`;
+      return `<span class="pick-badge ${resultClass}" title="Gameweek ${pick.gameweek}: ${escapeHtml(getTeamName(pick, teamById))}${pick.viaWheel ? " (wheel pick)" : ""}"><small>GW${pick.gameweek}</small><span>${escapeHtml(shortName)}${wheelMarker(pick)}</span></span>`;
     }).join("");
 }
 
@@ -452,7 +462,7 @@ function renderPickMatrix() {
       const pick = picksByTeam.get(team.id);
       if (!pick) return '<td class="pick-available" aria-label="Available">·</td>';
       const result = getPickResult(pick, state.fixtures);
-      return `<td class="pick-used ${escapeHtml(result)}" title="${escapeHtml(player.name)} picked ${escapeHtml(team.name)} in Gameweek ${pick.gameweek}"><span>GW${pick.gameweek}</span></td>`;
+      return `<td class="pick-used ${escapeHtml(result)}" title="${escapeHtml(player.name)} picked ${escapeHtml(team.name)} in Gameweek ${pick.gameweek}${pick.viaWheel ? " via the wheel" : ""}"><span>GW${pick.gameweek}${wheelMarker(pick)}</span></td>`;
     }).join("");
     return `<tr><th scope="row"><span>${escapeHtml(player.icon)}</span>${escapeHtml(player.name)}</th>${cells}</tr>`;
   }).join("");

@@ -149,10 +149,14 @@ h2 { margin-bottom: 0; font-size: clamp(40px, 5vw, 66px); line-height: 0.98; let
 .status { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.58); font-size: 10px; font-weight: 700; text-transform: uppercase; }
 .status::before { width: 7px; height: 7px; border-radius: 50%; content: ""; background: var(--lime); }
 .status.out::before { background: var(--orange); }
-.pick-name { font-weight: 700; }
+.pick-name { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; }
 .pick-pending { color: rgba(255, 255, 255, 0.35); font-style: italic; }
 .pick-history { display: flex; gap: 7px; min-width: 250px; }
 .pick-badge { display: grid; min-width: 34px; height: 26px; padding: 0 7px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 2px; color: rgba(255, 255, 255, 0.62); font: 500 9px/1 "DM Mono", monospace; }
+.pick-badge > span { display: inline-flex; align-items: center; gap: 4px; }
+.wheel-pick-marker { display: inline-grid; width: 15px; height: 15px; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--lime); font: 700 8px/1 "DM Mono", monospace; }
+.pick-badge .wheel-pick-marker, .pick-used .wheel-pick-marker { width: 12px; height: 12px; font-size: 6px; }
+.pick-used .wheel-pick-marker { margin-left: 3px; color: inherit; vertical-align: -2px; }
 .pick-badge.win { border-color: rgba(189, 216, 76, 0.38); color: var(--lime); background: rgba(189, 216, 76, 0.08); }
 .pick-badge.loss { border-color: rgba(231, 107, 62, 0.5); color: #ff9d78; background: rgba(231, 107, 62, 0.09); }
 

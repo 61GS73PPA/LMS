@@ -36,6 +36,7 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 - `charity` is shown when somebody clicks the player's name. Use `null` to display “Pocketing the money”.
 - `teamId` is the FPL team ID found in `data/fpl.json` under `bootstrap.teams`.
 - `result` can be `pending`, `win`, `loss`, or `no-pick`.
+- Set `viaWheel` to `true` when the pick came from the wheel; the app displays a wheel marker beside it.
 - Finished FPL fixtures automatically resolve `pending` picks: only a win survives; a draw or loss eliminates the player. Explicit `loss` and `no-pick` values still work, and `status` can be set to `out` manually.
 - Commit and push the JSON change to publish it after the pull request is merged.
 

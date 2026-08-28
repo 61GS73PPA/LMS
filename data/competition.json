@@ -52,6 +52,12 @@
           "gameweek": 1,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 2,
+          "teamId": 20,
+          "result": "pending",
+          "viaWheel": true
         }
       ],
       "icon": "👶🏻",
@@ -180,6 +186,12 @@
           "gameweek": 1,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 2,
+          "teamId": 20,
+          "result": "pending",
+          "viaWheel": true
         }
       ],
       "icon": "🐷",

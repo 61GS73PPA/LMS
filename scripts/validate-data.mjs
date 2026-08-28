@@ -39,6 +39,7 @@ for (const player of competition.players) {
   for (const pick of player.picks) {
     assert.ok(["pending", "win", "loss", "no-pick"].includes(pick.result), `${player.name} has an invalid pick result`);
     assert.ok(fpl.bootstrap.teams.some((team) => team.id === pick.teamId), `${player.name} has an invalid team ID`);
+    assert.ok(pick.viaWheel === undefined || typeof pick.viaWheel === "boolean", `${player.name} has an invalid wheel marker`);
   }
 }
 
