@@ -50,7 +50,7 @@ The dashboard uses the top-level `round` as the active competition gameweek, so 
 
 ## Premier League data
 
-The browser first requests the official Fantasy Premier League API. It refreshes live fixture scores once per minute while the page is open, displays goal and red-card events, and uses FPL player availability flags for the Team News section. If live requests are blocked or unavailable, it uses the checked-in `data/fpl.json` snapshot. The `Update Premier League data` GitHub Actions workflow refreshes that snapshot every six hours.
+The browser first requests the official Fantasy Premier League API. It refreshes live fixture scores and player availability once per minute while the page is open, displays goal and red-card events, and uses FPL player availability flags for the Team News section. A visible source indicator and update time show whether the app is using live data or the checked-in `data/fpl.json` snapshot. The `Update Premier League data` GitHub Actions workflow refreshes the fallback on `main` every six hours.
 
 To refresh it manually:
 

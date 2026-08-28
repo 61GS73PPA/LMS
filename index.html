@@ -43,7 +43,7 @@
         </nav>
 
         <div class="header-meta">
-          <span class="live-dot"><i></i> Live data</span>
+          <span class="live-dot" id="data-source-indicator"><i></i><span id="data-source-label">Connecting…</span></span>
           <span id="season-label">Premier League</span>
         </div>
       </header>
@@ -89,6 +89,30 @@
             </div>
             <p class="deadline-note" id="data-note">Picks lock one hour before the first kick-off.</p>
           </aside>
+          <section class="experience-dashboard" aria-label="Competition at a glance">
+            <article class="summary-panel">
+              <div class="summary-panel-heading">
+                <div>
+                  <p class="eyebrow">Gameweek at a glance</p>
+                  <h2>Round summary</h2>
+                </div>
+                <button class="secondary-action" id="share-standings" type="button">Share standings <span aria-hidden="true">↗</span></button>
+              </div>
+              <div class="summary-stats" id="round-summary"></div>
+            </article>
+            <article class="next-pick-panel">
+              <p class="eyebrow">Next pick</p>
+              <h2 id="next-pick-title">Choose before the deadline</h2>
+              <p id="pick-reminder-copy">Loading pick status…</p>
+              <div class="reminder-list" id="pick-reminder-list"></div>
+              <div class="next-fixtures" id="next-fixtures"></div>
+              <div class="next-pick-links">
+                <a class="text-action" href="#pick-grid">Check used teams <span aria-hidden="true">→</span></a>
+                <a class="text-action" href="#difficulty">Compare difficulty <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          </section>
+
           <article class="round-review-card" aria-labelledby="round-review-title">
             <div>
               <p class="eyebrow">Gameweek 1 review</p>
@@ -122,6 +146,7 @@
               <thead>
                 <tr>
                   <th>Player</th>
+                  <th class="movement-column"><abbr title="Movement since the previous gameweek">Move</abbr></th>
                   <th>Status</th>
                   <th>Current pick</th>
                   <th class="goal-difference">GD</th>
@@ -161,12 +186,20 @@
         </section>
 
         <section class="app-page section team-news-section" id="team-news" data-page="team-news" hidden>
-          <div class="section-heading">
+          <div class="section-heading team-news-heading-bar">
             <div>
               <p class="eyebrow">Availability watch</p>
               <h2>Team news &amp; injuries</h2>
               <p class="section-description">Official FPL availability flags, expected return notes, and chance of playing next round.</p>
+              <p class="freshness-copy" id="team-news-updated" aria-live="polite">Checking for the latest update…</p>
             </div>
+            <button class="refresh-button" id="refresh-team-news" type="button"><span aria-hidden="true">↻</span> Refresh news</button>
+          </div>
+          <div class="news-filters" role="group" aria-label="Filter team news">
+            <button class="active" type="button" data-news-filter="all">All</button>
+            <button type="button" data-news-filter="out">Out</button>
+            <button type="button" data-news-filter="doubtful">Doubtful</button>
+            <button type="button" data-news-filter="suspended">Suspended</button>
           </div>
           <div class="team-news-grid" id="team-news-grid">
             <p class="empty-state">Loading availability updates…</p>
@@ -297,6 +330,7 @@
         <div class="dialog-player-stats">
           <div><span>Status</span><strong id="player-dialog-status">Queuing for the wheel</strong></div>
           <div><span>Current pick</span><strong id="player-dialog-pick">Not entered yet</strong></div>
+          <div><span>Goal difference</span><strong id="player-dialog-gd">0</strong></div>
         </div>
         <div class="dialog-history">
           <span>Pick history</span>

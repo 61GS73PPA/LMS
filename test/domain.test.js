@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   calculatePlayerStatus,
+  calculatePlayerStatusAtEvent,
   findActiveEvent,
   findCompetitionEvent,
   getCharityRepresentation,
@@ -10,6 +11,8 @@ import {
   getPickResult,
   getPlayerGoalDifference,
   getPlayerStatusLabel,
+  getRoundSummary,
+  getStandingMovements,
   getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
@@ -161,4 +164,60 @@ test("players are sorted by status, then goal difference, then name", () => {
     { event: 1, finished: true, team_h: 3, team_a: 6, team_h_score: 0, team_a_score: 1 },
   ];
   assert.deepEqual(sortPlayersByStanding(players, fixtures).map((player) => player.name), ["Brighton", "Arsenal", "Out"]);
+});
+
+
+test("historical standings ignore later picks and eliminations", () => {
+  const players = [
+    { name: "A", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }, { gameweek: 2, teamId: 2, result: "loss" }] },
+    { name: "B", status: "alive", picks: [{ gameweek: 1, teamId: 3, result: "win" }, { gameweek: 2, teamId: 4, result: "win" }] },
+  ];
+  const fixtures = [
+    { event: 1, finished: true, team_h: 1, team_a: 5, team_h_score: 1, team_a_score: 0 },
+    { event: 1, finished: true, team_h: 3, team_a: 6, team_h_score: 3, team_a_score: 0 },
+    { event: 2, finished: true, team_h: 2, team_a: 7, team_h_score: 0, team_a_score: 1 },
+    { event: 2, finished: true, team_h: 4, team_a: 8, team_h_score: 1, team_a_score: 0 },
+  ];
+  assert.equal(calculatePlayerStatusAtEvent(players[0], fixtures, 1), "alive");
+  assert.deepEqual(sortPlayersByStanding(players, fixtures, 1).map((player) => player.name), ["B", "A"]);
+});
+
+test("standing movements compare current and previous gameweek order", () => {
+  const players = [
+    { name: "A", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }, { gameweek: 2, teamId: 2, result: "win" }] },
+    { name: "B", status: "alive", picks: [{ gameweek: 1, teamId: 3, result: "win" }, { gameweek: 2, teamId: 4, result: "win" }] },
+  ];
+  const fixtures = [
+    { event: 1, finished: true, team_h: 1, team_a: 5, team_h_score: 1, team_a_score: 0 },
+    { event: 1, finished: true, team_h: 3, team_a: 6, team_h_score: 2, team_a_score: 0 },
+    { event: 2, finished: true, team_h: 2, team_a: 7, team_h_score: 3, team_a_score: 0 },
+    { event: 2, finished: true, team_h: 4, team_a: 8, team_h_score: 1, team_a_score: 0 },
+  ];
+  assert.deepEqual([...getStandingMovements(players, fixtures, 2)], [["A", 1], ["B", -1]]);
+});
+
+test("round summary reports picks, reminders, eliminations, and popularity", () => {
+  const players = [
+    { name: "A", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }, { gameweek: 2, teamId: 2, result: "win" }] },
+    { name: "B", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }, { gameweek: 2, teamId: 2, result: "loss" }] },
+    { name: "C", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }] },
+  ];
+  const summary = getRoundSummary(players, [], 2);
+  assert.equal(summary.entrants, 3);
+  assert.equal(summary.entered, 2);
+  assert.deepEqual(summary.missing.map((player) => player.name), ["C"]);
+  assert.equal(summary.eliminated, 1);
+  assert.deepEqual(summary.mostPopular, { teamId: 2, count: 2 });
+  assert.equal(summary.bestPick, null);
+});
+
+test("availability filters group doubtful, out, and suspended players", () => {
+  const players = [
+    { team: 1, web_name: "Doubt", status: "d", chance_of_playing_next_round: 50 },
+    { team: 1, web_name: "Out", status: "i", chance_of_playing_next_round: 0 },
+    { team: 1, web_name: "Ban", status: "s", chance_of_playing_next_round: 0 },
+  ];
+  assert.deepEqual(getUnavailablePlayers(players, "doubtful").map((player) => player.web_name), ["Doubt"]);
+  assert.deepEqual(getUnavailablePlayers(players, "out").map((player) => player.web_name), ["Out"]);
+  assert.deepEqual(getUnavailablePlayers(players, "suspended").map((player) => player.web_name), ["Ban"]);
 });
