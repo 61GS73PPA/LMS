@@ -97,6 +97,35 @@ export function getPickResult(pick, fixtures = []) {
   return pickedScore > opponentScore ? "win" : "loss";
 }
 
+export function getPlayerGoalDifference(player, fixtures = []) {
+  return player.picks.reduce((total, pick) => {
+    const fixture = fixtures.find((item) =>
+      item.event === pick.gameweek
+      && (item.team_h === pick.teamId || item.team_a === pick.teamId)
+      && isFixtureComplete(item)
+      && item.team_h_score != null
+      && item.team_a_score != null,
+    );
+    if (!fixture) return total;
+
+    const pickedHomeTeam = fixture.team_h === pick.teamId;
+    const pickedScore = pickedHomeTeam ? fixture.team_h_score : fixture.team_a_score;
+    const opponentScore = pickedHomeTeam ? fixture.team_a_score : fixture.team_h_score;
+    return total + pickedScore - opponentScore;
+  }, 0);
+}
+
+export function sortPlayersByStanding(players, fixtures = []) {
+  return [...players].sort((a, b) => {
+    const statusDifference = Number(calculatePlayerStatus(a, fixtures) === "out")
+      - Number(calculatePlayerStatus(b, fixtures) === "out");
+    if (statusDifference) return statusDifference;
+
+    const goalDifference = getPlayerGoalDifference(b, fixtures) - getPlayerGoalDifference(a, fixtures);
+    return goalDifference || a.name.localeCompare(b.name, "en-GB", { sensitivity: "base" });
+  });
+}
+
 export function calculatePlayerStatus(player, fixtures = []) {
   if (player.status === "out") return "out";
   return player.picks.some((pick) => ["loss", "no-pick"].includes(getPickResult(pick, fixtures)))

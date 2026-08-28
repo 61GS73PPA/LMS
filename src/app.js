@@ -9,12 +9,14 @@ import {
   getNextFiveDifficulty,
   getPickForEvent,
   getPickResult,
+  getPlayerGoalDifference,
   getPlayerStatusLabel,
   getTeamMap,
   getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
   isFixtureComplete,
+  sortPlayersByStanding,
 } from "./domain.js";
 
 const LOCAL_FPL_DATA = "./data/fpl.json";
@@ -142,28 +144,29 @@ function renderPage() {
 
 function renderPlayers(filter) {
   const teamById = getTeamMap(state.bootstrap.teams);
-  const players = state.competition.players
-    .map((player, index) => ({ player, index }))
+  const players = sortPlayersByStanding(state.competition.players, state.fixtures)
+    .map((player) => ({ player, index: state.competition.players.indexOf(player) }))
     .filter(({ player }) => {
       const status = calculatePlayerStatus(player, state.fixtures);
       return filter === "all" || filter === status;
-    })
-    .sort((a, b) => a.player.name.localeCompare(b.player.name, "en-GB", { sensitivity: "base" }));
+    });
 
   elements.playersBody.innerHTML = players.map(({ player, index }) => {
     const status = calculatePlayerStatus(player, state.fixtures);
     const currentPick = getPickForEvent(player, state.activeEvent?.id);
+    const goalDifference = getPlayerGoalDifference(player, state.fixtures);
     return `
       <tr data-status="${status}">
         <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
         <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick, state.fixtures)}</span></td>
         <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : `<span class="pick-pending">${status === "alive" ? "Pick required" : "Eliminated"}</span>`}</td>
+        <td class="goal-difference">${goalDifference > 0 ? "+" : ""}${goalDifference}</td>
         <td><div class="pick-history">${renderPickHistory(player, teamById)}</div></td>
       </tr>`;
   }).join("");
 
   if (!players.length) {
-    elements.playersBody.innerHTML = '<tr><td colspan="4" class="empty-state">No players match this view.</td></tr>';
+    elements.playersBody.innerHTML = '<tr><td colspan="5" class="empty-state">No players match this view.</td></tr>';
   }
 }
 
