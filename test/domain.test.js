@@ -8,11 +8,13 @@ import {
   getCountdownParts,
   getNextFiveDifficulty,
   getPickResult,
+  getPlayerGoalDifference,
   getPlayerStatusLabel,
   getUnavailablePlayers,
   getWheelTargetRotation,
   groupFixturesByEvent,
   isFixtureComplete,
+  sortPlayersByStanding,
 } from "../src/domain.js";
 
 test("findActiveEvent prefers the event flagged by FPL", () => {
@@ -131,4 +133,32 @@ test("player status labels reflect picks and elimination", () => {
   assert.equal(getPlayerStatusLabel(alive, null), "Queuing for the wheel");
   assert.equal(getPlayerStatusLabel(alive, { gameweek: 1 }), "Standing");
   assert.equal(getPlayerStatusLabel(out, null), "6ft deep");
+});
+
+test("player goal difference totals the results of every completed picked fixture", () => {
+  const player = {
+    picks: [
+      { gameweek: 1, teamId: 5, result: "win" },
+      { gameweek: 2, teamId: 16, result: "pending" },
+    ],
+  };
+  const fixtures = [
+    { event: 1, finished: true, team_h: 5, team_a: 2, team_h_score: 4, team_a_score: 0 },
+    { event: 2, finished: true, team_h: 16, team_a: 12, team_h_score: 2, team_a_score: 1 },
+  ];
+  assert.equal(getPlayerGoalDifference(player, fixtures), 5);
+});
+
+test("players are sorted by status, then goal difference, then name", () => {
+  const players = [
+    { name: "Out", status: "out", picks: [{ gameweek: 1, teamId: 3, result: "loss" }] },
+    { name: "Arsenal", status: "alive", picks: [{ gameweek: 1, teamId: 1, result: "win" }] },
+    { name: "Brighton", status: "alive", picks: [{ gameweek: 1, teamId: 5, result: "win" }] },
+  ];
+  const fixtures = [
+    { event: 1, finished: true, team_h: 1, team_a: 4, team_h_score: 3, team_a_score: 0 },
+    { event: 1, finished: true, team_h: 5, team_a: 2, team_h_score: 4, team_a_score: 0 },
+    { event: 1, finished: true, team_h: 3, team_a: 6, team_h_score: 0, team_a_score: 1 },
+  ];
+  assert.deepEqual(sortPlayersByStanding(players, fixtures).map((player) => player.name), ["Brighton", "Arsenal", "Out"]);
 });
