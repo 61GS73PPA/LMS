@@ -756,3 +756,115 @@ footer p, footer > a { color: rgba(255, 255, 255, 0.65); }
   .pick-matrix-wrap { margin-right: -22px; margin-left: -22px; border-right: 0; border-left: 0; }
   .fixture-events { justify-content: flex-start; }
 }
+
+/* Player experience dashboard, freshness controls, and responsive standings */
+.live-dot.snapshot i { background: var(--orange); box-shadow: 0 0 0 5px rgba(245, 160, 0, 0.14); }
+.experience-dashboard {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 18px;
+}
+.summary-panel,
+.next-pick-panel {
+  padding: 30px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+.summary-panel-heading { display: flex; justify-content: space-between; align-items: start; gap: 24px; }
+.summary-panel .eyebrow,
+.next-pick-panel .eyebrow { margin-bottom: 10px; }
+.summary-panel h2,
+.next-pick-panel h2 { font-size: clamp(27px, 3vw, 38px); letter-spacing: -0.045em; }
+.summary-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 28px; background: var(--line); }
+.summary-stats div { min-width: 0; padding: 18px; background: #fff; }
+.summary-stats strong,
+.summary-stats span { display: block; }
+.summary-stats strong { overflow: hidden; color: var(--green); font: 700 clamp(18px, 2.3vw, 29px)/1.1 "DM Mono", monospace; text-overflow: ellipsis; white-space: nowrap; }
+.summary-stats span { margin-top: 8px; color: var(--ink-soft); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.secondary-action,
+.refresh-button {
+  flex: 0 0 auto;
+  padding: 11px 14px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.secondary-action:hover,
+.refresh-button:hover { color: #fff; background: var(--green); }
+.next-pick-panel { color: #fff; background: var(--green-dark); }
+.next-pick-panel .eyebrow { color: var(--lime); }
+.next-pick-panel > p:not(.eyebrow) { margin: 18px 0; color: rgba(255, 255, 255, 0.65); font-size: 12px; line-height: 1.6; }
+.reminder-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+.reminder-list button,
+.all-entered { padding: 7px 9px; border: 1px solid rgba(255, 255, 255, 0.18); color: #fff; background: rgba(255, 255, 255, 0.07); font-size: 10px; font-weight: 700; }
+.reminder-list button { cursor: pointer; }
+.reminder-list button:hover { color: var(--green-dark); background: var(--lime); }
+.all-entered { color: var(--lime); }
+.text-action { display: inline-flex; gap: 14px; color: var(--lime); font-size: 11px; font-weight: 800; }
+.round-review-card { margin-top: 0; }
+.movement-column { width: 1%; text-align: center !important; white-space: nowrap; }
+.movement-column abbr { text-decoration: none; }
+.movement { font: 700 10px/1 "DM Mono", monospace; }
+.movement.up { color: var(--lime); }
+.movement.down { color: #ff9d78; }
+.movement.same { color: rgba(255, 255, 255, 0.34); }
+.team-news-heading-bar { align-items: center; }
+.freshness-copy { margin: 12px 0 0; color: var(--green); font: 700 10px/1.4 "DM Mono", monospace; }
+.refresh-button { display: inline-flex; align-items: center; gap: 8px; }
+.refresh-button.refreshing span { animation: spin-icon 700ms linear infinite; }
+.refresh-button:disabled { cursor: wait; opacity: 0.55; }
+.news-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: -22px 0 28px; }
+.news-filters button { padding: 8px 12px; border: 1px solid var(--line); color: var(--ink-soft); background: rgba(255, 255, 255, 0.5); font-size: 10px; font-weight: 800; cursor: pointer; }
+.news-filters button.active { border-color: var(--green); color: #fff; background: var(--green); }
+.availability-category { margin-bottom: 5px; color: var(--green) !important; font: 700 8px/1 "DM Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+.dialog-player-stats { grid-template-columns: repeat(3, 1fr); }
+.dialog-player-stats div + div { padding-left: 22px; }
+
+@media (max-width: 980px) {
+  .experience-dashboard { grid-template-columns: 1fr; }
+  .summary-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .summary-panel,
+  .next-pick-panel { padding: 24px; }
+  .summary-panel-heading { display: block; }
+  .secondary-action { margin-top: 20px; }
+  .summary-stats { margin-top: 22px; }
+  .team-news-heading-bar .refresh-button { margin-top: 22px; }
+  .news-filters { margin-top: -20px; }
+  .players-table { min-width: 0; }
+  .players-table th:nth-child(3),
+  .players-table td:nth-child(3),
+  .players-table th:nth-child(6),
+  .players-table td:nth-child(6) { display: none; }
+  .players-table th,
+  .players-table td { padding-right: 8px; padding-left: 8px; }
+  .player-cell { min-width: 135px; }
+  .players-table .player-profile-button::after { content: "View history"; display: block; margin-left: auto; color: var(--lime); font-size: 8px; text-transform: uppercase; }
+  .profile-arrow { display: none; }
+}
+
+@media (max-width: 560px) {
+  .summary-stats strong { font-size: 20px; }
+  .dialog-player-stats { grid-template-columns: 1fr; }
+  .dialog-player-stats div { padding: 17px 0; }
+  .dialog-player-stats div + div { padding-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); border-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+.next-fixtures { display: grid; grid-template-columns: auto repeat(3, 1fr); align-items: center; gap: 5px; margin: 0 0 22px; }
+.next-fixtures > span { margin-right: 5px; color: rgba(255, 255, 255, 0.42); font: 700 8px/1 "DM Mono", monospace; text-transform: uppercase; }
+.next-fixtures a { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 5px; color: #fff; background: rgba(255, 255, 255, 0.08); font: 700 9px/1 "DM Mono", monospace; }
+.next-fixtures i { color: var(--lime); font-style: normal; }
+.next-pick-links { display: flex; flex-wrap: wrap; gap: 18px; }
+@media (max-width: 480px) {
+  .next-fixtures { grid-template-columns: repeat(3, 1fr); }
+  .next-fixtures > span { grid-column: 1 / -1; margin-bottom: 4px; }
+}

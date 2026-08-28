@@ -10,6 +10,8 @@ import {
   getPickForEvent,
   getPickResult,
   getPlayerGoalDifference,
+  getRoundSummary,
+  getStandingMovements,
   getPlayerStatusLabel,
   getTeamMap,
   getUnavailablePlayers,
@@ -31,6 +33,8 @@ const state = {
   activeEvent: null,
   selectedEvent: null,
   source: "local",
+  lastUpdated: null,
+  newsFilter: "all",
   deadline: null,
   wheelRotation: 0,
 };
@@ -40,6 +44,8 @@ const elements = {
   charityRepresentationList: document.querySelector("#charity-representation-list"),
   countdown: document.querySelector("#countdown"),
   dataNote: document.querySelector("#data-note"),
+  dataSourceIndicator: document.querySelector("#data-source-indicator"),
+  dataSourceLabel: document.querySelector("#data-source-label"),
   deadlineDate: document.querySelector("#deadline-title"),
   deadlineGameweek: document.querySelector("#deadline-gameweek"),
   easiestList: document.querySelector("#easiest-list"),
@@ -49,19 +55,27 @@ const elements = {
   gameweekSelect: document.querySelector("#gameweek-select"),
   hardestList: document.querySelector("#hardest-list"),
   outCount: document.querySelector("#out-count"),
+  nextFixtures: document.querySelector("#next-fixtures"),
   pickMatrixWrap: document.querySelector("#pick-matrix-wrap"),
   playerDialog: document.querySelector("#player-dialog"),
   playerDialogCharity: document.querySelector("#player-dialog-charity"),
   playerDialogHistory: document.querySelector("#player-dialog-history"),
   playerDialogIndex: document.querySelector("#player-dialog-index"),
+  playerDialogGoalDifference: document.querySelector("#player-dialog-gd"),
   playerDialogName: document.querySelector("#player-dialog-name"),
   playerDialogPick: document.querySelector("#player-dialog-pick"),
   playerDialogStatus: document.querySelector("#player-dialog-status"),
   playersBody: document.querySelector("#players-body"),
+  refreshTeamNews: document.querySelector("#refresh-team-news"),
   roundLabel: document.querySelector("#round-label"),
+  roundSummary: document.querySelector("#round-summary"),
   seasonLabel: document.querySelector("#season-label"),
+  shareStandings: document.querySelector("#share-standings"),
   spinWheel: document.querySelector("#spin-wheel"),
   teamNewsGrid: document.querySelector("#team-news-grid"),
+  teamNewsUpdated: document.querySelector("#team-news-updated"),
+  pickReminderCopy: document.querySelector("#pick-reminder-copy"),
+  pickReminderList: document.querySelector("#pick-reminder-list"),
   teamWheel: document.querySelector("#team-wheel"),
   wheelResult: document.querySelector("#wheel-result"),
 };
@@ -79,11 +93,14 @@ async function loadFplData() {
       fetchJson(FPL_FIXTURES_URL),
     ]);
     state.source = "live";
+    state.lastUpdated = new Date();
     return { bootstrap, fixtures };
   } catch (error) {
     console.info("Live FPL data unavailable; using the repository snapshot.", error);
     state.source = "snapshot";
-    return fetchJson(LOCAL_FPL_DATA);
+    const snapshot = await fetchJson(LOCAL_FPL_DATA);
+    state.lastUpdated = snapshot.bootstrap.updatedAt ? new Date(snapshot.bootstrap.updatedAt) : null;
+    return snapshot;
   }
 }
 
@@ -129,21 +146,107 @@ function renderPage() {
     elements.deadlineGameweek.textContent = state.activeEvent.name;
     elements.deadlineDate.textContent = formatDeadline(state.deadline);
   }
-  elements.dataNote.textContent = `All ${alive.length} remaining players need a new pick · picks lock one hour before the first kick-off.`;
+  renderDataFreshness();
+  renderRoundSummary();
+  renderPickReminder();
 
   renderPlayers("all");
   renderGameweekSelect();
   renderFixtures();
   renderDifficulty();
-  renderTeamNews();
+  renderTeamNews(state.newsFilter);
   renderPickMatrix();
   renderCharityRepresentation();
   renderWheel();
   showRoute(getRequestedRoute());
 }
 
+function renderDataFreshness(message = "") {
+  const isLive = state.source === "live";
+  elements.dataSourceIndicator.classList.toggle("snapshot", !isLive);
+  elements.dataSourceLabel.textContent = isLive ? "Live FPL data" : "Fallback data";
+  const updated = state.lastUpdated ? formatRelativeTime(state.lastUpdated) : "unknown";
+  elements.teamNewsUpdated.textContent = message || `${isLive ? "Live FPL data" : "Fallback snapshot"} · updated ${updated}`;
+  elements.dataNote.textContent = `${isLive ? "Live scores and team news are connected" : "Using the saved FPL snapshot"} · updated ${updated}.`;
+}
+
+function renderRoundSummary() {
+  const teamById = getTeamMap(state.bootstrap.teams);
+  const summary = getRoundSummary(state.competition.players, state.fixtures, state.activeEvent?.id);
+  const popularTeam = summary.mostPopular ? teamById.get(summary.mostPopular.teamId)?.name ?? "Unknown" : "No picks yet";
+  const bestTeam = summary.bestPick ? teamById.get(summary.bestPick.teamId)?.name ?? "Unknown" : null;
+  elements.roundSummary.innerHTML = `
+    <div><strong>${summary.entrants - summary.eliminated}</strong><span>Still standing</span></div>
+    <div><strong>${summary.eliminated}</strong><span>Out this week</span></div>
+    <div><strong>${summary.entered}/${summary.entrants}</strong><span>Picks entered</span></div>
+    <div><strong>${escapeHtml(bestTeam ?? popularTeam)}</strong><span>${bestTeam ? `Best pick · ${summary.bestPick.goalDifference > 0 ? "+" : ""}${summary.bestPick.goalDifference} GD` : `Most popular${summary.mostPopular ? ` · ${summary.mostPopular.count}` : ""}`}</span></div>`;
+}
+
+function renderPickReminder() {
+  const summary = getRoundSummary(state.competition.players, state.fixtures, state.activeEvent?.id);
+  if (!summary.missing.length) {
+    elements.pickReminderCopy.textContent = "Every standing player has a pick recorded for this gameweek.";
+    elements.pickReminderList.innerHTML = '<span class="all-entered">✓ Everyone is in</span>';
+  } else {
+    elements.pickReminderCopy.textContent = `${summary.missing.length} standing player${summary.missing.length === 1 ? " still needs" : "s still need"} a Gameweek ${state.activeEvent?.id} pick.`;
+    elements.pickReminderList.innerHTML = summary.missing.map((player) => `<button type="button" data-reminder-player="${state.competition.players.indexOf(player)}">${escapeHtml(player.icon)} ${escapeHtml(player.name)}</button>`).join("");
+    elements.pickReminderList.querySelectorAll("[data-reminder-player]").forEach((button) => {
+      button.addEventListener("click", () => openPlayerProfile(Number(button.dataset.reminderPlayer)));
+    });
+  }
+
+  const teamById = getTeamMap(state.bootstrap.teams);
+  const fixtures = state.fixtures
+    .filter((fixture) => fixture.event === state.activeEvent?.id)
+    .sort((a, b) => new Date(a.kickoff_time) - new Date(b.kickoff_time))
+    .slice(0, 3);
+  elements.nextFixtures.innerHTML = fixtures.length
+    ? `<span>Next fixtures</span>${fixtures.map((fixture) => `<a href="#fixtures"><strong>${escapeHtml(teamById.get(fixture.team_h)?.short_name ?? "TBC")}</strong><i>v</i><strong>${escapeHtml(teamById.get(fixture.team_a)?.short_name ?? "TBC")}</strong></a>`).join("")}`
+    : "";
+}
+
+function movementMarkup(movement) {
+  if (!movement) return '<span class="movement same" aria-label="No change">—</span>';
+  const direction = movement > 0 ? "up" : "down";
+  const label = `${Math.abs(movement)} place${Math.abs(movement) === 1 ? "" : "s"} ${direction}`;
+  return `<span class="movement ${direction}" aria-label="${label}" title="${label}">${movement > 0 ? "↑" : "↓"}${Math.abs(movement)}</span>`;
+}
+
+function formatRelativeTime(date, now = new Date()) {
+  const elapsedSeconds = Math.max(0, Math.floor((now - date) / 1000));
+  if (elapsedSeconds < 10) return "just now";
+  if (elapsedSeconds < 60) return `${elapsedSeconds} seconds ago`;
+  const minutes = Math.floor(elapsedSeconds / 60);
+  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(date);
+}
+
+async function shareStandings() {
+  const leaders = sortPlayersByStanding(state.competition.players, state.fixtures)
+    .filter((player) => calculatePlayerStatus(player, state.fixtures) === "alive")
+    .slice(0, 5);
+  const text = [`Kony365 · Gameweek ${state.activeEvent?.id}`, ...leaders.map((player, index) => {
+    const gd = getPlayerGoalDifference(player, state.fixtures);
+    return `${index + 1}. ${player.name} (${gd > 0 ? "+" : ""}${gd} GD)`;
+  }), window.location.href].join("\n");
+
+  try {
+    if (navigator.share) await navigator.share({ title: "Kony365 standings", text });
+    else {
+      await navigator.clipboard.writeText(text);
+      elements.shareStandings.firstChild.textContent = "Copied! ";
+      window.setTimeout(() => { elements.shareStandings.firstChild.textContent = "Share standings "; }, 1800);
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") console.info("Standings could not be shared.", error);
+  }
+}
+
 function renderPlayers(filter) {
   const teamById = getTeamMap(state.bootstrap.teams);
+  const movements = getStandingMovements(state.competition.players, state.fixtures, state.activeEvent?.id);
   const players = sortPlayersByStanding(state.competition.players, state.fixtures)
     .map((player) => ({ player, index: state.competition.players.indexOf(player) }))
     .filter(({ player }) => {
@@ -155,9 +258,11 @@ function renderPlayers(filter) {
     const status = calculatePlayerStatus(player, state.fixtures);
     const currentPick = getPickForEvent(player, state.activeEvent?.id);
     const goalDifference = getPlayerGoalDifference(player, state.fixtures);
+    const movement = movements.get(player.name) ?? 0;
     return `
       <tr data-status="${status}">
         <td><button class="player-cell player-profile-button" type="button" data-player-index="${index}" aria-label="View ${escapeHtml(player.name)}'s profile"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span><span class="profile-arrow" aria-hidden="true">↗</span></button></td>
+        <td class="movement-column">${movementMarkup(movement)}</td>
         <td><span class="status ${status}${!currentPick && status === "alive" ? " queued" : ""}">${getPlayerStatusLabel(player, currentPick, state.fixtures)}</span></td>
         <td>${currentPick ? `<span class="pick-name">${escapeHtml(getTeamName(currentPick, teamById))}</span>` : `<span class="pick-pending">${status === "alive" ? "Pick required" : "Eliminated"}</span>`}</td>
         <td class="goal-difference">${goalDifference > 0 ? "+" : ""}${goalDifference}</td>
@@ -166,7 +271,7 @@ function renderPlayers(filter) {
   }).join("");
 
   if (!players.length) {
-    elements.playersBody.innerHTML = '<tr><td colspan="5" class="empty-state">No players match this view.</td></tr>';
+    elements.playersBody.innerHTML = '<tr><td colspan="6" class="empty-state">No players match this view.</td></tr>';
   }
 }
 
@@ -182,6 +287,8 @@ function openPlayerProfile(playerIndex) {
   elements.playerDialogCharity.innerHTML = renderCharity(player.charity);
   elements.playerDialogStatus.textContent = getPlayerStatusLabel(player, currentPick, state.fixtures);
   elements.playerDialogPick.textContent = currentPick ? getTeamName(currentPick, teamById) : status === "alive" ? "Pick required" : "Eliminated";
+  const goalDifference = getPlayerGoalDifference(player, state.fixtures);
+  elements.playerDialogGoalDifference.textContent = `${goalDifference > 0 ? "+" : ""}${goalDifference}`;
   elements.playerDialogHistory.innerHTML = renderPickHistory(player, teamById);
   elements.playerDialog.showModal();
 }
@@ -299,11 +406,12 @@ function difficultyMarkup(entry, teamById) {
   </div>`;
 }
 
-function renderTeamNews() {
+function renderTeamNews(filter = "all") {
+  state.newsFilter = filter;
   const teamById = getTeamMap(state.bootstrap.teams);
-  const unavailable = getUnavailablePlayers(state.bootstrap.elements ?? []);
+  const unavailable = getUnavailablePlayers(state.bootstrap.elements ?? [], filter);
   if (!unavailable.length) {
-    elements.teamNewsGrid.innerHTML = '<p class="empty-state">No injuries or availability doubts are currently flagged by FPL.</p>';
+    elements.teamNewsGrid.innerHTML = '<p class="empty-state">No players match this availability filter.</p>';
     return;
   }
 
@@ -323,8 +431,9 @@ function renderTeamNews() {
 function availabilityMarkup(player) {
   const chance = player.chance_of_playing_next_round;
   const chanceLabel = chance == null ? statusLabel(player.status) : `${chance}% chance`;
+  const category = player.status === "s" ? "Suspended" : chance === 0 || chance == null ? "Out" : "Doubtful";
   return `<div class="availability-row">
-    <div><strong>${escapeHtml(player.web_name)}</strong><span>${escapeHtml(player.news || statusLabel(player.status))}</span></div>
+    <div><span class="availability-category">${category}</span><strong>${escapeHtml(player.web_name)}</strong><span>${escapeHtml(player.news || statusLabel(player.status))}</span></div>
     <b class="availability-${escapeHtml(player.status)}">${escapeHtml(chanceLabel)}</b>
   </div>`;
 }
@@ -363,19 +472,34 @@ function renderCharityRepresentation() {
   }).join("");
 }
 
-async function refreshLiveData() {
-  if (state.source !== "live" || document.hidden) return;
+async function refreshLiveData({ force = false } = {}) {
+  if ((!force && state.source !== "live") || document.hidden) return;
   try {
-    const fixtures = await fetchJson(FPL_FIXTURES_URL);
+    const [bootstrap, fixtures] = await Promise.all([
+      fetchJson(FPL_BOOTSTRAP_URL),
+      fetchJson(FPL_FIXTURES_URL),
+    ]);
+    state.bootstrap = bootstrap;
     state.fixtures = fixtures;
+    state.source = "live";
+    state.lastUpdated = new Date();
     renderPlayers(document.querySelector("[data-filter].active")?.dataset.filter ?? "all");
     renderFixtures();
+    renderDifficulty();
+    renderTeamNews(state.newsFilter);
+    renderDataFreshness();
+    renderRoundSummary();
+    renderPickReminder();
     renderPickMatrix();
     const alive = state.competition.players.filter((player) => calculatePlayerStatus(player, state.fixtures) === "alive");
     elements.aliveCount.textContent = alive.length;
     elements.outCount.textContent = state.competition.players.length - alive.length;
   } catch (error) {
-    console.info("Live fixture refresh failed; retaining the last known scores.", error);
+    console.info("Live data refresh failed; retaining the last known data.", error);
+    renderDataFreshness("Refresh failed — showing the last successful update");
+  } finally {
+    elements.refreshTeamNews.disabled = false;
+    elements.refreshTeamNews.classList.remove("refreshing");
   }
 }
 
@@ -446,6 +570,20 @@ function bindInteractions() {
     renderFixtures();
   });
 
+  document.querySelectorAll("[data-news-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll("[data-news-filter]").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      renderTeamNews(button.dataset.newsFilter);
+    });
+  });
+
+  elements.refreshTeamNews.addEventListener("click", () => {
+    elements.refreshTeamNews.disabled = true;
+    elements.refreshTeamNews.classList.add("refreshing");
+    refreshLiveData({ force: true });
+  });
+  elements.shareStandings.addEventListener("click", shareStandings);
   elements.spinWheel.addEventListener("click", spinWheel);
 }
 
