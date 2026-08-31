@@ -7,19 +7,20 @@ const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.ur
 assert.equal(competition.players.length, 20, "Expected all 20 competition players");
 assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 competition name");
-assert.equal(competition.round, 2, "Expected Gameweek 2 to be active");
+assert.equal(competition.round, 3, "Expected Gameweek 3 to be active");
 assert.equal(competition.deadlines["1"], "2026-08-21T18:00:00Z", "Expected the Gameweek 1 pick deadline");
 assert.equal(competition.deadlines["2"], "2026-08-28T18:00:00Z", "Expected the Gameweek 2 pick deadline");
+assert.equal(competition.deadlines["3"], "2026-09-04T17:00:00Z", "Expected the Gameweek 3 pick deadline");
 assert.ok(fpl.bootstrap.events.length >= 38, "Expected a full set of gameweeks");
 assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams");
 assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
-assert.equal(competition.players.filter((player) => player.status === "alive").length, 16, "Expected 16 Gameweek 2 survivors");
+assert.equal(competition.players.filter((player) => player.status === "alive").length, 10, "Expected 10 Gameweek 3 survivors");
 assert.deepEqual(
   competition.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
-  ["Cam", "Leicester", "Tom Davies", "Tom Mahon"],
-  "Expected the four Gameweek 1 eliminations",
+  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
+  "Expected the ten eliminations through Gameweek 2",
 );
 
 for (const player of competition.players) {

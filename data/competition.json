@@ -1,10 +1,10 @@
 {
   "competitionName": "Kony365",
-  "round": 2,
+  "round": 3,
   "players": [
     {
       "name": "Kony",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -14,7 +14,7 @@
         {
           "gameweek": 2,
           "teamId": 14,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🎅🏻",
@@ -35,7 +35,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "⚽",
@@ -56,7 +56,7 @@
         {
           "gameweek": 2,
           "teamId": 20,
-          "result": "pending",
+          "result": "win",
           "viaWheel": true
         }
       ],
@@ -65,7 +65,7 @@
     },
     {
       "name": "Rhod",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -75,7 +75,7 @@
         {
           "gameweek": 2,
           "teamId": 14,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "👨🏻‍🦲",
@@ -96,7 +96,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🧑‍🏫",
@@ -117,7 +117,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🐟",
@@ -128,7 +128,7 @@
     },
     {
       "name": "Hub",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -138,7 +138,7 @@
         {
           "gameweek": 2,
           "teamId": 19,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "👨🏾‍⚕️",
@@ -169,7 +169,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "💳",
@@ -190,7 +190,7 @@
         {
           "gameweek": 2,
           "teamId": 20,
-          "result": "pending",
+          "result": "win",
           "viaWheel": true
         }
       ],
@@ -212,7 +212,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🚛",
@@ -230,7 +230,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "⛰️",
@@ -241,7 +241,7 @@
     },
     {
       "name": "Brushel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -251,7 +251,7 @@
         {
           "gameweek": 2,
           "teamId": 14,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🦰",
@@ -272,7 +272,7 @@
         {
           "gameweek": 2,
           "teamId": 16,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🍚",
@@ -283,7 +283,7 @@
     },
     {
       "name": "Jordan Padel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -293,7 +293,7 @@
         {
           "gameweek": 2,
           "teamId": 14,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🎾",
@@ -311,7 +311,7 @@
         {
           "gameweek": 2,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "☕️",
@@ -322,7 +322,7 @@
     },
     {
       "name": "Mezzy T",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -332,7 +332,7 @@
         {
           "gameweek": 2,
           "teamId": 14,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "🍺",
@@ -383,6 +383,7 @@
   ],
   "deadlines": {
     "1": "2026-08-21T18:00:00Z",
-    "2": "2026-08-28T18:00:00Z"
+    "2": "2026-08-28T18:00:00Z",
+    "3": "2026-09-04T17:00:00Z"
   }
 }
