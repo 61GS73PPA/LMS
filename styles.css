@@ -842,8 +842,6 @@ footer p, footer > a { color: rgba(255, 255, 255, 0.65); }
   .team-news-heading-bar .refresh-button { margin-top: 22px; }
   .news-filters { margin-top: -20px; }
   .players-table { min-width: 0; }
-  .players-table th:nth-child(3),
-  .players-table td:nth-child(3),
   .players-table th:nth-child(6),
   .players-table td:nth-child(6) { display: none; }
   .players-table th,
