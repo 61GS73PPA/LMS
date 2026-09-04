@@ -16,11 +16,16 @@ assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams")
 assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
-assert.equal(competition.players.filter((player) => player.status === "alive").length, 10, "Expected 10 Gameweek 3 survivors");
+assert.equal(competition.players.filter((player) => player.status === "alive").length, 11, "Expected 11 Gameweek 3 survivors");
 assert.deepEqual(
   competition.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
-  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
-  "Expected the ten eliminations through Gameweek 2",
+  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
+  "Expected the nine eliminations through Gameweek 2",
+);
+assert.equal(
+  competition.players.find((player) => player.name === "Leicester").status,
+  "alive",
+  "Leicester survived Gameweek 1 (Leeds) and Gameweek 2 (Man Utd) and must remain alive",
 );
 
 for (const player of competition.players) {

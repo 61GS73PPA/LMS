@@ -36,6 +36,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "⚽",
@@ -58,6 +63,11 @@
           "teamId": 20,
           "result": "win",
           "viaWheel": true
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "👶🏻",
@@ -97,6 +107,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "🧑‍🏫",
@@ -118,6 +133,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "🐟",
@@ -146,12 +166,22 @@
     },
     {
       "name": "Leicester",
-      "status": "out",
+      "status": "alive",
       "picks": [
         {
           "gameweek": 1,
+          "teamId": 13,
+          "result": "win"
+        },
+        {
+          "gameweek": 2,
           "teamId": 16,
-          "result": "loss"
+          "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 7,
+          "result": "pending"
         }
       ],
       "icon": "👴🏻",
@@ -170,6 +200,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "💳",
@@ -192,6 +227,11 @@
           "teamId": 20,
           "result": "win",
           "viaWheel": true
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "🐷",
@@ -213,6 +253,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 14,
+          "result": "pending"
         }
       ],
       "icon": "🚛",
@@ -231,6 +276,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "⛰️",
@@ -273,6 +323,11 @@
           "gameweek": 2,
           "teamId": 16,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "🍚",
@@ -312,6 +367,11 @@
           "gameweek": 2,
           "teamId": 15,
           "result": "win"
+        },
+        {
+          "gameweek": 3,
+          "teamId": 11,
+          "result": "pending"
         }
       ],
       "icon": "☕️",
