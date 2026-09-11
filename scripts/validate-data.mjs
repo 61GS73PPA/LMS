@@ -7,25 +7,31 @@ const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.ur
 assert.equal(competition.players.length, 20, "Expected all 20 competition players");
 assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 competition name");
-assert.equal(competition.round, 3, "Expected Gameweek 3 to be active");
+assert.equal(competition.round, 4, "Expected Gameweek 4 to be active");
 assert.equal(competition.deadlines["1"], "2026-08-21T18:00:00Z", "Expected the Gameweek 1 pick deadline");
 assert.equal(competition.deadlines["2"], "2026-08-28T18:00:00Z", "Expected the Gameweek 2 pick deadline");
 assert.equal(competition.deadlines["3"], "2026-09-04T17:00:00Z", "Expected the Gameweek 3 pick deadline");
+assert.equal(competition.deadlines["4"], "2026-09-12T13:00:00Z", "Expected the Gameweek 4 pick deadline");
 assert.ok(fpl.bootstrap.events.length >= 38, "Expected a full set of gameweeks");
 assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams");
 assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
-assert.equal(competition.players.filter((player) => player.status === "alive").length, 11, "Expected 11 Gameweek 3 survivors");
+assert.equal(competition.players.filter((player) => player.status === "alive").length, 9, "Expected 9 Gameweek 4 survivors");
 assert.deepEqual(
   competition.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
-  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
-  "Expected the nine eliminations through Gameweek 2",
+  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Matt Coleslaw", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
+  "Expected the eleven eliminations through Gameweek 3",
 );
 assert.equal(
-  competition.players.find((player) => player.name === "Leicester").status,
-  "alive",
-  "Leicester survived Gameweek 1 (Leeds) and Gameweek 2 (Man Utd) and must remain alive",
+  competition.players.find((player) => player.name === "Leicester").picks.find((pick) => pick.gameweek === 3).result,
+  "loss",
+  "Leicester picked Coventry in Gameweek 3 and is eliminated",
+);
+assert.equal(
+  competition.players.find((player) => player.name === "Matt Coleslaw").picks.find((pick) => pick.gameweek === 3).result,
+  "loss",
+  "Matt Coleslaw picked Hull in Gameweek 3 and is eliminated",
 );
 
 for (const player of competition.players) {
