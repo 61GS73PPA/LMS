@@ -1,6 +1,6 @@
 {
   "competitionName": "Kony365",
-  "round": 3,
+  "round": 4,
   "players": [
     {
       "name": "Kony",
@@ -40,6 +40,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 14,
           "result": "pending"
         }
       ],
@@ -67,6 +72,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 6,
           "result": "pending"
         }
       ],
@@ -111,6 +121,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 14,
           "result": "pending"
         }
       ],
@@ -137,6 +152,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 14,
           "result": "pending"
         }
       ],
@@ -166,7 +186,7 @@
     },
     {
       "name": "Leicester",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -181,7 +201,7 @@
         {
           "gameweek": 3,
           "teamId": 7,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "👴🏻",
@@ -204,6 +224,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 6,
           "result": "pending"
         }
       ],
@@ -231,7 +256,7 @@
         {
           "gameweek": 3,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "🐷",
@@ -257,6 +282,11 @@
         {
           "gameweek": 3,
           "teamId": 14,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 19,
           "result": "pending"
         }
       ],
@@ -280,6 +310,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 6,
           "result": "pending"
         }
       ],
@@ -327,6 +362,11 @@
         {
           "gameweek": 3,
           "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 4,
+          "teamId": 14,
           "result": "pending"
         }
       ],
@@ -356,7 +396,7 @@
     },
     {
       "name": "Matt Coleslaw",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 1,
@@ -371,7 +411,7 @@
         {
           "gameweek": 3,
           "teamId": 11,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "☕️",
@@ -444,6 +484,7 @@
   "deadlines": {
     "1": "2026-08-21T18:00:00Z",
     "2": "2026-08-28T18:00:00Z",
-    "3": "2026-09-04T17:00:00Z"
+    "3": "2026-09-04T17:00:00Z",
+    "4": "2026-09-12T13:00:00Z"
   }
 }
