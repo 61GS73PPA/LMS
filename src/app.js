@@ -78,6 +78,11 @@ const elements = {
   pickReminderList: document.querySelector("#pick-reminder-list"),
   teamWheel: document.querySelector("#team-wheel"),
   wheelResult: document.querySelector("#wheel-result"),
+  pressForLifeTeaser: document.querySelector("#press-for-life-teaser"),
+  pressForLifeButton: document.querySelector("#press-for-life-button"),
+  pressForLifeBackdrop: document.querySelector("#press-for-life-backdrop"),
+  pressForLifeDialog: document.querySelector("#press-for-life-dialog"),
+  pressForLifeClose: document.querySelector("#press-for-life-close"),
 };
 
 async function fetchJson(url) {
@@ -595,6 +600,81 @@ function bindInteractions() {
   });
   elements.shareStandings.addEventListener("click", shareStandings);
   elements.spinWheel.addEventListener("click", spinWheel);
+  bindPressForLife();
+}
+
+function bindPressForLife() {
+  elements.pressForLifeButton.addEventListener("click", () => {
+    elements.pressForLifeTeaser.hidden = true;
+    elements.pressForLifeBackdrop.hidden = false;
+    elements.pressForLifeDialog.showModal();
+    launchConfetti();
+  });
+  elements.pressForLifeClose.addEventListener("click", () => closePressForLife());
+  elements.pressForLifeDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closePressForLife();
+  });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (window.scrollY > 300) elements.pressForLifeTeaser.hidden = false;
+    },
+    { passive: true },
+  );
+}
+
+function closePressForLife() {
+  elements.pressForLifeDialog.close();
+  elements.pressForLifeBackdrop.hidden = true;
+}
+
+function launchConfetti() {
+  const colors = ["#f4dc00", "#00533f", "#087b5d", "#ffffff", "#d9c600"];
+  const canvas = document.createElement("canvas");
+  canvas.className = "press-for-life-confetti";
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  elements.pressForLifeBackdrop.appendChild(canvas);
+  const context = canvas.getContext("2d");
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: -20 - Math.random() * canvas.height,
+    size: 6 + Math.random() * 8,
+    speed: 1.5 + Math.random() * 2.5,
+    drift: (Math.random() - 0.5) * 2,
+    rotation: Math.random() * Math.PI * 2,
+    spin: (Math.random() - 0.5) * 0.2,
+    color: colors[Math.floor(Math.random() * colors.length)],
+  }));
+  let frame;
+  const animate = () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    let stillFalling = false;
+    for (const piece of pieces) {
+      piece.y += piece.speed;
+      piece.x += piece.drift;
+      piece.rotation += piece.spin;
+      if (piece.y < canvas.height + 20) stillFalling = true;
+      context.save();
+      context.translate(piece.x, piece.y);
+      context.rotate(piece.rotation);
+      context.fillStyle = piece.color;
+      context.fillRect(-piece.size / 2, -piece.size / 4, piece.size, piece.size / 2);
+      context.restore();
+    }
+    if (stillFalling) frame = requestAnimationFrame(animate);
+    else canvas.remove();
+  };
+  animate();
+  elements.pressForLifeDialog.addEventListener(
+    "close",
+    () => {
+      cancelAnimationFrame(frame);
+      canvas.remove();
+    },
+    { once: true },
+  );
 }
 
 function bindRouting() {
