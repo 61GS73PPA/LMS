@@ -49,6 +49,8 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 
 The dashboard uses the top-level `round` as the active competition gameweek, so advancing it immediately gives every survivor a fresh “Not entered yet” pick state. Competition-specific pick deadlines can be set in the top-level `deadlines` object using an ISO timestamp.
 
+When the game starts over, archive the previous game under `firstGame` (keeping its `round` and each player's `picks` and `status`), then reset every live player's `picks` to an empty list and `status` to `alive` so all 20 teams are available to pick again.
+
 ## Premier League data
 
 The browser first requests the official Fantasy Premier League API. It refreshes live fixture scores and player availability once per minute while the page is open, displays goal and red-card events, and uses FPL player availability flags for the Team News section. A visible source indicator and update time show whether the app is using live data or the checked-in `data/fpl.json` snapshot. The `Update Premier League data` GitHub Actions workflow refreshes the fallback on `main` every six hours.

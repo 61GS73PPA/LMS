@@ -78,11 +78,8 @@ const elements = {
   pickReminderList: document.querySelector("#pick-reminder-list"),
   teamWheel: document.querySelector("#team-wheel"),
   wheelResult: document.querySelector("#wheel-result"),
-  pressForLifeTeaser: document.querySelector("#press-for-life-teaser"),
-  pressForLifeButton: document.querySelector("#press-for-life-button"),
-  pressForLifeBackdrop: document.querySelector("#press-for-life-backdrop"),
-  pressForLifeDialog: document.querySelector("#press-for-life-dialog"),
-  pressForLifeClose: document.querySelector("#press-for-life-close"),
+  firstGameBody: document.querySelector("#first-game-body"),
+  firstGameLabel: document.querySelector("#first-game-label"),
 };
 
 async function fetchJson(url) {
@@ -163,6 +160,7 @@ function renderPage() {
   renderPickMatrix();
   renderCharityRepresentation();
   renderWheel();
+  renderFirstGame("all");
   showRoute(getRequestedRoute());
 }
 
@@ -457,6 +455,53 @@ function statusLabel(status) {
   return ({ a: "Available", d: "Doubtful", i: "Injured", s: "Suspended", u: "Unavailable", n: "Not in squad" })[status] ?? "Availability update";
 }
 
+function renderFirstGame(filter = "all") {
+  const firstGame = state.competition.firstGame;
+  if (!firstGame) return;
+  const teamById = getTeamMap(state.bootstrap.teams);
+  elements.firstGameLabel.textContent = `${state.competition.competitionName} · First game · Gameweeks 1–${firstGame.round}`;
+  const players = [...firstGame.players]
+    .sort((a, b) => {
+      const statusDifference = Number(calculatePlayerStatus(a, state.fixtures) === "out")
+        - Number(calculatePlayerStatus(b, state.fixtures) === "out");
+      if (statusDifference) return statusDifference;
+      const goalDifference = getPlayerGoalDifference(b, state.fixtures) - getPlayerGoalDifference(a, state.fixtures);
+      return goalDifference || a.name.localeCompare(b.name, "en-GB", { sensitivity: "base" });
+    })
+    .filter((player) => {
+      const status = calculatePlayerStatus(player, state.fixtures);
+      return filter === "all" || filter === status;
+    });
+
+  elements.firstGameBody.innerHTML = players.map((player) => {
+    const status = calculatePlayerStatus(player, state.fixtures);
+    const goalDifference = getPlayerGoalDifference(player, state.fixtures);
+    return `
+      <tr data-status="${status}">
+        <td><span class="player-cell"><span class="player-index player-icon" aria-hidden="true">${escapeHtml(player.icon)}</span><span>${escapeHtml(player.name)}</span></span></td>
+        <td><span class="status ${status}">${status === "alive" ? "Standing" : "6ft deep"}</span></td>
+        <td class="goal-difference">${goalDifference > 0 ? "+" : ""}${goalDifference}</td>
+        <td><div class="pick-history">${renderFirstGameHistory(player, teamById)}</div></td>
+      </tr>`;
+  }).join("");
+
+  if (!players.length) {
+    elements.firstGameBody.innerHTML = '<tr><td colspan="4" class="empty-state">No players match this view.</td></tr>';
+  }
+}
+
+function renderFirstGameHistory(player, teamById) {
+  if (!player.picks.length) return '<span class="pick-pending">No picks recorded</span>';
+  return [...player.picks]
+    .sort((a, b) => a.gameweek - b.gameweek)
+    .map((pick) => {
+      const shortName = teamById.get(pick.teamId)?.short_name ?? pick.team ?? "—";
+      const result = getPickResult(pick, state.fixtures);
+      const resultClass = result === "win" ? "win" : result === "loss" || result === "no-pick" ? "loss" : "";
+      return `<span class="pick-badge ${resultClass}" title="Gameweek ${pick.gameweek}: ${escapeHtml(getTeamName(pick, teamById))}${pick.viaWheel ? " (wheel pick)" : ""}"><small>GW${pick.gameweek}</small><span>${escapeHtml(shortName)}${wheelMarker(pick)}</span></span>`;
+    }).join("");
+}
+
 function renderPickMatrix() {
   const teams = state.bootstrap.teams;
   const players = [...state.competition.players].sort((a, b) => a.name.localeCompare(b.name, "en-GB"));
@@ -600,81 +645,14 @@ function bindInteractions() {
   });
   elements.shareStandings.addEventListener("click", shareStandings);
   elements.spinWheel.addEventListener("click", spinWheel);
-  bindPressForLife();
-}
 
-function bindPressForLife() {
-  elements.pressForLifeButton.addEventListener("click", () => {
-    elements.pressForLifeTeaser.hidden = true;
-    elements.pressForLifeBackdrop.hidden = false;
-    elements.pressForLifeDialog.showModal();
-    launchConfetti();
+  document.querySelectorAll("[data-first-game-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll("[data-first-game-filter]").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      renderFirstGame(button.dataset.firstGameFilter);
+    });
   });
-  elements.pressForLifeClose.addEventListener("click", () => closePressForLife());
-  elements.pressForLifeDialog.addEventListener("cancel", (event) => {
-    event.preventDefault();
-    closePressForLife();
-  });
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (window.scrollY > 300) elements.pressForLifeTeaser.hidden = false;
-    },
-    { passive: true },
-  );
-}
-
-function closePressForLife() {
-  elements.pressForLifeDialog.close();
-  elements.pressForLifeBackdrop.hidden = true;
-}
-
-function launchConfetti() {
-  const colors = ["#f4dc00", "#00533f", "#087b5d", "#ffffff", "#d9c600"];
-  const canvas = document.createElement("canvas");
-  canvas.className = "press-for-life-confetti";
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  elements.pressForLifeBackdrop.appendChild(canvas);
-  const context = canvas.getContext("2d");
-  const pieces = Array.from({ length: 120 }, () => ({
-    x: Math.random() * canvas.width,
-    y: -20 - Math.random() * canvas.height,
-    size: 6 + Math.random() * 8,
-    speed: 1.5 + Math.random() * 2.5,
-    drift: (Math.random() - 0.5) * 2,
-    rotation: Math.random() * Math.PI * 2,
-    spin: (Math.random() - 0.5) * 0.2,
-    color: colors[Math.floor(Math.random() * colors.length)],
-  }));
-  let frame;
-  const animate = () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    let stillFalling = false;
-    for (const piece of pieces) {
-      piece.y += piece.speed;
-      piece.x += piece.drift;
-      piece.rotation += piece.spin;
-      if (piece.y < canvas.height + 20) stillFalling = true;
-      context.save();
-      context.translate(piece.x, piece.y);
-      context.rotate(piece.rotation);
-      context.fillStyle = piece.color;
-      context.fillRect(-piece.size / 2, -piece.size / 4, piece.size, piece.size / 2);
-      context.restore();
-    }
-    if (stillFalling) frame = requestAnimationFrame(animate);
-    else canvas.remove();
-  };
-  animate();
-  elements.pressForLifeDialog.addEventListener(
-    "close",
-    () => {
-      cancelAnimationFrame(frame);
-      canvas.remove();
-    },
-    { once: true },
-  );
 }
 
 function bindRouting() {
@@ -714,6 +692,7 @@ function routeTitle(route) {
     rules: "Rules",
     prize: "Prize Draw",
     "pick-for-me": "Pick for me",
+    "first-game": "First game",
   })[route] ?? "Last Man Standing";
 }
 
