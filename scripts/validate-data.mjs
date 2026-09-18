@@ -18,9 +18,17 @@ assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
 assert.equal(competition.players.filter((player) => player.status === "alive").length, 20, "Expected everyone revived for the rollover");
-assert.ok(
-  competition.players.every((player) => player.picks.length === 0),
-  "Expected empty pick histories so every team is available in Gameweek 5",
+assert.deepEqual(
+  competition.players
+    .filter((player) => player.picks.length > 0)
+    .map((player) => ({ name: player.name, picks: player.picks })),
+  [
+    {
+      name: "Kony",
+      picks: [{ gameweek: 5, teamId: 18, result: "pending" }],
+    },
+  ],
+  "Expected Kony's Gameweek 5 pick to be Nottingham Forest and no other picks recorded",
 );
 assert.deepEqual(
   competition.firstGame.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
