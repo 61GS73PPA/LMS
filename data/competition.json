@@ -5,7 +5,13 @@
     {
       "name": "Kony",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 18,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83c\udf85\ud83c\udffb",
       "charity": {
         "name": "War Child",
