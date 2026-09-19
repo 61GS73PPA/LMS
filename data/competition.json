@@ -21,7 +21,13 @@
     {
       "name": "Hayter",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "pending"
+        }
+      ],
       "icon": "\u26bd",
       "charity": {
         "name": "Gay Gooners",
@@ -31,14 +37,26 @@
     {
       "name": "Bryan",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc76\ud83c\udffb",
       "charity": null
     },
     {
       "name": "Rhod",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 17,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
       "charity": {
         "name": "The Guardian",
@@ -48,7 +66,13 @@
     {
       "name": "Chris Pyke",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 2,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
       "charity": {
         "name": "Gay Gooners",
@@ -58,7 +82,13 @@
     {
       "name": "Chris Gill",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 13,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc1f",
       "charity": {
         "name": "Pocketing the money for charity",
@@ -68,21 +98,39 @@
     {
       "name": "Hub",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
       "charity": null
     },
     {
       "name": "Leicester",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 12,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc74\ud83c\udffb",
       "charity": null
     },
     {
       "name": "Kenny Dufter",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 14,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udcb3",
       "charity": {
         "name": "GamCare",
@@ -92,7 +140,13 @@
     {
       "name": "PIG",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 19,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc37",
       "charity": {
         "name": "RSPCA",
@@ -102,14 +156,26 @@
     {
       "name": "Alf Van Bronckhorst",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\ude9b",
       "charity": null
     },
     {
       "name": "Wikles",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 20,
+          "result": "pending"
+        }
+      ],
       "icon": "\u26f0\ufe0f",
       "charity": {
         "name": "Life After Paralysis",
@@ -119,7 +185,13 @@
     {
       "name": "Brushel",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 10,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83e\uddb0",
       "charity": {
         "name": "Gay Gooners",
@@ -129,7 +201,13 @@
     {
       "name": "Beanie",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 2,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83c\udf5a",
       "charity": {
         "name": "Turning Point",
@@ -139,14 +217,26 @@
     {
       "name": "Jordan Padel",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 8,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83c\udfbe",
       "charity": null
     },
     {
       "name": "Matt Coleslaw",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 8,
+          "result": "pending"
+        }
+      ],
       "icon": "\u2615\ufe0f",
       "charity": {
         "name": "Save the Children",
@@ -156,14 +246,26 @@
     {
       "name": "Mezzy T",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83c\udf7a",
       "charity": null
     },
     {
       "name": "Tom Davies",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 12,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83c\udde6\ud83c\uddfa",
       "charity": {
         "name": "Gay Gooners",
@@ -173,14 +275,26 @@
     {
       "name": "Tom Mahon",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udcf7",
       "charity": null
     },
     {
       "name": "Cam",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 18,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udd75\ufe0f",
       "charity": null
     }

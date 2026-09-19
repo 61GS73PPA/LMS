@@ -18,18 +18,38 @@ assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
 assert.equal(competition.players.filter((player) => player.status === "alive").length, 20, "Expected everyone revived for the rollover");
-assert.deepEqual(
-  competition.players
-    .filter((player) => player.picks.length > 0)
-    .map((player) => ({ name: player.name, picks: player.picks })),
-  [
-    {
-      name: "Kony",
-      picks: [{ gameweek: 5, teamId: 18, result: "pending" }],
-    },
-  ],
-  "Expected Kony's Gameweek 5 pick to be Nottingham Forest and no other picks recorded",
-);
+const expectedGameweek5Picks = new Map([
+  ["Kony", 18],
+  ["Hayter", 15],
+  ["Bryan", 15],
+  ["Chris Pyke", 2],
+  ["Chris Gill", 13],
+  ["Hub", 5],
+  ["Leicester", 12],
+  ["Kenny Dufter", 14],
+  ["Alf Van Bronckhorst", 5],
+  ["Wikles", 20],
+  ["Brushel", 10],
+  ["Beanie", 2],
+  ["Jordan Padel", 8],
+  ["Matt Coleslaw", 8],
+  ["Mezzy T", 15],
+  ["Tom Davies", 12],
+  ["Tom Mahon", 5],
+  ["Cam", 18],
+  ["Rhod", 17],
+  ["PIG", 19],
+]);
+for (const player of competition.players) {
+  const gameweek5Picks = player.picks.filter((pick) => pick.gameweek === 5);
+  if (expectedGameweek5Picks.has(player.name)) {
+    assert.equal(gameweek5Picks.length, 1, `Expected one Gameweek 5 pick for ${player.name}`);
+    assert.equal(gameweek5Picks[0].teamId, expectedGameweek5Picks.get(player.name), `Expected ${player.name}'s recorded Gameweek 5 team`);
+    assert.equal(gameweek5Picks[0].result, "pending", `Expected ${player.name}'s Gameweek 5 pick to be pending`);
+  } else {
+    assert.equal(gameweek5Picks.length, 0, `Expected no Gameweek 5 pick for ${player.name} yet`);
+  }
+}
 assert.deepEqual(
   competition.firstGame.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
   ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Matt Coleslaw", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
