@@ -50,7 +50,13 @@
     {
       "name": "Rhod",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 17,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
       "charity": {
         "name": "The Guardian",
@@ -134,7 +140,13 @@
     {
       "name": "PIG",
       "status": "alive",
-      "picks": [],
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 19,
+          "result": "pending"
+        }
+      ],
       "icon": "\ud83d\udc37",
       "charity": {
         "name": "RSPCA",

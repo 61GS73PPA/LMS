@@ -37,6 +37,8 @@ const expectedGameweek5Picks = new Map([
   ["Tom Davies", 12],
   ["Tom Mahon", 5],
   ["Cam", 18],
+  ["Rhod", 17],
+  ["PIG", 19],
 ]);
 for (const player of competition.players) {
   const gameweek5Picks = player.picks.filter((pick) => pick.gameweek === 5);
