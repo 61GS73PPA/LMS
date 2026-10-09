@@ -7,8 +7,9 @@ const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.ur
 assert.equal(competition.players.length, 20, "Expected all 20 competition players");
 assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 competition name");
-assert.equal(competition.round, 5, "Expected Gameweek 5 to be active");
+assert.equal(competition.round, 6, "Expected Gameweek 6 to be active");
 assert.equal(competition.deadlines["5"], "2026-09-18T16:30:00Z", "Expected the Gameweek 5 pick deadline");
+assert.equal(competition.deadlines["6"], "2026-10-09T17:30:00Z", "Expected the Gameweek 6 pick deadline");
 assert.ok(competition.firstGame, "Expected the archived first game");
 assert.equal(competition.firstGame.round, 4, "Expected the first game to have run through Gameweek 4");
 assert.equal(competition.firstGame.players.length, 20, "Expected all 20 first-game players");
@@ -17,19 +18,41 @@ assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams")
 assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
-assert.equal(competition.players.filter((player) => player.status === "alive").length, 20, "Expected everyone revived for the rollover");
+assert.equal(competition.players.filter((player) => player.status === "alive").length, 10, "Expected 10 Gameweek 6 survivors");
 assert.deepEqual(
-  competition.players
-    .filter((player) => player.picks.length > 0)
-    .map((player) => ({ name: player.name, picks: player.picks })),
-  [
-    {
-      name: "Kony",
-      picks: [{ gameweek: 5, teamId: 18, result: "pending" }],
-    },
-  ],
-  "Expected Kony's Gameweek 5 pick to be Nottingham Forest and no other picks recorded",
+  competition.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
+  ["Brushel", "Cam", "Chris Gill", "Jordan Padel", "Kony", "Leicester", "Matt Coleslaw", "PIG", "Tom Davies", "Wikles"],
+  "Expected the ten eliminations through Gameweek 5",
 );
+const expectedGameweek5Results = new Map([
+  ["Kony", { teamId: 18, result: "loss" }],
+  ["Hayter", { teamId: 15, result: "win" }],
+  ["Bryan", { teamId: 15, result: "win" }],
+  ["Rhod", { teamId: 17, result: "win" }],
+  ["Chris Pyke", { teamId: 2, result: "win" }],
+  ["Chris Gill", { teamId: 13, result: "loss" }],
+  ["Hub", { teamId: 5, result: "win" }],
+  ["Leicester", { teamId: 12, result: "loss" }],
+  ["Kenny Dufter", { teamId: 14, result: "win" }],
+  ["PIG", { teamId: 19, result: "loss" }],
+  ["Alf Van Bronckhorst", { teamId: 5, result: "win" }],
+  ["Wikles", { teamId: 20, result: "loss" }],
+  ["Brushel", { teamId: 10, result: "loss" }],
+  ["Beanie", { teamId: 2, result: "win" }],
+  ["Jordan Padel", { teamId: 8, result: "loss" }],
+  ["Matt Coleslaw", { teamId: 8, result: "loss" }],
+  ["Mezzy T", { teamId: 15, result: "win" }],
+  ["Tom Davies", { teamId: 12, result: "loss" }],
+  ["Tom Mahon", { teamId: 5, result: "win" }],
+  ["Cam", { teamId: 18, result: "loss" }],
+]);
+for (const player of competition.players) {
+  const gameweek5Picks = player.picks.filter((pick) => pick.gameweek === 5);
+  assert.equal(gameweek5Picks.length, 1, `Expected one Gameweek 5 pick for ${player.name}`);
+  assert.equal(gameweek5Picks[0].teamId, expectedGameweek5Results.get(player.name).teamId, `Expected ${player.name}'s recorded Gameweek 5 team`);
+  assert.equal(gameweek5Picks[0].result, expectedGameweek5Results.get(player.name).result, `Expected ${player.name}'s recorded Gameweek 5 result`);
+  assert.equal(player.picks.some((pick) => pick.gameweek === 6), false, `Expected no Gameweek 6 pick for ${player.name} yet`);
+}
 assert.deepEqual(
   competition.firstGame.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
   ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Matt Coleslaw", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
