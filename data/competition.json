@@ -1,15 +1,15 @@
 {
   "competitionName": "Kony365",
-  "round": 5,
+  "round": 6,
   "players": [
     {
       "name": "Kony",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 18,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83c\udf85\ud83c\udffb",
@@ -25,7 +25,7 @@
         {
           "gameweek": 5,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\u26bd",
@@ -41,7 +41,7 @@
         {
           "gameweek": 5,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc76\ud83c\udffb",
@@ -54,7 +54,7 @@
         {
           "gameweek": 5,
           "teamId": 17,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -70,7 +70,7 @@
         {
           "gameweek": 5,
           "teamId": 2,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
@@ -81,12 +81,12 @@
     },
     {
       "name": "Chris Gill",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 13,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udc1f",
@@ -102,7 +102,7 @@
         {
           "gameweek": 5,
           "teamId": 5,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -110,12 +110,12 @@
     },
     {
       "name": "Leicester",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 12,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udc74\ud83c\udffb",
@@ -128,7 +128,7 @@
         {
           "gameweek": 5,
           "teamId": 14,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udcb3",
@@ -139,12 +139,12 @@
     },
     {
       "name": "PIG",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 19,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udc37",
@@ -160,7 +160,7 @@
         {
           "gameweek": 5,
           "teamId": 5,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\ude9b",
@@ -168,12 +168,12 @@
     },
     {
       "name": "Wikles",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 20,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\u26f0\ufe0f",
@@ -184,12 +184,12 @@
     },
     {
       "name": "Brushel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 10,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83e\uddb0",
@@ -205,7 +205,7 @@
         {
           "gameweek": 5,
           "teamId": 2,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83c\udf5a",
@@ -216,12 +216,12 @@
     },
     {
       "name": "Jordan Padel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 8,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83c\udfbe",
@@ -229,12 +229,12 @@
     },
     {
       "name": "Matt Coleslaw",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 8,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\u2615\ufe0f",
@@ -250,7 +250,7 @@
         {
           "gameweek": 5,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83c\udf7a",
@@ -258,12 +258,12 @@
     },
     {
       "name": "Tom Davies",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 12,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83c\udde6\ud83c\uddfa",
@@ -279,7 +279,7 @@
         {
           "gameweek": 5,
           "teamId": 5,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udcf7",
@@ -287,12 +287,12 @@
     },
     {
       "name": "Cam",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 18,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udd75\ufe0f",
@@ -300,7 +300,8 @@
     }
   ],
   "deadlines": {
-    "5": "2026-09-18T16:30:00Z"
+    "5": "2026-09-18T16:30:00Z",
+    "6": "2026-10-09T17:30:00Z"
   },
   "firstGame": {
     "round": 4,
