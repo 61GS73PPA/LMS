@@ -1,6 +1,6 @@
 {
   "competitionName": "Kony365",
-  "round": 6,
+  "round": 7,
   "players": [
     {
       "name": "Kony",
@@ -20,12 +20,17 @@
     },
     {
       "name": "Hayter",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 15,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 19,
+          "result": "loss"
         }
       ],
       "icon": "\u26bd",
@@ -42,6 +47,11 @@
           "gameweek": 5,
           "teamId": 15,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc76\ud83c\udffb",
@@ -55,6 +65,11 @@
           "gameweek": 5,
           "teamId": 17,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -65,12 +80,17 @@
     },
     {
       "name": "Chris Pyke",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 2,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 20,
+          "result": "loss"
         }
       ],
       "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
@@ -103,6 +123,11 @@
           "gameweek": 5,
           "teamId": 5,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -128,6 +153,11 @@
         {
           "gameweek": 5,
           "teamId": 14,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 7,
           "result": "win"
         }
       ],
@@ -155,12 +185,17 @@
     },
     {
       "name": "Alf Van Bronckhorst",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
           "teamId": 5,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 16,
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\ude9b",
@@ -205,6 +240,11 @@
         {
           "gameweek": 5,
           "teamId": 2,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
           "result": "win"
         }
       ],
@@ -251,6 +291,11 @@
           "gameweek": 5,
           "teamId": 15,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 5,
+          "result": "win"
         }
       ],
       "icon": "\ud83c\udf7a",
@@ -280,6 +325,11 @@
           "gameweek": 5,
           "teamId": 5,
           "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udcf7",
@@ -301,7 +351,8 @@
   ],
   "deadlines": {
     "5": "2026-09-18T16:30:00Z",
-    "6": "2026-10-09T17:30:00Z"
+    "6": "2026-10-09T17:30:00Z",
+    "7": "2026-10-17T10:30:00Z"
   },
   "firstGame": {
     "round": 4,
