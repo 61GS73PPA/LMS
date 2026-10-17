@@ -52,6 +52,11 @@
           "gameweek": 6,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 5,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc76\ud83c\udffb",
@@ -70,6 +75,11 @@
           "gameweek": 6,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -128,6 +138,11 @@
           "gameweek": 6,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 15,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -159,6 +174,11 @@
           "gameweek": 6,
           "teamId": 7,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 16,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udcb3",
@@ -246,6 +266,11 @@
           "gameweek": 6,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 6,
+          "result": "pending"
         }
       ],
       "icon": "\ud83c\udf5a",
@@ -296,6 +321,11 @@
           "gameweek": 6,
           "teamId": 5,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 2,
+          "result": "pending"
         }
       ],
       "icon": "\ud83c\udf7a",
@@ -330,6 +360,11 @@
           "gameweek": 6,
           "teamId": 1,
           "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 13,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udcf7",
