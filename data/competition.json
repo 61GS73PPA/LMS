@@ -1,6 +1,6 @@
 {
   "competitionName": "Kony365",
-  "round": 7,
+  "round": 8,
   "players": [
     {
       "name": "Kony",
@@ -56,7 +56,7 @@
         {
           "gameweek": 7,
           "teamId": 5,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc76\ud83c\udffb",
@@ -79,7 +79,7 @@
         {
           "gameweek": 7,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -142,7 +142,7 @@
         {
           "gameweek": 7,
           "teamId": 15,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -163,7 +163,7 @@
     },
     {
       "name": "Kenny Dufter",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
@@ -178,7 +178,7 @@
         {
           "gameweek": 7,
           "teamId": 16,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udcb3",
@@ -270,6 +270,11 @@
         {
           "gameweek": 7,
           "teamId": 6,
+          "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 6,
           "result": "pending"
         }
       ],
@@ -325,7 +330,7 @@
         {
           "gameweek": 7,
           "teamId": 2,
-          "result": "pending"
+          "result": "win"
         }
       ],
       "icon": "\ud83c\udf7a",
@@ -349,7 +354,7 @@
     },
     {
       "name": "Tom Mahon",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
           "gameweek": 5,
@@ -364,7 +369,7 @@
         {
           "gameweek": 7,
           "teamId": 13,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udcf7",
@@ -387,7 +392,8 @@
   "deadlines": {
     "5": "2026-09-18T16:30:00Z",
     "6": "2026-10-09T17:30:00Z",
-    "7": "2026-10-17T10:30:00Z"
+    "7": "2026-10-17T10:30:00Z",
+    "8": "2026-10-23T18:00:00Z"
   },
   "firstGame": {
     "round": 4,
