@@ -2,7 +2,7 @@ name: Deploy dashboard to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, vibe/build-lms-dashboard-3541cf]
   workflow_dispatch:
 
 permissions:
