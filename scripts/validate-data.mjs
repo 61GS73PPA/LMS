@@ -96,14 +96,18 @@ for (const player of competition.players) {
   }
 }
 const expectedGameweek8Picks = new Map([
-  ["Beanie", 6],
+  ["Beanie", { teamId: 6, viaWheel: false }],
+  ["Rhod", { teamId: 6, viaWheel: false }],
+  ["Bryan", { teamId: 6, viaWheel: false }],
+  ["Mezzy T", { teamId: 7, viaWheel: true }],
 ]);
 for (const player of competition.players) {
   const gameweek8Picks = player.picks.filter((pick) => pick.gameweek === 8);
   if (expectedGameweek8Picks.has(player.name)) {
     assert.equal(gameweek8Picks.length, 1, `Expected one Gameweek 8 pick for ${player.name}`);
-    assert.equal(gameweek8Picks[0].teamId, expectedGameweek8Picks.get(player.name), `Expected ${player.name}'s recorded Gameweek 8 team`);
+    assert.equal(gameweek8Picks[0].teamId, expectedGameweek8Picks.get(player.name).teamId, `Expected ${player.name}'s recorded Gameweek 8 team`);
     assert.equal(gameweek8Picks[0].result, "pending", `Expected ${player.name}'s Gameweek 8 pick to be pending`);
+    assert.equal(gameweek8Picks[0].viaWheel ?? false, expectedGameweek8Picks.get(player.name).viaWheel, `Expected ${player.name}'s Gameweek 8 wheel marker`);
   } else {
     assert.equal(gameweek8Picks.length, 0, `Expected no Gameweek 8 pick for ${player.name}`);
   }
