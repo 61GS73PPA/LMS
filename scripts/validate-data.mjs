@@ -99,7 +99,8 @@ const expectedGameweek8Picks = new Map([
   ["Beanie", { teamId: 6, viaWheel: false }],
   ["Rhod", { teamId: 6, viaWheel: false }],
   ["Bryan", { teamId: 6, viaWheel: false }],
-  ["Mezzy T", { teamId: 7, viaWheel: true }],
+  ["Hub", { teamId: 12, viaWheel: false }],
+  ["Mezzy T", { teamId: 12, viaWheel: true }],
 ]);
 for (const player of competition.players) {
   const gameweek8Picks = player.picks.filter((pick) => pick.gameweek === 8);

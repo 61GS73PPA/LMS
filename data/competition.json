@@ -153,6 +153,11 @@
           "gameweek": 7,
           "teamId": 15,
           "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 12,
+          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -344,7 +349,7 @@
         },
         {
           "gameweek": 8,
-          "teamId": 7,
+          "teamId": 12,
           "result": "pending",
           "viaWheel": true
         }
