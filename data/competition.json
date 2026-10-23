@@ -1,212 +1,902 @@
 {
   "competitionName": "Kony365",
-  "round": 1,
+  "round": 8,
   "players": [
     {
       "name": "Kony",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 18,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🎅🏻"
+      "icon": "\ud83c\udf85\ud83c\udffb",
+      "charity": {
+        "name": "War Child",
+        "url": "https://www.warchild.org.uk/"
+      }
     },
     {
       "name": "Hayter",
-      "status": "alive",
-      "picks": [],
-      "bio": "Player bio coming soon.",
-      "icon": "⚽"
+      "status": "out",
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 19,
+          "result": "loss"
+        }
+      ],
+      "icon": "\u26bd",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Bryan",
       "status": "alive",
       "picks": [
         {
-          "gameweek": 1,
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
           "teamId": 1,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 5,
+          "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 6,
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👶🏻"
+      "icon": "\ud83d\udc76\ud83c\udffb",
+      "charity": null
     },
     {
       "name": "Rhod",
       "status": "alive",
       "picks": [
         {
-          "gameweek": 1,
+          "gameweek": 5,
+          "teamId": 17,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
           "teamId": 1,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 6,
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👨🏻‍🦲"
+      "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
+      "charity": {
+        "name": "The Guardian",
+        "url": "https://www.theguardian.com/lifeandstyle/2025/jan/07/flaking-out-of-social-plans"
+      }
     },
     {
       "name": "Chris Pyke",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 2,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 20,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🧑‍🏫"
+      "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
+    },
+    {
+      "name": "Chris Gill",
+      "status": "out",
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 13,
+          "result": "loss"
+        }
+      ],
+      "icon": "\ud83d\udc1f",
+      "charity": {
+        "name": "Pocketing the money for charity",
+        "url": "https://www.gamcare.org.uk/"
+      }
     },
     {
       "name": "Hub",
       "status": "alive",
-      "picks": [],
-      "bio": "Player bio coming soon.",
-      "icon": "👨🏾‍⚕️"
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 15,
+          "result": "win"
+        }
+      ],
+      "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
+      "charity": null
     },
     {
       "name": "Leicester",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 16,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 12,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "👴🏻"
+      "icon": "\ud83d\udc74\ud83c\udffb",
+      "charity": null
     },
     {
       "name": "Kenny Dufter",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 14,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 7,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 16,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "💳"
+      "icon": "\ud83d\udcb3",
+      "charity": {
+        "name": "GamCare",
+        "url": "https://www.gamcare.org.uk/"
+      }
     },
     {
       "name": "PIG",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 19,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🐷"
+      "icon": "\ud83d\udc37",
+      "charity": {
+        "name": "RSPCA",
+        "url": "https://www.rspca.org.uk/"
+      }
     },
     {
       "name": "Alf Van Bronckhorst",
-      "status": "alive",
-      "picks": [],
-      "bio": "Player bio coming soon.",
-      "icon": "🚛"
+      "status": "out",
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 16,
+          "result": "loss"
+        }
+      ],
+      "icon": "\ud83d\ude9b",
+      "charity": null
     },
     {
       "name": "Wikles",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 20,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "⛰️"
+      "icon": "\u26f0\ufe0f",
+      "charity": {
+        "name": "Life After Paralysis",
+        "url": "https://www.lifeafterparalysis.com/"
+      }
     },
     {
       "name": "Brushel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 10,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🦰"
+      "icon": "\ud83e\uddb0",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Beanie",
       "status": "alive",
       "picks": [
         {
-          "gameweek": 1,
+          "gameweek": 5,
+          "teamId": 2,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
           "teamId": 1,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 6,
+          "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 6,
           "result": "pending"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🍚"
+      "icon": "\ud83c\udf5a",
+      "charity": {
+        "name": "Turning Point",
+        "url": "https://www.turning-point.co.uk/"
+      }
     },
     {
       "name": "Jordan Padel",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 9,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 8,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🎾"
+      "icon": "\ud83c\udfbe",
+      "charity": null
+    },
+    {
+      "name": "Matt Coleslaw",
+      "status": "out",
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 8,
+          "result": "loss"
+        }
+      ],
+      "icon": "\u2615\ufe0f",
+      "charity": {
+        "name": "Save the Children",
+        "url": "https://www.savethechildren.org.uk/"
+      }
     },
     {
       "name": "Mezzy T",
       "status": "alive",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 1,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 15,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 5,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 2,
+          "result": "win"
+        },
+        {
+          "gameweek": 8,
+          "teamId": 7,
+          "result": "pending",
+          "viaWheel": true
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🇦🇺"
+      "icon": "\ud83c\udf7a",
+      "charity": null
+    },
+    {
+      "name": "Tom Davies",
+      "status": "out",
+      "picks": [
+        {
+          "gameweek": 5,
+          "teamId": 12,
+          "result": "loss"
+        }
+      ],
+      "icon": "\ud83c\udde6\ud83c\uddfa",
+      "charity": {
+        "name": "Gay Gooners",
+        "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+      }
     },
     {
       "name": "Tom Mahon",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
-          "teamId": 20,
-          "result": "pending"
+          "gameweek": 5,
+          "teamId": 5,
+          "result": "win"
+        },
+        {
+          "gameweek": 6,
+          "teamId": 1,
+          "result": "win"
+        },
+        {
+          "gameweek": 7,
+          "teamId": 13,
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "📷"
+      "icon": "\ud83d\udcf7",
+      "charity": null
     },
     {
       "name": "Cam",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 1,
+          "gameweek": 5,
           "teamId": 18,
-          "result": "pending"
+          "result": "loss"
         }
       ],
-      "bio": "Player bio coming soon.",
-      "icon": "🕵️"
+      "icon": "\ud83d\udd75\ufe0f",
+      "charity": null
     }
   ],
   "deadlines": {
-    "1": "2026-08-21T18:00:00Z"
+    "5": "2026-09-18T16:30:00Z",
+    "6": "2026-10-09T17:30:00Z",
+    "7": "2026-10-17T10:30:00Z",
+    "8": "2026-10-23T18:00:00Z"
+  },
+  "firstGame": {
+    "round": 4,
+    "players": [
+      {
+        "name": "Kony",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 14,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83c\udf85\ud83c\udffb",
+        "charity": {
+          "name": "War Child",
+          "url": "https://www.warchild.org.uk/"
+        }
+      },
+      {
+        "name": "Hayter",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 14,
+            "result": "pending"
+          }
+        ],
+        "icon": "\u26bd",
+        "charity": {
+          "name": "Gay Gooners",
+          "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+        }
+      },
+      {
+        "name": "Bryan",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 20,
+            "result": "win",
+            "viaWheel": true
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 6,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83d\udc76\ud83c\udffb",
+        "charity": null
+      },
+      {
+        "name": "Rhod",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 14,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
+        "charity": {
+          "name": "The Guardian",
+          "url": "https://www.theguardian.com/lifeandstyle/2025/jan/07/flaking-out-of-social-plans"
+        }
+      },
+      {
+        "name": "Chris Pyke",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 14,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
+        "charity": {
+          "name": "Gay Gooners",
+          "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+        }
+      },
+      {
+        "name": "Chris Gill",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 5,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 14,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83d\udc1f",
+        "charity": {
+          "name": "Pocketing the money for charity",
+          "url": "https://www.gamcare.org.uk/"
+        }
+      },
+      {
+        "name": "Hub",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 12,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 19,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
+        "charity": null
+      },
+      {
+        "name": "Leicester",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 13,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 7,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83d\udc74\ud83c\udffb",
+        "charity": null
+      },
+      {
+        "name": "Kenny Dufter",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 6,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83d\udcb3",
+        "charity": {
+          "name": "GamCare",
+          "url": "https://www.gamcare.org.uk/"
+        }
+      },
+      {
+        "name": "PIG",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 20,
+            "result": "win",
+            "viaWheel": true
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 14,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83d\udc37",
+        "charity": {
+          "name": "RSPCA",
+          "url": "https://www.rspca.org.uk/"
+        }
+      },
+      {
+        "name": "Alf Van Bronckhorst",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 6,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 14,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 19,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83d\ude9b",
+        "charity": null
+      },
+      {
+        "name": "Wikles",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 6,
+            "result": "pending"
+          }
+        ],
+        "icon": "\u26f0\ufe0f",
+        "charity": {
+          "name": "Life After Paralysis",
+          "url": "https://www.lifeafterparalysis.com/"
+        }
+      },
+      {
+        "name": "Brushel",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 14,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83e\uddb0",
+        "charity": {
+          "name": "Gay Gooners",
+          "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+        }
+      },
+      {
+        "name": "Beanie",
+        "status": "alive",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 16,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 4,
+            "teamId": 14,
+            "result": "pending"
+          }
+        ],
+        "icon": "\ud83c\udf5a",
+        "charity": {
+          "name": "Turning Point",
+          "url": "https://www.turning-point.co.uk/"
+        }
+      },
+      {
+        "name": "Jordan Padel",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 9,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 14,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83c\udfbe",
+        "charity": null
+      },
+      {
+        "name": "Matt Coleslaw",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 3,
+            "teamId": 11,
+            "result": "loss"
+          }
+        ],
+        "icon": "\u2615\ufe0f",
+        "charity": {
+          "name": "Save the Children",
+          "url": "https://www.savethechildren.org.uk/"
+        }
+      },
+      {
+        "name": "Mezzy T",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 2,
+            "teamId": 14,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83c\udf7a",
+        "charity": null
+      },
+      {
+        "name": "Tom Davies",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 16,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83c\udde6\ud83c\uddfa",
+        "charity": {
+          "name": "Gay Gooners",
+          "url": "https://www.arsenal.com/news/gay-gooners-aIddi9f8F9co"
+        }
+      },
+      {
+        "name": "Tom Mahon",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 20,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83d\udcf7",
+        "charity": null
+      },
+      {
+        "name": "Cam",
+        "status": "out",
+        "picks": [
+          {
+            "gameweek": 1,
+            "teamId": 18,
+            "result": "loss"
+          }
+        ],
+        "icon": "\ud83d\udd75\ufe0f",
+        "charity": null
+      }
+    ]
   }
 }

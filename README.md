@@ -1,6 +1,8 @@
 # Kony365
 
-A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows player status and picks, gameweek fixtures, the next deadline, five-fixture difficulty rankings, and the game rules.
+A mobile-friendly, sportsbook-inspired Last Man Standing dashboard for a private Premier League competition. It shows live scores and events, automatic eliminations, player availability news, pick history, charity representation, fixture difficulty, the £400 prize draw, and the game rules.
+
+The top navigation uses hash routes (`#overview`, `#picks`, `#pick-grid`, `#fixtures`, `#team-news`, `#difficulty`, `#rules`, `#prize`, and `#pick-for-me`) so each area behaves like a separate page while remaining compatible with static GitHub Pages hosting and browser back/forward navigation. The overview also includes a playable, captioned audio report for the latest completed gameweek.
 
 ## Run locally
 
@@ -19,7 +21,10 @@ The manual competition data lives in [`data/competition.json`](data/competition.
   "name": "Kony",
   "status": "alive",
   "icon": "🎅🏻",
-  "bio": "A short introduction to Kony.",
+  "charity": {
+    "name": "War Child",
+    "url": "https://www.warchild.org.uk/"
+  },
   "picks": [
     { "gameweek": 1, "teamId": 1, "result": "win" },
     { "gameweek": 2, "teamId": 14, "result": "pending" }
@@ -28,24 +33,27 @@ The manual competition data lives in [`data/competition.json`](data/competition.
 ```
 
 - `icon` is the player's emoji shown in the table and profile.
-- `bio` is shown when somebody clicks the player's name.
+- `charity` is shown when somebody clicks the player's name. Use `null` to display “Pocketing the money”.
 - `teamId` is the FPL team ID found in `data/fpl.json` under `bootstrap.teams`.
 - `result` can be `pending`, `win`, `loss`, or `no-pick`.
-- A `loss` or `no-pick` automatically displays that player as out. You can also set `status` to `out` manually.
+- Set `viaWheel` to `true` when the pick came from the wheel; the app displays a wheel marker beside it.
+- Finished FPL fixtures automatically resolve `pending` picks: only a win survives; a draw or loss eliminates the player. Explicit `loss` and `no-pick` values still work, and `status` can be set to `out` manually.
 - Commit and push the JSON change to publish it after the pull request is merged.
 
-### Edit picks and bios on GitHub
+### Edit picks and charities on GitHub
 
 1. Open [`data/competition.json`](data/competition.json) on GitHub.
 2. Select the pencil icon (**Edit this file**).
-3. Add each player's `bio` and objects inside their `picks` list.
+3. Add each player's optional `charity` and objects inside their `picks` list.
 4. Select **Commit changes**.
 
-The dashboard will show the pick whose `gameweek` matches the current FPL gameweek as the current pick. Competition-specific pick deadlines can be set in the top-level `deadlines` object using an ISO timestamp.
+The dashboard uses the top-level `round` as the active competition gameweek, so advancing it immediately gives every survivor a fresh “Not entered yet” pick state. Competition-specific pick deadlines can be set in the top-level `deadlines` object using an ISO timestamp.
+
+When the game starts over, archive the previous game under `firstGame` (keeping its `round` and each player's `picks` and `status`), then reset every live player's `picks` to an empty list and `status` to `alive` so all 20 teams are available to pick again.
 
 ## Premier League data
 
-The browser first requests the official Fantasy Premier League API. If that request is blocked or unavailable, it uses the checked-in `data/fpl.json` snapshot. The `Update Premier League data` GitHub Actions workflow refreshes the snapshot every six hours.
+The browser first requests the official Fantasy Premier League API. It refreshes live fixture scores and player availability once per minute while the page is open, displays goal and red-card events, and uses FPL player availability flags for the Team News section. A visible source indicator and update time show whether the app is using live data or the checked-in `data/fpl.json` snapshot. The `Update Premier League data` GitHub Actions workflow refreshes the fallback on `main` every six hours.
 
 To refresh it manually:
 
@@ -63,5 +71,7 @@ The included Pages workflow deploys `main`. In the repository's **Settings → P
 ```bash
 npm run check
 ```
+
+The novelty **Pick for me** route builds its wheel from the 20 clubs in the current FPL data. Its result is intentionally fixed to Coventry City.
 
 The rules summary is based on [Football Knockout's Last Man Standing rules](https://football-knockout.co.uk/rules).
