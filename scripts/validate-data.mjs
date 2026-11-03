@@ -7,24 +7,29 @@ const fpl = JSON.parse(await readFile(new URL("../data/fpl.json", import.meta.ur
 assert.equal(competition.players.length, 20, "Expected all 20 competition players");
 assert.equal(new Set(competition.players.map((player) => player.name)).size, competition.players.length, "Player names must be unique");
 assert.equal(competition.competitionName, "Kony365", "Expected the Kony365 competition name");
-assert.equal(competition.round, 8, "Expected Gameweek 8 to be active");
+assert.equal(competition.round, 10, "Expected Gameweek 10 to be active");
 assert.equal(competition.deadlines["5"], "2026-09-18T16:30:00Z", "Expected the Gameweek 5 pick deadline");
 assert.equal(competition.deadlines["6"], "2026-10-09T17:30:00Z", "Expected the Gameweek 6 pick deadline");
 assert.equal(competition.deadlines["7"], "2026-10-17T10:30:00Z", "Expected the Gameweek 7 pick deadline");
 assert.equal(competition.deadlines["8"], "2026-10-23T18:00:00Z", "Expected the Gameweek 8 pick deadline");
-assert.ok(competition.firstGame, "Expected the archived first game");
-assert.equal(competition.firstGame.round, 4, "Expected the first game to have run through Gameweek 4");
-assert.equal(competition.firstGame.players.length, 20, "Expected all 20 first-game players");
+assert.ok(competition.firstGame, "Expected the archived previous game");
+assert.equal(competition.firstGame.round, 8, "Expected the archived game to have run through Gameweek 8");
+assert.equal(competition.firstGame.players.length, 20, "Expected all 20 archived players");
 assert.ok(fpl.bootstrap.events.length >= 38, "Expected a full set of gameweeks");
 assert.equal(fpl.bootstrap.teams.length, 20, "Expected 20 Premier League teams");
 assert.ok(Array.isArray(fpl.bootstrap.elements), "Expected Premier League player availability data");
 assert.ok(fpl.bootstrap.elements.length > 0, "Expected Premier League players");
 assert.ok(fpl.fixtures.length > 0, "Expected fixture data");
-assert.equal(competition.players.filter((player) => player.status === "alive").length, 5, "Expected 5 Gameweek 8 survivors");
+assert.equal(competition.players.filter((player) => player.status === "alive").length, 6, "Expected 6 Gameweek 10 survivors");
+assert.deepEqual(
+  competition.players.filter((player) => player.status === "alive").map((player) => player.name).sort(),
+  ["Brushel", "Hub", "Matt Coleslaw", "PIG", "Rhod", "Tom Mahon"],
+  "Expected the six Gameweek 9 winners to be standing",
+);
 assert.deepEqual(
   competition.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
-  ["Alf Van Bronckhorst", "Brushel", "Cam", "Chris Gill", "Chris Pyke", "Hayter", "Jordan Padel", "Kenny Dufter", "Kony", "Leicester", "Matt Coleslaw", "PIG", "Tom Davies", "Tom Mahon", "Wikles"],
-  "Expected the fifteen eliminations through Gameweek 7",
+  ["Alf Van Bronckhorst", "Beanie", "Bryan", "Cam", "Chris Gill", "Chris Pyke", "Hayter", "Jordan Padel", "Kenny Dufter", "Kony", "Leicester", "Mezzy T", "Tom Davies", "Wikles"],
+  "Expected the fourteen Gameweek 9 eliminations",
 );
 const expectedGameweek5Results = new Map([
   ["Kony", { teamId: 18, result: "loss" }],
@@ -48,7 +53,7 @@ const expectedGameweek5Results = new Map([
   ["Tom Mahon", { teamId: 5, result: "win" }],
   ["Cam", { teamId: 18, result: "loss" }],
 ]);
-for (const player of competition.players) {
+for (const player of competition.firstGame.players) {
   const gameweek5Picks = player.picks.filter((pick) => pick.gameweek === 5);
   assert.equal(gameweek5Picks.length, 1, `Expected one Gameweek 5 pick for ${player.name}`);
   assert.equal(gameweek5Picks[0].teamId, expectedGameweek5Results.get(player.name).teamId, `Expected ${player.name}'s recorded Gameweek 5 team`);
@@ -66,7 +71,7 @@ const expectedGameweek6Results = new Map([
   ["Mezzy T", { teamId: 5, result: "win" }],
   ["Tom Mahon", { teamId: 1, result: "win" }],
 ]);
-for (const player of competition.players) {
+for (const player of competition.firstGame.players) {
   const gameweek6Picks = player.picks.filter((pick) => pick.gameweek === 6);
   if (expectedGameweek6Results.has(player.name)) {
     assert.equal(gameweek6Picks.length, 1, `Expected one Gameweek 6 pick for ${player.name}`);
@@ -85,7 +90,7 @@ const expectedGameweek7Results = new Map([
   ["Mezzy T", { teamId: 2, result: "win" }],
   ["Tom Mahon", { teamId: 13, result: "loss" }],
 ]);
-for (const player of competition.players) {
+for (const player of competition.firstGame.players) {
   const gameweek7Picks = player.picks.filter((pick) => pick.gameweek === 7);
   if (expectedGameweek7Results.has(player.name)) {
     assert.equal(gameweek7Picks.length, 1, `Expected one Gameweek 7 pick for ${player.name}`);
@@ -102,7 +107,7 @@ const expectedGameweek8Picks = new Map([
   ["Hub", { teamId: 12, viaWheel: false }],
   ["Mezzy T", { teamId: 12, viaWheel: true }],
 ]);
-for (const player of competition.players) {
+for (const player of competition.firstGame.players) {
   const gameweek8Picks = player.picks.filter((pick) => pick.gameweek === 8);
   if (expectedGameweek8Picks.has(player.name)) {
     assert.equal(gameweek8Picks.length, 1, `Expected one Gameweek 8 pick for ${player.name}`);
@@ -113,20 +118,49 @@ for (const player of competition.players) {
     assert.equal(gameweek8Picks.length, 0, `Expected no Gameweek 8 pick for ${player.name}`);
   }
 }
+const expectedGameweek9Results = new Map([
+  ["Kony", { teamId: 2, result: "loss" }],
+  ["Hayter", { teamId: 2, result: "loss" }],
+  ["Bryan", { teamId: 2, result: "loss" }],
+  ["Rhod", { teamId: 19, result: "win" }],
+  ["Chris Pyke", { teamId: 11, result: "loss" }],
+  ["Chris Gill", { teamId: 17, result: "loss" }],
+  ["Hub", { teamId: 3, result: "win" }],
+  ["Leicester", { teamId: 2, result: "loss" }],
+  ["Kenny Dufter", { teamId: 14, result: "loss" }],
+  ["PIG", { teamId: 19, result: "win" }],
+  ["Alf Van Bronckhorst", { teamId: 13, result: "loss" }],
+  ["Wikles", { teamId: 2, result: "loss" }],
+  ["Brushel", { teamId: 1, result: "win" }],
+  ["Beanie", { teamId: 2, result: "loss" }],
+  ["Jordan Padel", { teamId: 14, result: "loss" }],
+  ["Matt Coleslaw", { teamId: 7, result: "win" }],
+  ["Mezzy T", { teamId: 18, result: "loss" }],
+  ["Tom Davies", { teamId: 10, result: "loss" }],
+  ["Tom Mahon", { teamId: 4, result: "win" }],
+  ["Cam", { teamId: 20, result: "loss" }],
+]);
+for (const player of competition.players) {
+  const gameweek9Picks = player.picks.filter((pick) => pick.gameweek === 9);
+  assert.equal(gameweek9Picks.length, 1, `Expected one Gameweek 9 pick for ${player.name}`);
+  assert.equal(gameweek9Picks[0].teamId, expectedGameweek9Results.get(player.name).teamId, `Expected ${player.name}'s recorded Gameweek 9 team`);
+  assert.equal(gameweek9Picks[0].result, expectedGameweek9Results.get(player.name).result, `Expected ${player.name}'s recorded Gameweek 9 result`);
+  assert.equal(player.picks.length, 1, `Expected only the Gameweek 9 pick for ${player.name}`);
+}
 assert.deepEqual(
   competition.firstGame.players.filter((player) => player.status === "out").map((player) => player.name).sort(),
-  ["Brushel", "Cam", "Hub", "Jordan Padel", "Kony", "Leicester", "Matt Coleslaw", "Mezzy T", "Rhod", "Tom Davies", "Tom Mahon"],
-  "Expected the eleven first-game eliminations",
+  ["Alf Van Bronckhorst", "Brushel", "Cam", "Chris Gill", "Chris Pyke", "Hayter", "Jordan Padel", "Kenny Dufter", "Kony", "Leicester", "Matt Coleslaw", "PIG", "Tom Davies", "Tom Mahon", "Wikles"],
+  "Expected the fifteen eliminations through Gameweek 7 in the archived game",
 );
 assert.equal(
-  competition.firstGame.players.find((player) => player.name === "Leicester").picks.find((pick) => pick.gameweek === 3).result,
-  "loss",
-  "Leicester picked Coventry in Gameweek 3 and is eliminated",
+  competition.firstGame.players.filter((player) => player.status === "alive").length,
+  5,
+  "Expected 5 survivors in the archived game",
 );
 assert.equal(
-  competition.firstGame.players.find((player) => player.name === "Matt Coleslaw").picks.find((pick) => pick.gameweek === 3).result,
+  competition.firstGame.players.find((player) => player.name === "Kony").picks.find((pick) => pick.gameweek === 5).result,
   "loss",
-  "Matt Coleslaw picked Hull in Gameweek 3 and is eliminated",
+  "Kony picked Forest in Gameweek 5 and was eliminated",
 );
 
 for (const player of competition.players) {
@@ -151,13 +185,13 @@ for (const player of competition.players) {
 }
 
 for (const player of competition.firstGame.players) {
-  assert.ok(["alive", "out"].includes(player.status), `First-game ${player.name} has an invalid status`);
-  assert.ok(Array.isArray(player.picks), `First-game ${player.name} picks must be an array`);
+  assert.ok(["alive", "out"].includes(player.status), `Archived ${player.name} has an invalid status`);
+  assert.ok(Array.isArray(player.picks), `Archived ${player.name} picks must be an array`);
   const gameweeks = player.picks.map((pick) => pick.gameweek);
-  assert.equal(new Set(gameweeks).size, gameweeks.length, `First-game ${player.name} has duplicate gameweek picks`);
+  assert.equal(new Set(gameweeks).size, gameweeks.length, `Archived ${player.name} has duplicate gameweek picks`);
   for (const pick of player.picks) {
-    assert.ok(["pending", "win", "loss", "no-pick"].includes(pick.result), `First-game ${player.name} has an invalid pick result`);
-    assert.ok(fpl.bootstrap.teams.some((team) => team.id === pick.teamId), `First-game ${player.name} has an invalid team ID`);
+    assert.ok(["pending", "win", "loss", "no-pick"].includes(pick.result), `Archived ${player.name} has an invalid pick result`);
+    assert.ok(fpl.bootstrap.teams.some((team) => team.id === pick.teamId), `Archived ${player.name} has an invalid team ID`);
   }
 }
 

@@ -459,7 +459,9 @@ function renderFirstGame(filter = "all") {
   const firstGame = state.competition.firstGame;
   if (!firstGame) return;
   const teamById = getTeamMap(state.bootstrap.teams);
-  elements.firstGameLabel.textContent = `${state.competition.competitionName} · First game · Gameweeks 1–${firstGame.round}`;
+  const archivedWeeks = firstGame.players.flatMap((player) => player.picks.map((pick) => pick.gameweek));
+  const firstArchivedWeek = archivedWeeks.length ? Math.min(...archivedWeeks) : 1;
+  elements.firstGameLabel.textContent = `${state.competition.competitionName} · First game · Gameweeks ${firstArchivedWeek}–${firstGame.round}`;
   const players = [...firstGame.players]
     .sort((a, b) => {
       const statusDifference = Number(calculatePlayerStatus(a, state.fixtures) === "out")

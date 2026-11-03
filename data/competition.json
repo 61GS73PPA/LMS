@@ -1,14 +1,14 @@
 {
   "competitionName": "Kony365",
-  "round": 8,
+  "round": 10,
   "players": [
     {
       "name": "Kony",
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 18,
+          "gameweek": 9,
+          "teamId": 2,
           "result": "loss"
         }
       ],
@@ -23,13 +23,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 15,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 19,
+          "gameweek": 9,
+          "teamId": 2,
           "result": "loss"
         }
       ],
@@ -41,27 +36,12 @@
     },
     {
       "name": "Bryan",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 15,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 1,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 5,
-          "result": "win"
-        },
-        {
-          "gameweek": 8,
-          "teamId": 6,
-          "result": "pending"
+          "gameweek": 9,
+          "teamId": 2,
+          "result": "loss"
         }
       ],
       "icon": "\ud83d\udc76\ud83c\udffb",
@@ -72,24 +52,9 @@
       "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 17,
+          "gameweek": 9,
+          "teamId": 19,
           "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 1,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 15,
-          "result": "win"
-        },
-        {
-          "gameweek": 8,
-          "teamId": 6,
-          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -103,13 +68,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 2,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 20,
+          "gameweek": 9,
+          "teamId": 11,
           "result": "loss"
         }
       ],
@@ -124,8 +84,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 13,
+          "gameweek": 9,
+          "teamId": 17,
           "result": "loss"
         }
       ],
@@ -140,24 +100,9 @@
       "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 5,
+          "gameweek": 9,
+          "teamId": 3,
           "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 1,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 15,
-          "result": "win"
-        },
-        {
-          "gameweek": 8,
-          "teamId": 12,
-          "result": "pending"
         }
       ],
       "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -168,8 +113,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 12,
+          "gameweek": 9,
+          "teamId": 2,
           "result": "loss"
         }
       ],
@@ -181,18 +126,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
+          "gameweek": 9,
           "teamId": 14,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 7,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 16,
           "result": "loss"
         }
       ],
@@ -204,12 +139,12 @@
     },
     {
       "name": "PIG",
-      "status": "out",
+      "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
+          "gameweek": 9,
           "teamId": 19,
-          "result": "loss"
+          "result": "win"
         }
       ],
       "icon": "\ud83d\udc37",
@@ -223,13 +158,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 5,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 16,
+          "gameweek": 9,
+          "teamId": 13,
           "result": "loss"
         }
       ],
@@ -241,8 +171,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 20,
+          "gameweek": 9,
+          "teamId": 2,
           "result": "loss"
         }
       ],
@@ -254,12 +184,12 @@
     },
     {
       "name": "Brushel",
-      "status": "out",
+      "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 10,
-          "result": "loss"
+          "gameweek": 9,
+          "teamId": 1,
+          "result": "win"
         }
       ],
       "icon": "\ud83e\uddb0",
@@ -270,27 +200,12 @@
     },
     {
       "name": "Beanie",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 5,
+          "gameweek": 9,
           "teamId": 2,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 1,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 6,
-          "result": "win"
-        },
-        {
-          "gameweek": 8,
-          "teamId": 6,
-          "result": "pending"
+          "result": "loss"
         }
       ],
       "icon": "\ud83c\udf5a",
@@ -304,8 +219,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 8,
+          "gameweek": 9,
+          "teamId": 14,
           "result": "loss"
         }
       ],
@@ -314,12 +229,12 @@
     },
     {
       "name": "Matt Coleslaw",
-      "status": "out",
+      "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 8,
-          "result": "loss"
+          "gameweek": 9,
+          "teamId": 7,
+          "result": "win"
         }
       ],
       "icon": "\u2615\ufe0f",
@@ -330,28 +245,12 @@
     },
     {
       "name": "Mezzy T",
-      "status": "alive",
+      "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 15,
-          "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 5,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 2,
-          "result": "win"
-        },
-        {
-          "gameweek": 8,
-          "teamId": 12,
-          "result": "pending",
-          "viaWheel": true
+          "gameweek": 9,
+          "teamId": 18,
+          "result": "loss"
         }
       ],
       "icon": "\ud83c\udf7a",
@@ -362,8 +261,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 12,
+          "gameweek": 9,
+          "teamId": 10,
           "result": "loss"
         }
       ],
@@ -375,22 +274,12 @@
     },
     {
       "name": "Tom Mahon",
-      "status": "out",
+      "status": "alive",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 5,
+          "gameweek": 9,
+          "teamId": 4,
           "result": "win"
-        },
-        {
-          "gameweek": 6,
-          "teamId": 1,
-          "result": "win"
-        },
-        {
-          "gameweek": 7,
-          "teamId": 13,
-          "result": "loss"
         }
       ],
       "icon": "\ud83d\udcf7",
@@ -401,8 +290,8 @@
       "status": "out",
       "picks": [
         {
-          "gameweek": 5,
-          "teamId": 18,
+          "gameweek": 9,
+          "teamId": 20,
           "result": "loss"
         }
       ],
@@ -417,20 +306,15 @@
     "8": "2026-10-23T18:00:00Z"
   },
   "firstGame": {
-    "round": 4,
+    "round": 8,
     "players": [
       {
         "name": "Kony",
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 14,
+            "gameweek": 5,
+            "teamId": 18,
             "result": "loss"
           }
         ],
@@ -442,27 +326,17 @@
       },
       {
         "name": "Hayter",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
+            "gameweek": 5,
             "teamId": 15,
             "result": "win"
           },
           {
-            "gameweek": 4,
-            "teamId": 14,
-            "result": "pending"
+            "gameweek": 6,
+            "teamId": 19,
+            "result": "loss"
           }
         ],
         "icon": "\u26bd",
@@ -476,23 +350,22 @@
         "status": "alive",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 20,
-            "result": "win",
-            "viaWheel": true
-          },
-          {
-            "gameweek": 3,
+            "gameweek": 5,
             "teamId": 15,
             "result": "win"
           },
           {
-            "gameweek": 4,
+            "gameweek": 6,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 7,
+            "teamId": 5,
+            "result": "win"
+          },
+          {
+            "gameweek": 8,
             "teamId": 6,
             "result": "pending"
           }
@@ -502,17 +375,27 @@
       },
       {
         "name": "Rhod",
-        "status": "out",
+        "status": "alive",
         "picks": [
           {
-            "gameweek": 1,
+            "gameweek": 5,
+            "teamId": 17,
+            "result": "win"
+          },
+          {
+            "gameweek": 6,
             "teamId": 1,
             "result": "win"
           },
           {
-            "gameweek": 2,
-            "teamId": 14,
-            "result": "loss"
+            "gameweek": 7,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 8,
+            "teamId": 6,
+            "result": "pending"
           }
         ],
         "icon": "\ud83d\udc68\ud83c\udffb\u200d\ud83e\uddb2",
@@ -523,27 +406,17 @@
       },
       {
         "name": "Chris Pyke",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
+            "gameweek": 5,
+            "teamId": 2,
             "result": "win"
           },
           {
-            "gameweek": 2,
-            "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 14,
-            "result": "pending"
+            "gameweek": 6,
+            "teamId": 20,
+            "result": "loss"
           }
         ],
         "icon": "\ud83e\uddd1\u200d\ud83c\udfeb",
@@ -554,27 +427,12 @@
       },
       {
         "name": "Chris Gill",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 5,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 14,
-            "result": "pending"
+            "gameweek": 5,
+            "teamId": 13,
+            "result": "loss"
           }
         ],
         "icon": "\ud83d\udc1f",
@@ -585,17 +443,27 @@
       },
       {
         "name": "Hub",
-        "status": "out",
+        "status": "alive",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 12,
+            "gameweek": 5,
+            "teamId": 5,
             "result": "win"
           },
           {
-            "gameweek": 2,
-            "teamId": 19,
-            "result": "loss"
+            "gameweek": 6,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 7,
+            "teamId": 15,
+            "result": "win"
+          },
+          {
+            "gameweek": 8,
+            "teamId": 12,
+            "result": "pending"
           }
         ],
         "icon": "\ud83d\udc68\ud83c\udffe\u200d\u2695\ufe0f",
@@ -606,18 +474,8 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 13,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 7,
+            "gameweek": 5,
+            "teamId": 12,
             "result": "loss"
           }
         ],
@@ -626,27 +484,22 @@
       },
       {
         "name": "Kenny Dufter",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
+            "gameweek": 5,
+            "teamId": 14,
             "result": "win"
           },
           {
-            "gameweek": 2,
+            "gameweek": 6,
+            "teamId": 7,
+            "result": "win"
+          },
+          {
+            "gameweek": 7,
             "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 6,
-            "result": "pending"
+            "result": "loss"
           }
         ],
         "icon": "\ud83d\udcb3",
@@ -657,28 +510,12 @@
       },
       {
         "name": "PIG",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 20,
-            "result": "win",
-            "viaWheel": true
-          },
-          {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 14,
-            "result": "pending"
+            "gameweek": 5,
+            "teamId": 19,
+            "result": "loss"
           }
         ],
         "icon": "\ud83d\udc37",
@@ -689,27 +526,17 @@
       },
       {
         "name": "Alf Van Bronckhorst",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 6,
+            "gameweek": 5,
+            "teamId": 5,
             "result": "win"
           },
           {
-            "gameweek": 2,
+            "gameweek": 6,
             "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 14,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 19,
-            "result": "pending"
+            "result": "loss"
           }
         ],
         "icon": "\ud83d\ude9b",
@@ -717,27 +544,12 @@
       },
       {
         "name": "Wikles",
-        "status": "alive",
+        "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 16,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 6,
-            "result": "pending"
+            "gameweek": 5,
+            "teamId": 20,
+            "result": "loss"
           }
         ],
         "icon": "\u26f0\ufe0f",
@@ -751,13 +563,8 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 14,
+            "gameweek": 5,
+            "teamId": 10,
             "result": "loss"
           }
         ],
@@ -772,23 +579,23 @@
         "status": "alive",
         "picks": [
           {
-            "gameweek": 1,
+            "gameweek": 5,
+            "teamId": 2,
+            "result": "win"
+          },
+          {
+            "gameweek": 6,
             "teamId": 1,
             "result": "win"
           },
           {
-            "gameweek": 2,
-            "teamId": 16,
+            "gameweek": 7,
+            "teamId": 6,
             "result": "win"
           },
           {
-            "gameweek": 3,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 4,
-            "teamId": 14,
+            "gameweek": 8,
+            "teamId": 6,
             "result": "pending"
           }
         ],
@@ -803,13 +610,8 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 9,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 14,
+            "gameweek": 5,
+            "teamId": 8,
             "result": "loss"
           }
         ],
@@ -821,18 +623,8 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
-            "result": "win"
-          },
-          {
-            "gameweek": 2,
-            "teamId": 15,
-            "result": "win"
-          },
-          {
-            "gameweek": 3,
-            "teamId": 11,
+            "gameweek": 5,
+            "teamId": 8,
             "result": "loss"
           }
         ],
@@ -844,17 +636,28 @@
       },
       {
         "name": "Mezzy T",
-        "status": "out",
+        "status": "alive",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 1,
+            "gameweek": 5,
+            "teamId": 15,
             "result": "win"
           },
           {
-            "gameweek": 2,
-            "teamId": 14,
-            "result": "loss"
+            "gameweek": 6,
+            "teamId": 5,
+            "result": "win"
+          },
+          {
+            "gameweek": 7,
+            "teamId": 2,
+            "result": "win"
+          },
+          {
+            "gameweek": 8,
+            "teamId": 12,
+            "result": "pending",
+            "viaWheel": true
           }
         ],
         "icon": "\ud83c\udf7a",
@@ -865,8 +668,8 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 16,
+            "gameweek": 5,
+            "teamId": 12,
             "result": "loss"
           }
         ],
@@ -881,8 +684,18 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
-            "teamId": 20,
+            "gameweek": 5,
+            "teamId": 5,
+            "result": "win"
+          },
+          {
+            "gameweek": 6,
+            "teamId": 1,
+            "result": "win"
+          },
+          {
+            "gameweek": 7,
+            "teamId": 13,
             "result": "loss"
           }
         ],
@@ -894,7 +707,7 @@
         "status": "out",
         "picks": [
           {
-            "gameweek": 1,
+            "gameweek": 5,
             "teamId": 18,
             "result": "loss"
           }
